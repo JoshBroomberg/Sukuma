@@ -6,6 +6,7 @@ class Vendor < ActiveRecord::Base
   attr_accessor :login
 
   has_many :accounts, as: :accountable
+  has_many :transactions
 
    def self.find_for_database_authentication(warden_conditions)
       conditions = warden_conditions.dup
