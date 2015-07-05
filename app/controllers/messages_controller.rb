@@ -3,22 +3,30 @@ class MessagesController < ApplicationController
 	def createsale
 		message = Message.new(body: params["Body"])
 		message.save
+		reply("This is a reply", "+27836538932", "Josh")
+	end
+
+
+
+
+
+	def reply(body, number, name)
 		account_sid = "ACabc2a633d8052c4b8805de4b678f4166"
 		auth_token = "255b0b0cd465bbd6d0e3b3a32cd1ad4e"
 		client = Twilio::REST::Client.new account_sid, auth_token
 
-		from = "+12316468691" # Your Twilio number
+		from = "+12316468691"
 
 		friends = {
-			"+27836538932" => "Praise"
+			number => name
 		}
 		friends.each do |key, value|
 			client.account.messages.create(
 				:from => from,
 				:to => key,
-				:body => "Hey #{value}, how you doing"
+				:body => body
 				)
-			puts "Sent message to #{value}"
+			
 		end
 	end
 
