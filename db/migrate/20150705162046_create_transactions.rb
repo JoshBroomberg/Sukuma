@@ -5,7 +5,7 @@ class CreateTransactions < ActiveRecord::Migration
       t.references :vendor, index: true, foreign_key: true
       t.float :amount
       t.string :state
-      t.string :type
+      t.string :category
 
       t.timestamps null: false
     end
