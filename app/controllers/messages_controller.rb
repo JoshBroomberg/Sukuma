@@ -6,21 +6,27 @@ class MessagesController < ApplicationController
 			vendor = Vendor.where(number: "+12316468691")[0] #chnage to have number from 
 			category = "PI" #purchase init
 			message = vendor.messages.build(body: params["Body"], category: category, closed: closed)
-			message.save
+			if message.save
+			reply("This is a Pi reply", "+27836538932", "Josh")
+			end
 		elsif params["To"] == "+16123612985"
 			vendor = Vendor.where(number: "+12316468691")[0] #chnage to have number from
 			category = "DI" #deposit init
 			message = vendor.messages.build(body: params["Body"], category: category, closed: closed)
-			message.save
+			if message.save
+			reply("This is a Di reply", "+27836538932", "Josh")
+			end
 		elsif params["To"] == "+16123613027"
 			user = User.where(number: "+12316468691")[0]
 			category = "Conf" #confirm
 			message = user.messages.build(body: params["Body"], category: category, closed: closed)
-			message.save
+			if message.save
+			reply("This is a conf reply", "+27836538932", "Josh")
+			end
 		end
         #message = Message.new(body: params["Body"])
 		#message.save
-		reply("This is a test reply", "+27836538932", "Josh")
+		
 	end
 
 
@@ -41,7 +47,7 @@ class MessagesController < ApplicationController
 			client.account.messages.create(
 				:from => from,
 				:to => key,
-				:body => body
+				:body => "Hi #{name}... "+body
 				)
 			
 		end
