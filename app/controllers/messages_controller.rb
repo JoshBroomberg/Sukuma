@@ -5,7 +5,7 @@ class MessagesController < ApplicationController
 		if params["To"] == "+12316468691"
 			vendor = User.where(number: "+12316468691")[0] #chnage to vendor
 			type = "PI" #purchase init
-			message = vendor.messages.build(body: params["Body"], type: type, closed: closed)
+			message = vendor.messages.build({body: params["Body"], type: type, closed: closed})
 			message.save
 		elsif params["To"] == "+16123612985"
 			vendor = User.where(number: "+12316468691")[0] #chnage to vendor
