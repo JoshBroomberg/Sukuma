@@ -20,7 +20,7 @@ class MessagesController < ApplicationController
 		end
         #message = Message.new(body: params["Body"])
 		#message.save
-		reply("This is a reply", "+27836538932", "Josh")
+		reply("This is a test reply", "+27836538932", "Josh")
 	end
 
 
