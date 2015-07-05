@@ -28,8 +28,10 @@ class MessagesController < ApplicationController
 					closed = false
 					message = obj.messages.build(account_id: parts[0], amount: parts[1], category: category, closed: closed)
 					if message.save
-						#number must be desired customer number based on acc_id
-						reply("This is a #{category} reply", "+27836538932", "Josh")
+						user = Account.where(account_id: parts[0])[0].accountable
+						name = user.firstname
+						number = user.number #should go where 083 is
+						reply("This is a #{category} reply", "+27836538932", name)
 					end
 				else
 					reply("Please ensure the amount you entered is a digit", senderNumber, "Josh")
