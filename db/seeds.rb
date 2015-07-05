@@ -13,8 +13,8 @@
     user.save
     vendor.save
 
-    acc1 = user.account.build(balance: 0.0, account_id: "AAAA", pin: 1234)
-    acc2 = vendor.account.build(balance: 0.0, account_id: "AAAA", pin: 1234)
+    acc1 = user.accounts.build(balance: 0.0, account_id: "AAAA", pin: 1234)
+    acc2 = vendor.accounts.build(balance: 0.0, account_id: "AAAA", pin: 1234)
 
     acc1.save
     acc2.save

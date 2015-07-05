@@ -5,7 +5,7 @@ class Vendor < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   attr_accessor :login
 
-  has_one :account, as: :accountable
+  has_many :accounts, as: :accountable
   has_many :messages, as: :messagable
   has_many :transactions
 
