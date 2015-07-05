@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
 	skip_before_filter  :verify_authenticity_token
+	#apply DRY principle
 	def create
         closed = false
 		if params["To"] == "+12316468691"
@@ -24,8 +25,6 @@ class MessagesController < ApplicationController
 			reply("This is a conf reply", "+27836538932", "Josh")
 			end
 		end
-        #message = Message.new(body: params["Body"])
-		#message.save
 		
 	end
 
