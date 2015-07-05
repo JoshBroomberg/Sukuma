@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150705162046) do
+ActiveRecord::Schema.define(version: 20150705162715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,18 @@ ActiveRecord::Schema.define(version: 20150705162046) do
   end
 
   add_index "accounts", ["accountable_type", "accountable_id"], name: "index_accounts_on_accountable_type_and_accountable_id", using: :btree
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "messagable_id"
+    t.string   "messagable_type"
+    t.string   "body"
+    t.string   "type"
+    t.boolean  "closed"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "messages", ["messagable_type", "messagable_id"], name: "index_messages_on_messagable_type_and_messagable_id", using: :btree
 
   create_table "transactions", force: :cascade do |t|
     t.integer  "user_id"
