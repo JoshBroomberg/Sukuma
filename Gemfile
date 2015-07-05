@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.2.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
@@ -28,6 +28,7 @@ gem "simple_form"
 gem "twitter-bootstrap-rails"
 #gem 'rubygems'
 gem 'twilio-ruby'
+gem "rails_12factor"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
