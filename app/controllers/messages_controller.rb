@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
 	skip_before_filter  :verify_authenticity_token
 	#apply DRY principle
 	def create
-		closed = false
+		
 		if params["To"] == "+12316468691"
 			vendor = Vendor.where(number: "+12316468691")[0] #chnage to have number from 
 			category = "PI" #purchase init
@@ -25,6 +25,7 @@ class MessagesController < ApplicationController
 			if parts[0].length==4
 				parts[1] = parts[1].gsub(",", ".")
 				if isNumeric parts[1]
+					closed = false
 					message = obj.messages.build(account_id: parts[0], amount: parts[1], category: category, closed: closed)
 					if message.save
 						#number must be desired customer number based on acc_id
