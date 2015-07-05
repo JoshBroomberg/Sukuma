@@ -13,7 +13,7 @@ class MessagesController < ApplicationController
 			saveMessage(vendor, category, params["Body"],"+27836538932")
 		elsif params["To"] == "+16123613027"
 			user = User.where(number: "+12316468691")[0]
-			category = "Conf" #confirm
+			category = "CONF" #confirm
 			saveMessage(user, category, params["Body"], "+27836538932")
 		end
 		
@@ -24,17 +24,30 @@ class MessagesController < ApplicationController
 			parts = body.split(" ")
 			if parts[0].length==4
 				parts[1] = parts[1].gsub(",", ".")
-				if isNumeric parts[1]
+				if isNumeric parts[1] && parts[1].to_i>0
 					closed = false
-					message = obj.messages.build(account_id: parts[0], amount: parts[1], category: category, closed: closed)
+					if category!="CONF"
+						message = obj.messages.build(account_id: parts[0], amount: parts[1], category: category, closed: closed)
+					else
+						message = obj.messages.build(category: category, closed: closed)
+					end
+
 					if message.save
 						user = Account.where(account_id: parts[0])[0].accountable
 						name = user.firstname
 						number = user.number #should go where 083 is
-						reply("This is a #{category} reply", "+27836538932", name)
+						body = "error..."
+						if category == "PI"
+							body = "You are making a purchase at <store>, please reply with y/n to confirm number (+16123613027)"
+						elsif category == "DI"
+							body = "You are making a deposit at <store>, please reply with y/n to confirm number (+16123613027)"
+						elsif category == "CONF"
+							body = "You have confirmed your purchase"
+						end
+						reply(body, "+27836538932", name)
 					end
 				else
-					reply("Please ensure the amount you entered is a digit", senderNumber, "Josh")
+					reply("Please ensure the amount you entered is a digit and is greater than 0", senderNumber, "Josh")
 				end
 
 
