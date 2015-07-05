@@ -24,7 +24,7 @@ class MessagesController < ApplicationController
 			parts = body.split(" ")
 			if parts[0].length==4
 				parts[1] = parts[1].gsub(",", ".")
-				if isNumeric parts[1] && parts[1].to_i>0
+				if isNumeric parts[1] #validate >0
 					closed = false
 					if category!="CONF"
 						message = obj.messages.build(account_id: parts[0], amount: parts[1], category: category, closed: closed)
