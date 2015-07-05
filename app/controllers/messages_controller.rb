@@ -4,19 +4,15 @@ class MessagesController < ApplicationController
         closed = false
 		if params["To"] == "+12316468691"
 			type = "PI" #purchase init
-			Vendor.messages.build(body: params["Body"], type: type, closed: closed)
+			message = Vendor.messages.build(body: params["Body"], type: type, closed: closed)
 		elsif params["To"] == "+16123612985"
 			type = "DI" #deposit init
-			Vendor.messages.build(body: params["Body"], type: type, closed: closed)
+			message = Vendor.messages.build(body: params["Body"], type: type, closed: closed)
 		elsif params["To"] == "+16123612985"
 			type = "Conf" #confirm
-			User.messages.build(body: params["Body"], type: type, closed: closed)
+			message = User.messages.build(body: params["Body"], type: type, closed: closed)
 		end
-
-			
-
-
-		message = Message.new(body: params["Body"])
+        #message = Message.new(body: params["Body"])
 		message.save
 		reply("This is a reply", "+27836538932", "Josh")
 	end
