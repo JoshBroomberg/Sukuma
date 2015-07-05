@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20150705162715) do
     t.integer  "messagable_id"
     t.string   "messagable_type"
     t.string   "body"
-    t.string   "type"
+    t.string   "category"
     t.boolean  "closed"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20150705162715) do
     t.integer  "vendor_id"
     t.float    "amount"
     t.string   "state"
-    t.string   "type"
+    t.string   "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

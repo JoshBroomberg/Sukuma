@@ -4,18 +4,18 @@ class MessagesController < ApplicationController
         closed = false
 		if params["To"] == "+12316468691"
 			vendor = User.where(number: "+12316468691")[0] #chnage to vendor
-			type = "PI" #purchase init
-			message = vendor.messages.build(body: params["Body"], type: type, closed: closed)
+			category = "PI" #purchase init
+			message = vendor.messages.build(body: params["Body"], category: category, closed: closed)
 			message.save
 		elsif params["To"] == "+16123612985"
 			vendor = User.where(number: "+12316468691")[0] #chnage to vendor
-			type = "DI" #deposit init
-			message = vendor.messages.build(body: params["Body"], type: type, closed: closed)
+			category = "DI" #deposit init
+			message = vendor.messages.build(body: params["Body"], category: category, closed: closed)
 			message.save
 		elsif params["To"] == "+16123612985"
 			user = User.where(number: "+12316468691")[0]
-			type = "Conf" #confirm
-			message = user.messages.build(body: params["Body"], type: type, closed: closed)
+			category = "Conf" #confirm
+			message = user.messages.build(body: params["Body"], category: category, closed: closed)
 			message.save
 		end
         #message = Message.new(body: params["Body"])
