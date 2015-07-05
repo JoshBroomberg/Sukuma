@@ -3,17 +3,17 @@ class MessagesController < ApplicationController
 	def create
         closed = false
 		if params["To"] == "+12316468691"
-			vendor = User.find_by(number: "+12316468691") #chnage to vendor
+			vendor = User.where(number: "+12316468691")[0] #chnage to vendor
 			type = "PI" #purchase init
 			message = vendor.messages.build(body: params["Body"], type: type, closed: closed)
 			message.save
 		elsif params["To"] == "+16123612985"
-			vendor = User.find_by(number: "+12316468691") #chnage to vendor
+			vendor = User.where(number: "+12316468691")[0] #chnage to vendor
 			type = "DI" #deposit init
 			message = vendor.messages.build(body: params["Body"], type: type, closed: closed)
 			message.save
 		elsif params["To"] == "+16123612985"
-			user = User.find_by(number: "+12316468691")
+			user = User.where(number: "+12316468691")[0]
 			type = "Conf" #confirm
 			message = user.messages.build(body: params["Body"], type: type, closed: closed)
 			message.save
