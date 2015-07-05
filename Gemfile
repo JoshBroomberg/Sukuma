@@ -26,7 +26,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem "devise"
 gem "simple_form"
 gem "twitter-bootstrap-rails"
-gem 'rubygems'
+#gem 'rubygems'
 gem 'twilio-ruby'
 
 # Use ActiveModel has_secure_password
