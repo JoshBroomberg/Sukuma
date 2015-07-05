@@ -7,5 +7,8 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-    User.create!(email: "user@user.com", password: "password", number: "+12316468691")
-    Vendor.create!(email: "vendor@vendor.com", password: "password", number: "+12316468691")
+    user = User.create!(email: "user@user.com", password: "password", number: "+12316468691", firstname: "userfname", lastname: "userLname")
+    vendor = Vendor.create!(email: "vendor@vendor.com", password: "password", number: "+12316468691", , firstname: "userfname", lastname: "userLname")
+
+    user.account.build(balance: 0.0, account_id: "AAAA", pin: 1234)
+    user.account.build(balance: 0.0, account_id: "AAAA", pin: 1234)
