@@ -20,43 +20,67 @@ class MessagesController < ApplicationController
 	end
 
 	def saveMessage(obj, category, body, senderNumber)
-		if body.index(" ") != nil
-			parts = body.split(" ")
-			if parts[0].length==4
-				parts[1] = parts[1].gsub(",", ".")
-				if isNumeric parts[1] #validate >0
-					closed = false
-					if category!="CONF"
+		closed = false
+		if category !="CONF"
+			if body.index(" ") != nil
+				parts = body.split(" ")
+				if parts[0].length==4
+					parts[1] = parts[1].gsub(",", ".")
+					if isNumeric parts[1] #validate >0
+	
 						message = obj.messages.build(account_id: parts[0], amount: parts[1], category: category, closed: closed)
-					else
-						message = obj.messages.build(category: category, closed: closed)
-					end
 
-					if message.save
-						user = Account.where(account_id: parts[0])[0].accountable
-						name = user.firstname
-						number = user.number #should go where 083 is
-						body = "error..."
-						if category == "PI"
-							body = "You are making a purchase at <store>, please reply with y/n to confirm number (+16123613027)"
-						elsif category == "DI"
-							body = "You are making a deposit at <store>, please reply with y/n to confirm number (+16123613027)"
-						elsif category == "CONF"
-							body = "You have confirmed your purchase"
+						if message.save
+							user = Account.where(account_id: parts[0])[0].accountable
+							name = user.firstname
+							number = user.number #should go where 083 is
+							body = "error..."
+							if category == "PI"
+								body = "You are making a purchase at <store>, please reply with y/n to confirm number (+16123613027)"
+							elsif category == "DI"
+								body = "You are making a deposit at <store>, please reply with y/n to confirm number (+16123613027)"
+							end
+							reply(body, "+27836538932", name)
 						end
-						reply(body, "+27836538932", name)
+					else
+						reply("Please ensure the amount you entered is a digit and is greater than 0", senderNumber, "Josh")
 					end
+
+
+
 				else
-					reply("Please ensure the amount you entered is a digit and is greater than 0", senderNumber, "Josh")
+					reply("AccID must be 4 characters", senderNumber, "Josh")
 				end
-
-
-
 			else
-				reply("AccID must be 4 characters", senderNumber, "Josh")
+				reply("Please separate AccID and amount with a space", senderNumber, "Josh")
 			end
+
 		else
-			reply("Please separate AccID and amount with a space", senderNumber, "Josh")
+			if body.length == 1
+				if body.index("y") != nil || body.index("n") !=nil
+					confirm = nil
+					if body=="y"
+						confirm = true
+					else
+						confirm = false
+					end
+					message = obj.messages.build(category: category, closed: closed, confirm: confirm)
+					if message.save
+						if confirm
+							reply("You have confirmed the requested action", senderNumber, "Josh")
+
+						else
+							reply("You have rejected the requested action", senderNumber, "Josh")
+						end
+					end
+
+				else
+					reply("Your message must be either 'y' or 'n'", senderNumber, "Josh")
+				end
+			else
+				reply("Your message must be 1 letter long", senderNumber, "Josh")
+			end
+
 		end
 	end
 
