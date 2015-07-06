@@ -6,11 +6,11 @@ class MessagesController < ApplicationController
 		if params["To"] == "+12316468691"
 			vendor = Vendor.where(number: "+12316468691")[0] #chnage to have number from 
 			category = "PI" #purchase init
-			saveMessage(vendor, category, params["Body"],"+27836538932")
+			saveMessage(vendor, category, params["Body"],"+27836538932", "Josh")
 		elsif params["To"] == "+16123612985"
 			vendor = Vendor.where(number: "+12316468691")[0] #chnage to have number from
 			category = "DI" #deposit init
-			saveMessage(vendor, category, params["Body"],"+27836538932")
+			saveMessage(vendor, category, params["Body"],"+27836538932", "Josh")
 		elsif params["To"] == "+16123613027"
 			user = User.where(number: "+12316468691")[0]
 			category = "CONF" #confirm
