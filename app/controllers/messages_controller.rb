@@ -41,6 +41,14 @@ class MessagesController < ApplicationController
 								body = "You are making a deposit at <store>, please reply with y/n to confirm number (+16123613027)"
 							end
 							reply(body, "+27836538932", clientname)
+							#create a transaction
+							if category == "PI"
+								ctg = "P"
+							else
+								ctg = "D"
+							end
+							transaction = Transaction.new(user: user, vendor: obj, amount: message.amount, state: "I", category: ctg)
+							transaction.save
 						end
 					else
 						reply("Please ensure the amount you entered is a digit and is greater than 0", senderNumber, name)
