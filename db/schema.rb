@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150705230248) do
+ActiveRecord::Schema.define(version: 20150706084239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20150705230248) do
     t.datetime "updated_at",      null: false
     t.float    "amount"
     t.string   "account_id"
+    t.boolean  "confirm"
   end
 
   add_index "messages", ["messagable_type", "messagable_id"], name: "index_messages_on_messagable_type_and_messagable_id", using: :btree
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(version: 20150705230248) do
     t.string   "number"
     t.string   "firstname"
     t.string   "lastname"
+    t.boolean  "vendor"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
