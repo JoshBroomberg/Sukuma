@@ -2,19 +2,19 @@ class MessagesController < ApplicationController
 	skip_before_filter  :verify_authenticity_token
 	#apply DRY principle
 	def create
-		
+		senderNumber = params["From"]
 		if params["To"] == "+12316468691"
-			vendor = Vendor.where(number: "+12316468691")[0] #chnage to have number from 
+			vendor = Vendor.where(number: senderNumber)[0] 
 			category = "PI" #purchase init
-			saveMessage(vendor, category, params["Body"],"+27836538932", "Josh")
+			saveMessage(vendor, category, params["Body"],"+27836538932", vendor.name) #83 should be sender number
 		elsif params["To"] == "+16123612985"
-			vendor = Vendor.where(number: "+12316468691")[0] #chnage to have number from
+			vendor = Vendor.where(number: senderNumber)[0] 
 			category = "DI" #deposit init
-			saveMessage(vendor, category, params["Body"],"+27836538932", "Josh")
+			saveMessage(vendor, category, params["Body"],"+27836538932", vendor.name)
 		elsif params["To"] == "+16123613027"
-			user = User.where(number: "+12316468691")[0]
+			user = User.where(number: senderNumber)[0]
 			category = "CONF" #confirm
-			saveMessage(user, category, params["Body"], "+27836538932", "Josh")
+			saveMessage(user, category, params["Body"], "+27836538932", user.name)
 		end
 		
 	end
@@ -32,7 +32,7 @@ class MessagesController < ApplicationController
 
 						if message.save
 							user = Account.where(account_id: parts[0])[0].accountable
-							name = user.firstname
+							Clientname = user.firstname
 							number = user.number #should go where 083 is
 							body = "error..."
 							if category == "PI"
@@ -40,7 +40,7 @@ class MessagesController < ApplicationController
 							elsif category == "DI"
 								body = "You are making a deposit at <store>, please reply with y/n to confirm number (+16123613027)"
 							end
-							reply(body, "+27836538932", name)
+							reply(body, "+27836538932", Clientname)
 						end
 					else
 						reply("Please ensure the amount you entered is a digit and is greater than 0", senderNumber, name)
