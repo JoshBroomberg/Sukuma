@@ -37,10 +37,10 @@ class MessagesController < ApplicationController
 							number = "+27836538932" #client.number #should go where 083 is
 							body = "error..."
 							if kind == :purchaseInit
-								body = "You are making a purchase at <store>, please reply with y/n to confirm number (+16123613027)"
+								body = "You are making a purchase at #{user.profile.businessname}, please reply with y/n to confirm number (+16123613027)"
 								kind = :purchase
 							elsif kind == :depositInit
-								body = "You are making a deposit at <store>, please reply with y/n to confirm number (+16123613027)"
+								body = "You are making a deposit at #{user.profile.businessname}, please reply with y/n to confirm number (+16123613027)"
 								kind = :deposit
 							end
 							
@@ -121,7 +121,7 @@ class MessagesController < ApplicationController
 
 								if useraccount.update(balance: ubalance) && vendoraccount.update(balance: vbalance)
 									transaction.update(state: :success)
-									reply("You have confirmed the requested action, your current balance is #{ubalance}", senderNumber, name)
+									reply("You have confirmed the requested action, your current balance is R#{ubalance}", senderNumber, name)
 									#send confirm message to vendor here
 									#reply("You have confirmed the requested action, your current balance is #{balance}", senderNumber, name)
 								end
