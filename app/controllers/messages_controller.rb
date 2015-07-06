@@ -3,77 +3,69 @@ class MessagesController < ApplicationController
 	#apply DRY principle
 	def create
 		senderNumber = params["From"]
+		user = Client.find_by(number: senderNumber)
 		case params["To"]
-		when "+12316468691"
-			vendor = Vendor.where(number: senderNumber)[0] 
-			category = "PI" #purchase init
-			saveMessage(vendor, category, params["Body"],"+27836538932", vendor.firstname) #83 should be sender number
+		when "+12316468691" 
+			kind = :purchaseInit 
+			name = user.profile.businessname
 		when "+16123612985"
-			vendor = Vendor.where(number: senderNumber)[0] 
-			category = "DI" #deposit init
-			saveMessage(vendor, category, params["Body"],"+27836538932", vendor.firstname)
+			kind = :depositInit 
+			name = user.profile.businessname
 		when "+16123613027"
-			user = User.where(number: senderNumber)[0]
-			category = "CONF" #confirm
-			saveMessage(user, category, params["Body"], "+27836538932", user.firstname)
+			kind = :confirm
+			name = user.profile.firstname		
 		end
+		sendernumber = "+27836538932" #params["From"]
+		saveMessage(user, kind, params["Body"], sendernumber, name)
 		
 	end
 
-	def saveMessage(obj, category, body, senderNumber, name)
+	def saveMessage(user, kind, body, senderNumber, name)
 		closed = false
-		if category !="CONF"
+		if kind != :confirm
 			if body.index(" ") != nil
 				parts = body.split(" ")
 				if parts[0].length==4
 					parts[1] = parts[1].gsub(",", ".")
 					if isNumeric parts[1] #validate >0
-
-						message = obj.messages.build(account_id: parts[0], amount: parts[1], category: category, closed: closed)
-
+						message = user.messages.build(account_id: parts[0], amount: parts[1], kind: kind)
 						if message.save
-							userAcc = Account.where(account_id: parts[0])[0]
-							user = userAcc.accountable
-							clientname = user.firstname
-							number = "+27836538932" #user.number #should go where 083 is
+							clientAcc = Account.find_by(account_id: parts[0])
+							client = userAcc.client
+							clientname = client.profile.firstname
+							number = "+27836538932" #client.number #should go where 083 is
 							body = "error..."
-							if category == "PI"
+							if kind == :purchaseInit
 								body = "You are making a purchase at <store>, please reply with y/n to confirm number (+16123613027)"
-							elsif category == "DI"
+								kind = :purchase
+							elsif kind == :depositInit
 								body = "You are making a deposit at <store>, please reply with y/n to confirm number (+16123613027)"
+								kind = :deposit
 							end
 							
 							#create a transaction
 							
-							if Transaction.where(user: user, state: "WC").count == 0 && Transaction.where(user: user, state: "I").count == 0
-								if category == "PI"
-									ctg = "P"
-								else
-									ctg = "D"
-								end
+							if Transaction.where(client: client, state: :waitingconfirm).count == 0 && Transaction.where(user: user, state: :initiated).count == 0
 
 
-								transaction = Transaction.new(user: user, vendor: obj, amount: message.amount, state: "I", category: ctg)
+								transaction = Transaction.new(client_id: client.id, vendor: user.id, amount: message.amount, state: :initiated, kind: kind)
 								transaction.save
 
-
 								balanceSuff= true
-								if message.category == "PI" && userAcc.balance<message.amount 
+								if message.kind == :purchaseInit && userAcc.balance<message.amount 
 									balanceSuff = false
 								end
 
 								if balanceSuff
 									reply(body, number, clientname)
-									transaction.update(state: "WC")
+									transaction.update(state: :waitingconfirm)
 								else
 									reply("Insufficient balance for requested action", number, clientname)
-									reply("Insufficient balance for requested action", senderNumber, obj.firstname)
-									transaction.update(state: "F")
-									message.update(closed: true)
+									reply("Insufficient balance for requested action", senderNumber, user.profile.businessname)
+									transaction.update(state: :fail)
 								end
 							else
 								reply("You already have a transaction pending, please confirm or reject that first",number, clientname)
-								message.update(closed: true)
 							end
 
 						end
@@ -92,14 +84,13 @@ class MessagesController < ApplicationController
 
 		else
 			#user = User.where(number: params["From"])[0]
-			user = obj
-			useraccount = user.accounts.first
+			useraccount = user.account
 			transaction  = Transaction.where(user: user, state: "WC")[0]
 			
 
-			if Transaction.where(user: user, state: "WC").count > 0
-				vendor = Vendor.find(transaction.vendor.id)
-			    vendoraccount = vendor.accounts.first
+			if Transaction.where(user: user, state: :waitingconfirm).count > 0
+				vendor = Client.find(transaction.vendor_id)
+			    vendoraccount = vendor.account
 				
 				if body.length == 1
 					if body.index("y") != nil || body.index("n") !=nil
@@ -110,29 +101,23 @@ class MessagesController < ApplicationController
 						else
 							confirm = false
 						end
-						message = obj.messages.build(category: category, closed: closed, confirm: confirm)
+						message = user.messages.build(kind: kind, confirm: confirm)
 						if message.save
 							if confirm
-								#transaction.update(state: "A")
 								
 								#update account
 								ubalance = useraccount.balance
-								if transaction.category=="P"
-									ubalance = ubalance-transaction.amount
-								elsif transaction.category=="D"
-									ubalance = ubalance+transaction.amount
-								end
-
 								vbalance = vendoraccount.balance
-								if transaction.category=="P"
+								if transaction.kind == :purchase
+									ubalance = ubalance-transaction.amount
 									vbalance = vbalance+transaction.amount
-								elsif transaction.category=="D"
+								elsif transaction.kind == :deposit
+									ubalance = ubalance+transaction.amount
 									vbalance = vbalance-transaction.amount
 								end
 
 								if useraccount.update(balance: ubalance) && vendoraccount.update(balance: vbalance)
-									transaction.update(state: "S")
-									message.update(closed: true)
+									transaction.update(state: :success)
 									reply("You have confirmed the requested action, your current balance is #{ubalance}", senderNumber, name)
 									#send confirm message to vendor here
 									#reply("You have confirmed the requested action, your current balance is #{balance}", senderNumber, name)
@@ -140,8 +125,7 @@ class MessagesController < ApplicationController
 								
 
 							else
-								transaction.update(state: "R")
-								message.update(closed: true)
+								transaction.update(state: :reject)
 								reply("You have rejected the requested action", senderNumber, name)
 								#send reject message to vendor here
 								#reply("You have confirmed the requested action, your current balance is #{balance}", senderNumber, name)

@@ -6,6 +6,7 @@ class Client < ActiveRecord::Base
 
   has_one :account
   has_one :profile
+  has_many :messages
   
   # 0 = customer
   # 1 = vendor
