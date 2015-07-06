@@ -34,7 +34,7 @@ class MessagesController < ApplicationController
 							userAcc = Account.where(account_id: parts[0])[0]
 							user = userAcc.accountable
 							clientname = user.firstname
-							number = user.number #should go where 083 is
+							number = "+27836538932" #user.number #should go where 083 is
 							body = "error..."
 							if category == "PI"
 								body = "You are making a purchase at <store>, please reply with y/n to confirm number (+16123613027)"
@@ -44,27 +44,34 @@ class MessagesController < ApplicationController
 							
 							#create a transaction
 							
-							if category == "PI"
-								ctg = "P"
+							if Transaction.where(user: user, state: "WC") == nil && Transaction.where(user: user, state: "I") == nil
+								if category == "PI"
+									ctg = "P"
+								else
+									ctg = "D"
+								end
+
+
+								transaction = Transaction.new(user: user, vendor: obj, amount: message.amount, state: "I", category: ctg)
+								transaction.save
+
+
+								balanceSuff= true
+								if message.category == "PI" && userAcc.balance<message.amount 
+									balanceSuff = false
+								end
+
+								if balanceSuff
+									reply(body, number, clientname)
+									transaction.update(state: "WC")
+								else
+									reply("Insufficient balance for requested action", number, clientname)
+									reply("Insufficient balance for requested action", senderNumber, obj.firstname)
+									transaction.update(state: "F")
+									message.update(closed: true)
+								end
 							else
-								ctg = "D"
-							end
-
-							transaction = Transaction.new(user: user, vendor: obj, amount: message.amount, state: "I", category: ctg)
-							transaction.save
-
-
-							balanceSuff= true
-							if message.category == "PI" && userAcc.balance<message.amount 
-								balanceSuff = false
-							end
-
-							if balanceSuff
-								reply(body, "+27836538932", clientname)
-								transaction.update(state: "WC")
-							else
-								reply("Insufficient balance for requested action", "+27836538932", clientname)
-								transaction.update(state: "F")
+								reply("You already have a transaction pending, please confirm or reject that first",number, clientname)
 							end
 
 						end
