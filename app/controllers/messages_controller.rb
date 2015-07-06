@@ -48,7 +48,7 @@ class MessagesController < ApplicationController
 							if Transaction.where(customer_id: client.id, state: :waitingconfirm).count == 0 && Transaction.where(customer_id: client.id, state: :initiated).count == 0
 
 
-								transaction = Transaction.new(client_id: client.id, vendor: user.id, amount: message.amount, state: :initiated, kind: kind)
+								transaction = Transaction.new(customer_id: client.id, vendor: user.id, amount: message.amount, state: :initiated, kind: kind)
 								transaction.save
 
 								balanceSuff= true
@@ -85,10 +85,9 @@ class MessagesController < ApplicationController
 		else
 			#user = User.where(number: params["From"])[0]
 			useraccount = user.account
-			transaction  = Transaction.where(user: user, state: "WC")[0]
-			
+			transaction  = Transaction.find_by(customer_id: user.id, state: :waitingconfirm)
 
-			if Transaction.where(user: user, state: :waitingconfirm).count > 0
+			if Transaction.where(customer_id: user.id, state: :waitingconfirm).count > 0
 				vendor = Client.find(transaction.vendor_id)
 			    vendoraccount = vendor.account
 				
