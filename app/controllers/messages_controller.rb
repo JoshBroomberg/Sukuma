@@ -31,7 +31,7 @@ class MessagesController < ApplicationController
 						message = user.messages.build(account_id: parts[0], amount: parts[1], kind: kind)
 						if message.save
 							clientAcc = Account.find_by(account_id: parts[0])
-							client = userAcc.client
+							client = clientAcc.client
 							clientname = client.profile.firstname
 							number = "+27836538932" #client.number #should go where 083 is
 							body = "error..."
