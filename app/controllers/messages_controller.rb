@@ -90,6 +90,7 @@ class MessagesController < ApplicationController
 			end
 
 		else
+			user = User.where(number: params["From"])[0]
 			if Transaction.where(user: user, state: "WC").count > 0
 				transaction  = Transaction.where(user: user, state: "WC")[0]
 				if body.length == 1
