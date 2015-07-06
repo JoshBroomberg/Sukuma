@@ -32,7 +32,7 @@ class MessagesController < ApplicationController
 
 						if message.save
 							user = Account.where(account_id: parts[0])[0].accountable
-							Clientname = user.firstname
+							clientname = user.firstname
 							number = user.number #should go where 083 is
 							body = "error..."
 							if category == "PI"
@@ -40,7 +40,7 @@ class MessagesController < ApplicationController
 							elsif category == "DI"
 								body = "You are making a deposit at <store>, please reply with y/n to confirm number (+16123613027)"
 							end
-							reply(body, "+27836538932", Clientname)
+							reply(body, "+27836538932", clientname)
 						end
 					else
 						reply("Please ensure the amount you entered is a digit and is greater than 0", senderNumber, name)
