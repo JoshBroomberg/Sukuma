@@ -1,0 +1,2 @@
+class Cprofile < Profile
+end
