@@ -54,12 +54,12 @@ class MessagesController < ApplicationController
 							transaction.save
 
 
-							balance? = true
+							balanceSuff= true
 							if userAcc.balance<message.amount
-								balance? = false
+								balanceSuff = false
 							end
 
-							if balance?
+							if balanceSuff
 								reply(body, "+27836538932", clientname)
 								transaction.update(state: "WC")
 							else
