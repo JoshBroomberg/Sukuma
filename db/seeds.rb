@@ -22,8 +22,8 @@
     acc1.save
     acc2.save
 
-    prof1 = client.build_profile( firstname: "josh", lastname: "broomberg", age: 18)
-    prof2 = client2.build_profile( businessname: "business")
+    prof1 = Cprofile.new(client: client,firstname: "josh", lastname: "broomberg", age: 18)
+    prof2 = Vprofile.new(client: client2, businessname: "business")
 
     prof1.save
     prof2.save
