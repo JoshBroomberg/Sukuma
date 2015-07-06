@@ -3,15 +3,16 @@ class MessagesController < ApplicationController
 	#apply DRY principle
 	def create
 		senderNumber = params["From"]
-		if params["To"] == "+12316468691"
+		case params["To"]
+		when "+12316468691"
 			vendor = Vendor.where(number: senderNumber)[0] 
 			category = "PI" #purchase init
 			saveMessage(vendor, category, params["Body"],"+27836538932", vendor.firstname) #83 should be sender number
-		elsif params["To"] == "+16123612985"
+		when "+16123612985"
 			vendor = Vendor.where(number: senderNumber)[0] 
 			category = "DI" #deposit init
 			saveMessage(vendor, category, params["Body"],"+27836538932", vendor.firstname)
-		elsif params["To"] == "+16123613027"
+		when "+16123613027"
 			user = User.where(number: senderNumber)[0]
 			category = "CONF" #confirm
 			saveMessage(user, category, params["Body"], "+27836538932", user.firstname)
@@ -94,7 +95,7 @@ class MessagesController < ApplicationController
 			user = obj
 			useraccount = user.accounts.first
 			transaction  = Transaction.where(user: user, state: "WC")[0]
-			vendor = Vendor.find(transaction.vendor_id)
+			vendor = Vendor.find(transaction.vendor.id)
 			vendoraccount = vendor.accounts.first
 
 			if Transaction.where(user: user, state: "WC").count > 0
@@ -111,7 +112,7 @@ class MessagesController < ApplicationController
 						message = obj.messages.build(category: category, closed: closed, confirm: confirm)
 						if message.save
 							if confirm
-								transaction.update(state: "A")
+								#transaction.update(state: "A")
 								
 								#update account
 								ubalance = useraccount.balance
@@ -123,9 +124,9 @@ class MessagesController < ApplicationController
 
 								vbalance = vendoraccount.balance
 								if transaction.category=="P"
-									vbalance = vbalance-transaction.amount
-								elsif transaction.category=="D"
 									vbalance = vbalance+transaction.amount
+								elsif transaction.category=="D"
+									vbalance = vbalance-transaction.amount
 								end
 
 								if useraccount.update(balance: ubalance) && vendoraccount.update(balance: vbalance)
