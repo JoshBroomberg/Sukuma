@@ -130,6 +130,7 @@ class MessagesController < ApplicationController
 
 								if useraccount.update(balance: ubalance) && vendoraccount.update(balance: vbalance)
 									transaction.update(state: "S")
+									message.update(closed: true)
 									reply("You have confirmed the requested action, your current balance is #{ubalance}", senderNumber, name)
 									#send confirm message to vendor here
 									#reply("You have confirmed the requested action, your current balance is #{balance}", senderNumber, name)
@@ -138,7 +139,10 @@ class MessagesController < ApplicationController
 
 							else
 								transaction.update(state: "R")
+								message.update(closed: true)
 								reply("You have rejected the requested action", senderNumber, name)
+								#send reject message to vendor here
+								#reply("You have confirmed the requested action, your current balance is #{balance}", senderNumber, name)
 							end
 						end
 
