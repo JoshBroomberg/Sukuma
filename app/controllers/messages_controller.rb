@@ -91,6 +91,7 @@ class MessagesController < ApplicationController
 
 		else
 			user = User.where(number: params["From"])[0]
+			account = user.accounts.first
 			if Transaction.where(user: user, state: "WC").count > 0
 				transaction  = Transaction.where(user: user, state: "WC")[0]
 				if body.length == 1
@@ -106,7 +107,17 @@ class MessagesController < ApplicationController
 						if message.save
 							if confirm
 								transaction.update(state: "A")
-								reply("You have confirmed the requested action", senderNumber, name)
+								
+								#update account
+								balance = account.balance
+								if transaction.category=="P"
+									balance = balance-transaction.amount
+								elsif transaction.category=="D"
+									balance = balance+transaction.amount
+								end
+
+								user.accounts.first.update(balance: balance)
+								reply("You have confirmed the requested action, your current balance is #{balance}", senderNumber, name)
 
 							else
 								reply("You have rejected the requested action", senderNumber, name)
