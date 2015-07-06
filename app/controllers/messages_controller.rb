@@ -31,7 +31,8 @@ class MessagesController < ApplicationController
 						message = obj.messages.build(account_id: parts[0], amount: parts[1], category: category, closed: closed)
 
 						if message.save
-							user = Account.where(account_id: parts[0])[0].accountable
+							userAcc = Account.where(account_id: parts[0])[0]
+							user = userAcc.accountable
 							clientname = user.firstname
 							number = user.number #should go where 083 is
 							body = "error..."
@@ -40,15 +41,32 @@ class MessagesController < ApplicationController
 							elsif category == "DI"
 								body = "You are making a deposit at <store>, please reply with y/n to confirm number (+16123613027)"
 							end
-							reply(body, "+27836538932", clientname)
+							
 							#create a transaction
+							
 							if category == "PI"
 								ctg = "P"
 							else
 								ctg = "D"
 							end
+
 							transaction = Transaction.new(user: user, vendor: obj, amount: message.amount, state: "I", category: ctg)
 							transaction.save
+
+
+							balance? = true
+							if userAcc.balance<message.amount
+								balance? = false
+							end
+
+							if balance?
+								reply(body, "+27836538932", clientname)
+								transaction.update(state: "WC")
+							else
+								reply("Insufficient balance for requested action", "+27836538932", clientname)
+								transaction.update(state: "F")
+							end
+
 						end
 					else
 						reply("Please ensure the amount you entered is a digit and is greater than 0", senderNumber, name)
