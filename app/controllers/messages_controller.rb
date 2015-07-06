@@ -14,12 +14,12 @@ class MessagesController < ApplicationController
 		elsif params["To"] == "+16123613027"
 			user = User.where(number: "+12316468691")[0]
 			category = "CONF" #confirm
-			saveMessage(user, category, params["Body"], "+27836538932")
+			saveMessage(user, category, params["Body"], "+27836538932", "Josh")
 		end
 		
 	end
 
-	def saveMessage(obj, category, body, senderNumber)
+	def saveMessage(obj, category, body, senderNumber, name)
 		closed = false
 		if category !="CONF"
 			if body.index(" ") != nil
@@ -43,16 +43,16 @@ class MessagesController < ApplicationController
 							reply(body, "+27836538932", name)
 						end
 					else
-						reply("Please ensure the amount you entered is a digit and is greater than 0", senderNumber, "Josh")
+						reply("Please ensure the amount you entered is a digit and is greater than 0", senderNumber, name)
 					end
 
 
 
 				else
-					reply("AccID must be 4 characters", senderNumber, "Josh")
+					reply("AccID must be 4 characters", senderNumber, name)
 				end
 			else
-				reply("Please separate AccID and amount with a space", senderNumber, "Josh")
+				reply("Please separate AccID and amount with a space", senderNumber, name)
 			end
 
 		else
@@ -67,18 +67,18 @@ class MessagesController < ApplicationController
 					message = obj.messages.build(category: category, closed: closed, confirm: confirm)
 					if message.save
 						if confirm
-							reply("You have confirmed the requested action", senderNumber, "Josh")
+							reply("You have confirmed the requested action", senderNumber, name)
 
 						else
-							reply("You have rejected the requested action", senderNumber, "Josh")
+							reply("You have rejected the requested action", senderNumber, name)
 						end
 					end
 
 				else
-					reply("Your message must be either 'y' or 'n'", senderNumber, "Josh")
+					reply("Your message must be either 'y' or 'n'", senderNumber, name)
 				end
 			else
-				reply("Your message must be 1 letter long", senderNumber, "Josh")
+				reply("Your message must be 1 letter long", senderNumber, name)
 			end
 
 		end
