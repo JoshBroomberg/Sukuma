@@ -90,10 +90,15 @@ class MessagesController < ApplicationController
 			end
 
 		else
-			user = User.where(number: params["From"])[0]
-			account = user.accounts.first
+			#user = User.where(number: params["From"])[0]
+			user = obj
+			useraccount = user.accounts.first
+			transaction  = Transaction.where(user: user, state: "WC")[0]
+			vendor = Vendor.find(transaction.vendor_id)
+			vendoraccount = vendor.accounts.first
+
 			if Transaction.where(user: user, state: "WC").count > 0
-				transaction  = Transaction.where(user: user, state: "WC")[0]
+				
 				if body.length == 1
 					if body.index("y") != nil || body.index("n") !=nil
 
@@ -109,17 +114,30 @@ class MessagesController < ApplicationController
 								transaction.update(state: "A")
 								
 								#update account
-								balance = account.balance
+								ubalance = useraccount.balance
 								if transaction.category=="P"
-									balance = balance-transaction.amount
+									ubalance = ubalance-transaction.amount
 								elsif transaction.category=="D"
-									balance = balance+transaction.amount
+									ubalance = ubalance+transaction.amount
 								end
 
-								user.accounts.first.update(balance: balance)
-								reply("You have confirmed the requested action, your current balance is #{balance}", senderNumber, name)
+								vbalance = vendoraccount.balance
+								if transaction.category=="P"
+									vbalance = vbalance-transaction.amount
+								elsif transaction.category=="D"
+									vbalance = vbalance+transaction.amount
+								end
+
+								if useraccount.update(balance: ubalance) && vendoraccount.update(balance: vbalance)
+									transaction.update(state: "S")
+									reply("You have confirmed the requested action, your current balance is #{ubalance}", senderNumber, name)
+									#send confirm message to vendor here
+									#reply("You have confirmed the requested action, your current balance is #{balance}", senderNumber, name)
+								end
+								
 
 							else
+								transaction.update(state: "R")
 								reply("You have rejected the requested action", senderNumber, name)
 							end
 						end
