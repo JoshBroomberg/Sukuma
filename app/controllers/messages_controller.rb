@@ -107,6 +107,8 @@ class MessagesController < ApplicationController
 								#update account
 								ubalance = useraccount.balance
 								puts "xxx5"+ubalance.to_s
+								puts "xxx "+transaction.amount.to_s
+								puts "yyy"+transaction.kind.to_s
 								vbalance = vendoraccount.balance
 								if transaction.kind == 0
 									ubalance = ubalance-transaction.amount
