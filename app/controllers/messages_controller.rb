@@ -17,7 +17,7 @@ class MessagesController < ApplicationController
 		end
 		sendernumber = "+27836538932" #params["From"]
 		saveMessage(user, kind, params["Body"], sendernumber, name)
-		render status: 200
+		render :nothing => true, :status => 200, :content_type => 'text/html'
 		
 	end
 
