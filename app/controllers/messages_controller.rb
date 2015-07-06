@@ -45,14 +45,14 @@ class MessagesController < ApplicationController
 							
 							#create a transaction
 							
-							if Transaction.where(customer_id: client.id, state: :waitingconfirm).count == 0 && Transaction.where(customer_id: client.id, state: :initiated).count == 0
+							if Transaction.where(customer_id: client.id, state: 1).count == 0 && Transaction.where(customer_id: client.id, state: 0).count == 0
 
 
 								transaction = Transaction.new(customer_id: client.id, vendor_id: user.id, amount: message.amount, state: :initiated, kind: kind)
 								transaction.save
 
 								balanceSuff= true
-								if message.kind == :purchaseInit && userAcc.balance<message.amount 
+								if message.kind == 0 && userAcc.balance<message.amount 
 									balanceSuff = false
 								end
 
@@ -108,10 +108,10 @@ class MessagesController < ApplicationController
 								ubalance = useraccount.balance
 								puts "xxx5"+ubalance.to_s
 								vbalance = vendoraccount.balance
-								if transaction.kind == :purchase
+								if transaction.kind == 0
 									ubalance = ubalance-transaction.amount
 									vbalance = vbalance+transaction.amount
-								elsif transaction.kind == :deposit
+								elsif transaction.kind == 1
 									ubalance = ubalance+transaction.amount
 									vbalance = vbalance-transaction.amount
 								end
