@@ -110,11 +110,11 @@ class MessagesController < ApplicationController
 								puts "xxx "+transaction.amount.to_s
 								puts "yyy"+transaction.kind.to_s
 								vbalance = vendoraccount.balance
-								if transaction.kind == 0
+								if transaction.kind == "purchase"
 									ubalance = ubalance-transaction.amount
 									vbalance = vbalance+transaction.amount
 									puts "xxx6"+ubalance.to_s
-								elsif transaction.kind == 1
+								elsif transaction.kind == "deposit"
 									ubalance = ubalance+transaction.amount
 									vbalance = vbalance-transaction.amount
 									puts "xxx7"+ubalance.to_s
