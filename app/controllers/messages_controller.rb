@@ -55,7 +55,7 @@ class MessagesController < ApplicationController
 
 
 							balanceSuff= true
-							if userAcc.balance<message.amount
+							if message.category == "PI" && userAcc.balance<message.amount 
 								balanceSuff = false
 							end
 
