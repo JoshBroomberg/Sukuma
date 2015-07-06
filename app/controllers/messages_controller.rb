@@ -95,10 +95,11 @@ class MessagesController < ApplicationController
 			user = obj
 			useraccount = user.accounts.first
 			transaction  = Transaction.where(user: user, state: "WC")[0]
-			vendor = Vendor.find(transaction.vendor.id)
-			vendoraccount = vendor.accounts.first
+			
 
 			if Transaction.where(user: user, state: "WC").count > 0
+				vendor = Vendor.find(transaction.vendor.id)
+			    vendoraccount = vendor.accounts.first
 				
 				if body.length == 1
 					if body.index("y") != nil || body.index("n") !=nil
