@@ -1,11 +1,11 @@
 class CreateTransactions < ActiveRecord::Migration
   def change
     create_table :transactions do |t|
-      t.references :user, index: true, foreign_key: true
-      t.references :vendor, index: true, foreign_key: true
+      t.integer :customer_id
+      t.integer :vendor_id
       t.float :amount
-      t.string :state
-      t.string :category
+      t.integer :state
+      t.integer :kind
 
       t.timestamps null: false
     end

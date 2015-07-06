@@ -1,4 +1,6 @@
 class Transaction < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :vendor
+
+	enum state: [:initiated, :waitingconfirm, :fail, :success, :reject]
+	enum kind: [:purchase, :deposit]
+	
 end

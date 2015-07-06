@@ -1,0 +1,2 @@
+class Vprofile < Profile
+end

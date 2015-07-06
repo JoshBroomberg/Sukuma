@@ -1,3 +1,3 @@
 class Message < ActiveRecord::Base
-	belongs_to :messagable, polymorphic: true
+  belongs_to :client
 end

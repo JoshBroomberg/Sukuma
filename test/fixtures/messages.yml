@@ -1,11 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  body: MyString
-  type: 
-  closed: false
+  client_id: 
+  kind: 1
+  confirm: false
+  account_id: MyString
+  amount: 1.5
 
 two:
-  body: MyString
-  type: 
-  closed: false
+  client_id: 
+  kind: 1
+  confirm: false
+  account_id: MyString
+  amount: 1.5
