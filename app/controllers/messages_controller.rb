@@ -17,6 +17,7 @@ class MessagesController < ApplicationController
 		end
 		sendernumber = "+27836538932" #params["From"]
 		saveMessage(user, kind, params["Body"], sendernumber, name)
+		render status: 200
 		
 	end
 
@@ -106,20 +107,17 @@ class MessagesController < ApplicationController
 								
 								#update account
 								ubalance = useraccount.balance
-								puts "xxx5"+ubalance.to_s
-								puts "xxx "+transaction.amount.to_s
-								puts "yyy"+transaction.kind.to_s
 								vbalance = vendoraccount.balance
 								if transaction.kind == "purchase"
 									ubalance = ubalance-transaction.amount
 									vbalance = vbalance+transaction.amount
-									puts "xxx6"+ubalance.to_s
+									
 								elsif transaction.kind == "deposit"
 									ubalance = ubalance+transaction.amount
 									vbalance = vbalance-transaction.amount
-									puts "xxx7"+ubalance.to_s
+									
 								end
-								puts "xxx8"+ubalance.to_s
+								
 
 								if useraccount.update(balance: ubalance) && vendoraccount.update(balance: vbalance)
 									transaction.update(state: :success)
