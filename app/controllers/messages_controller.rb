@@ -27,7 +27,7 @@ class MessagesController < ApplicationController
 				if parts[0].length==4
 					parts[1] = parts[1].gsub(",", ".")
 					if isNumeric parts[1] #validate >0
-	
+
 						message = obj.messages.build(account_id: parts[0], amount: parts[1], category: category, closed: closed)
 
 						if message.save
@@ -90,31 +90,37 @@ class MessagesController < ApplicationController
 			end
 
 		else
-			if body.length == 1
-				if body.index("y") != nil || body.index("n") !=nil
-					confirm = nil
-					if body=="y"
-						confirm = true
-					else
-						confirm = false
-					end
-					message = obj.messages.build(category: category, closed: closed, confirm: confirm)
-					if message.save
-						if confirm
-							reply("You have confirmed the requested action", senderNumber, name)
+			if Transaction.where(user: user, state: "WC").count > 0
+				transaction  = Transaction.where(user: user, state: "WC")[0]
+				if body.length == 1
+					if body.index("y") != nil || body.index("n") !=nil
 
+						confirm = nil
+						if body=="y"
+							confirm = true
 						else
-							reply("You have rejected the requested action", senderNumber, name)
+							confirm = false
 						end
-					end
+						message = obj.messages.build(category: category, closed: closed, confirm: confirm)
+						if message.save
+							if confirm
+								transaction.update(state: "A")
+								reply("You have confirmed the requested action", senderNumber, name)
 
+							else
+								reply("You have rejected the requested action", senderNumber, name)
+							end
+						end
+
+					else
+						reply("Your message must be either 'y' or 'n'", senderNumber, name)
+					end
 				else
-					reply("Your message must be either 'y' or 'n'", senderNumber, name)
+					reply("Your message must be 1 letter long", senderNumber, name)
 				end
 			else
-				reply("Your message must be 1 letter long", senderNumber, name)
+				reply("You have no transactions to confirm", senderNumber, name)
 			end
-
 		end
 	end
 
