@@ -111,11 +111,13 @@ class MessagesController < ApplicationController
 								if transaction.kind == 0
 									ubalance = ubalance-transaction.amount
 									vbalance = vbalance+transaction.amount
+									puts "xxx6"+ubalance.to_s
 								elsif transaction.kind == 1
 									ubalance = ubalance+transaction.amount
 									vbalance = vbalance-transaction.amount
+									puts "xxx7"+ubalance.to_s
 								end
-								puts "xxx6"+ubalance.to_s
+								puts "xxx8"+ubalance.to_s
 
 								if useraccount.update(balance: ubalance) && vendoraccount.update(balance: vbalance)
 									transaction.update(state: :success)
