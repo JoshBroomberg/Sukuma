@@ -44,7 +44,7 @@ class MessagesController < ApplicationController
 							
 							#create a transaction
 							
-							if Transaction.where(user: user, state: "WC") == nil && Transaction.where(user: user, state: "I") == nil
+							if Transaction.where(user: user, state: "WC").count == 0 && Transaction.where(user: user, state: "I").count == 0
 								if category == "PI"
 									ctg = "P"
 								else
