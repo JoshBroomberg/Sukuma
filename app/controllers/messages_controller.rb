@@ -85,9 +85,9 @@ class MessagesController < ApplicationController
 		else
 			#user = User.where(number: params["From"])[0]
 			useraccount = user.account
-			transaction  = Transaction.find_by(customer_id: user.id, state: :waitingconfirm)
-			binding.pry
-			if Transaction.where(customer_id: user.id, state: :waitingconfirm).count > 0
+			transaction  = Transaction.find_by(customer_id: user.id, state: 1)
+			#binding.pry
+			if Transaction.where(customer_id: user.id, state: 1).count > 0
 				vendor = Client.find(transaction.vendor_id)
 			    vendoraccount = vendor.account
 				
