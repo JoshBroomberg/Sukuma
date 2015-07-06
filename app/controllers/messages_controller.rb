@@ -45,7 +45,7 @@ class MessagesController < ApplicationController
 							
 							#create a transaction
 							
-							if Transaction.where(client_id: client.id, state: :waitingconfirm).count == 0 && Transaction.where(client_id: client.id, state: :initiated).count == 0
+							if Transaction.where(customer_id: client.id, state: :waitingconfirm).count == 0 && Transaction.where(customer_id: client.id, state: :initiated).count == 0
 
 
 								transaction = Transaction.new(client_id: client.id, vendor: user.id, amount: message.amount, state: :initiated, kind: kind)
