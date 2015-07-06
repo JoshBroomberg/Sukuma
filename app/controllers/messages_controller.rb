@@ -72,6 +72,7 @@ class MessagesController < ApplicationController
 								end
 							else
 								reply("You already have a transaction pending, please confirm or reject that first",number, clientname)
+								message.update(closed: true)
 							end
 
 						end
