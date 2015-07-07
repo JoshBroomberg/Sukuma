@@ -1,2 +1,0 @@
-class VendorProfile < Profile
-end
