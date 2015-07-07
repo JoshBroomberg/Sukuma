@@ -4,10 +4,10 @@ class TransactionService
 		ms = MessengerService.new()
 		body = "error..."
 		if kind == :purchaseInit
-			body = "You are making a purchase at #{user.profile.businessname}, value R#{parts[1]}. Please sendMessage with y/n to confirm number (+16123613027)"
+			body = "You are making a purchase at #{vendor.profile.businessname}, value R#{amount}. Please sendMessage with y/n to confirm number (+16123613027)"
 			kind = :purchase
 		elsif kind == :depositInit
-			body = "You are making a deposit at #{user.profile.businessname}, value R#{parts[1]}. Please sendMessage with y/n to confirm number (+16123613027)"
+			body = "You are making a deposit at #{vendor.profile.businessname}, value R#{amount}. Please sendMessage with y/n to confirm number (+16123613027)"
 			kind = :deposit
 		end
 		if Transaction.where(customer_id: customer.id, state: 1).count == 0 && Transaction.where(customer_id: customer.id, state: 0).count == 0
