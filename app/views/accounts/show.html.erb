@@ -1,9 +1,11 @@
 AccountId: <%= @account.account_id %><br>
 Balance: <%= @account.balance %><br><br>
-<% spendPercentage.each do |key, value| %>
+<% spendData[0].each do |key, value| %>
 <%= key %>: <%= value %>%
 <br>
 <% end %>
+<br>
+spend: <%= spendData[1].inspect %>
 <br>
 <%= link_to "view your transactions", transactions_path %><br>
 <%= link_to "pay someone", new_transaction_path %>

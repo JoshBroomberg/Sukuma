@@ -16,17 +16,21 @@ Client.delete_all
 
     customer = Client.new(password: "password", number: "+27836538932")
     customer.save
-    acc2 = customer.build_account(balance: 2000.0, account_id: "cus1", pin: 1234)
-    acc2.save
+    acc2 = customer.create_account(balance: 2000.0, account_id: "cus1", pin: 1234)
     prof1 = Cprofile.new(client: customer,firstname: "Josh", lastname: "Broomberg", age: 18)
     prof1.save
 
     customer2 = Client.new(password: "password", number: "+27836538933")
     customer2.save
-    acc3 = customer.build_account(balance: 2000.0, account_id: "cus2", pin: 1234)
-    acc3.save
-    prof3 = Cprofile.new(client: customer,firstname: "Josh2", lastname: "Broomberg2", age: 18)
+    acc3 = customer2.build_account(balance: 2000.0, account_id: "cus2", pin: 1234).save
+    prof3 = Cprofile.new(client: customer2,firstname: "Josh2", lastname: "Broomberg2", age: 18)
     prof3.save
+
+    customer4 = Client.new(password: "password", number: "+27836538934")
+    customer4.save
+    acc4 = customer4.create_account(balance: 2000.0, account_id: "cus3", pin: 1234)
+    prof4 = Cprofile.new(client: customer4,firstname: "Josh3", lastname: "Broomberg3", age: 18)
+    prof4.save
 
 
     business = Client.create!(password: "password", number: "+15712787457")

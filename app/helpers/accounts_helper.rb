@@ -1,12 +1,18 @@
 module AccountsHelper
 
-	def spendPercentage
+	def spendData
 
 		percentagehash = {}
 		transactions = Transaction.where(:created_at => 1.months.ago..Time.now, customer_id: current_client.id, state: 3, kind: 0)
 		sum = 0.0
+		prefixSum = []
 		transactions.each do |transaction|
 			sum+=transaction.amount
+			if prefixSum.length>0
+				prefixSum.push(prefixSum.last+transaction.amount)
+			else
+				prefixSum.push(transaction.amount)
+			end
 		end
 		Profile.categories.each do |key, value|
 			# catTrans = []
@@ -29,7 +35,7 @@ module AccountsHelper
 		percentagehash.each do |key,value|
 			percentagehash[key] = (value/sum*100).round(2)
 		end
-		percentagehash
+		[percentagehash, prefixSum]
 	end
 
 
