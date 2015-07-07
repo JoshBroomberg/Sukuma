@@ -2,7 +2,7 @@ class MessengerService
 
 	def saveMessage(kind, body, senderNumber, name)
 		user = Client.find_by(number: senderNumber)
-		puts "id"+id.to_s
+		puts "id"+user.id.to_s
 
 		closed = false
 		if kind != :confirm
