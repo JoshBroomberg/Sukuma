@@ -5,14 +5,16 @@ module AccountsHelper
 		percentagehash = {}
 		transactions = Transaction.where(:created_at => 1.months.ago..Time.now, customer_id: current_client.id, state: 3, kind: 0)
 		sum = 0.0
-		prefixSum = []
+		prefixSum = {}
+		counter = 1
 		transactions.each do |transaction|
 			sum+=transaction.amount
 			if prefixSum.length>0
-				prefixSum.push(prefixSum.last+transaction.amount)
+				prefixSum[counter] = (prefixSum[counter-1]+transaction.amount)
 			else
-				prefixSum.push(transaction.amount)
+				prefixSum[counter]=(transaction.amount)
 			end
+			counter+=1
 		end
 		Profile.categories.each do |key, value|
 			# catTrans = []
@@ -35,7 +37,7 @@ module AccountsHelper
 		percentagehash.each do |key,value|
 			percentagehash[key] = (value/sum*100).round(2)
 		end
-		[percentagehash, prefixSum]
+		[percentagehash, prefixSum, transactions]
 	end
 
 

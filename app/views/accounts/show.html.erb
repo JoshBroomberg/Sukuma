@@ -5,7 +5,12 @@ Balance: <%= @account.balance %><br><br>
 <br>
 <% end %>
 <br>
-spend: <%= spendData[1].inspect %>
+<%= pie_chart(spendData[0]) %>
+<br>
+spend: 
+<%= line_chart(spendData[1])%>
+spend by day:
+<%= line_chart(spendData[2].group_by_day(:created_at).count)%>
 <br>
 <%= link_to "view your transactions", transactions_path %><br>
 <%= link_to "pay someone", new_transaction_path %>
