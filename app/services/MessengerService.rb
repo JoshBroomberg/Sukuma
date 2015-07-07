@@ -16,18 +16,11 @@ class MessengerService
 							client = clientAcc.client
 							clientname = client.profile.firstname
 							#number = "+27836538932" #client.number #should go where 083 is
-							body = "error..."
-							if kind == :purchaseInit
-								body = "You are making a purchase at #{user.profile.businessname}, value R#{parts[1]}. Please sendMessage with y/n to confirm number (+16123613027)"
-								kind = :purchase
-							elsif kind == :depositInit
-								body = "You are making a deposit at #{user.profile.businessname}, value R#{parts[1]}. Please sendMessage with y/n to confirm number (+16123613027)"
-								kind = :deposit
-							end
+							
 							
 							#create a transaction
 							ts = TransactionService.new() 
-							ts.processTranaction(client, user, message.amount, kind, body)
+							ts.processTranaction(client, user, message.amount, kind)
 
 						end
 					else
@@ -69,10 +62,12 @@ class MessengerService
 								ubalance = useraccount.balance
 								vbalance = vendoraccount.balance
 								if transaction.kind == "purchase"
+									puts "xxx ran p"
 									ubalance = ubalance-transaction.amount
 									vbalance = vbalance+transaction.amount
 									
 								elsif transaction.kind == "deposit"
+									puts "xxx ran d"
 									ubalance = ubalance+transaction.amount
 									vbalance = vbalance-transaction.amount
 									
