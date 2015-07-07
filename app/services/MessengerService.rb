@@ -60,19 +60,21 @@ class MessengerService
 								
 								#update account
 								ubalance = useraccount.balance
+								puts "x1"+ubalance.to_s
 								vbalance = vendoraccount.balance
 								if transaction.kind == "purchase"
 									puts "xxx ran p"
 									ubalance = ubalance-transaction.amount
+									puts "x2"+ubalance.to_s
 									vbalance = vbalance+transaction.amount
 									
 								elsif transaction.kind == "deposit"
 									puts "xxx ran d"
 									ubalance = ubalance+transaction.amount
+									puts "x2"+ubalance.to_s
 									vbalance = vbalance-transaction.amount
-									
 								end
-								
+								puts "x3"+ubalance.to_s
 
 								if useraccount.update(balance: ubalance) && vendoraccount.update(balance: vbalance)
 									transaction.update(state: :success)
