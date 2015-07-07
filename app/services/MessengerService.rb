@@ -27,7 +27,7 @@ class MessengerService
 							
 							#create a transaction
 							ts = TransactionService.new() 
-							ts.processTranaction(client, user, message.amount, kind)
+							ts.processTransaction(client, user, message.amount, kind)
 
 						end
 					else
@@ -44,71 +44,8 @@ class MessengerService
 			end
 
 		else
-			#user = User.where(number: params["From"])[0]
-			user = Client.find_by(number: senderNumber)
-			useraccount = user.account
-			transaction  = Transaction.find_by(customer_id: user.id, state: 1)
-			if Transaction.where(customer_id: user.id, state: 1).count > 0
-				vendor = Client.find(transaction.vendor_id)
-				vendoraccount = vendor.account
-				
-				if body.length == 1
-					if body.index("y") != nil || body.index("n") !=nil
-
-						confirm = nil
-						if body=="y"
-							confirm = true
-						else
-							confirm = false
-						end
-						message = user.messages.build(kind: kind, confirm: confirm)
-						if message.save
-							if confirm
-								
-								#update account
-								ubalance = useraccount.balance
-								puts "x1"+ubalance.to_s
-								vbalance = vendoraccount.balance
-								if transaction.kind == "purchase"
-									puts "xxx ran p"
-									ubalance = ubalance-transaction.amount
-									puts "x2"+ubalance.to_s
-									vbalance = vbalance+transaction.amount
-									
-								elsif transaction.kind == "deposit"
-									puts "xxx ran d"
-									ubalance = ubalance+transaction.amount
-									puts "x3"+ubalance.to_s
-									vbalance = vbalance-transaction.amount
-								end
-								puts "x4"+ubalance.to_s
-								#useraccount.balance = ubalance
-								binding.pry
-								if useraccount.update(balance: ubalance) && vendoraccount.update(balance: vbalance)
-									transaction.update(state: :success)
-									sendMessage("You have confirmed the requested action, your current balance is R#{ubalance}", senderNumber, name)
-									#send confirm message to vendor here
-									#sendMessage("You have confirmed the requested action, your current balance is #{balance}", senderNumber, name)
-								end
-								
-
-							else
-								transaction.update(state: :reject)
-								sendMessage("You have rejected the requested action", senderNumber, name)
-								#send reject message to vendor here
-								#sendMessage("You have confirmed the requested action, your current balance is #{balance}", senderNumber, name)
-							end
-						end
-
-					else
-						sendMessage("Your message must be either 'y' or 'n'", senderNumber, name)
-					end
-				else
-					sendMessage("Your message must be 1 letter long", senderNumber, name)
-				end
-			else
-				sendMessage("You have no transactions to confirm", senderNumber, name)
-			end
+			ts = TransactionService.new() 
+			ts.processConfirm(senderNumber)
 		end
 	end
 

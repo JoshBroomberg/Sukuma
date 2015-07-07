@@ -13,7 +13,8 @@ class TransactionsController < ApplicationController
 		ts = TransactionService.new()
 		vendorAcc = Account.find_by(account_id: params[:accID])
 		vendor = vendorAcc.client
-		ts.processTranaction(current_client, vendor, trans_params[:amount], :purchaseInit)
+		ts.processTransaction(current_client, vendor, trans_params[:amount], :purchaseInit)
+		redirect_to account_path
 	end
 
 	def trans_params
