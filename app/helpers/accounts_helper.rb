@@ -42,7 +42,7 @@ module AccountsHelper
 		percentagehash.each do |key,value|
 			percentagehash[key] = (value/(sum-p2psum)*100).round(2)
 		end
-		percentagehash["Transfers"] = p2psum/(sum)*100
+		percentagehash["Transfers"] = p2psum/(sum)*100.round(2)
 		[percentagehash, prefixSum, transactions]
 
 	end

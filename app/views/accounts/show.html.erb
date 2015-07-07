@@ -1,15 +1,21 @@
-AccountId: <%= @account.account_id %><br>
-Balance: <%= @account.balance %><br><br>
+<strong>AccountId: </strong> <%= @account.account_id %><br>
+<strong>Balance: </strong> <%= @account.balance %><br><br>
+
+
 <% spendData[0].each do |key, value| %>
-<%= key %>: <%= value %>%
+<% key %>: <%= value %>%
 <br>
 <% end %>
+
+
 <br>
 <%= pie_chart(spendData[0]) %>
 <br>
-spend: 
+
+Cumulative spending for the month 
 <%= line_chart(spendData[1])%>
-spend by day:
+
+Transactions by day:
 <%= line_chart(spendData[2].group_by_day(:created_at).count)%>
 <br>
 <%= link_to "view your transactions", transactions_path %><br>
