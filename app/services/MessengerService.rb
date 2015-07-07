@@ -71,12 +71,13 @@ class MessengerService
 								elsif transaction.kind == "deposit"
 									puts "xxx ran d"
 									ubalance = ubalance+transaction.amount
-									puts "x2"+ubalance.to_s
+									puts "x3"+ubalance.to_s
 									vbalance = vbalance-transaction.amount
 								end
-								puts "x3"+ubalance.to_s
+								puts "x4"+ubalance.to_s
+								useraccount.balance = ubalance
 
-								if useraccount.update(balance: ubalance) && vendoraccount.update(balance: vbalance)
+								if useraccount.save && vendoraccount.update(balance: vbalance)
 									transaction.update(state: :success)
 									sendMessage("You have confirmed the requested action, your current balance is R#{ubalance}", senderNumber, name)
 									#send confirm message to vendor here
