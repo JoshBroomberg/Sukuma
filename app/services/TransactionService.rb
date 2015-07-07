@@ -49,9 +49,15 @@ class TransactionService
 		end
 	end
 
-	def processConfirm senderNumber, body
-		ms = MessengerService.new()
+	def processConfirm senderNumber, body, kind
 		user = Client.find_by(number: senderNumber)
+		if user.profile.class.name == "Vprofile" 
+			name = user.profile.businessname
+		else
+			name = user.profile.firstname
+		end
+		ms = MessengerService.new()
+		
 			useraccount = user.account
 			transaction  = Transaction.find_by(customer_id: user.id, state: 1)
 			if Transaction.where(customer_id: user.id, state: 1).count > 0

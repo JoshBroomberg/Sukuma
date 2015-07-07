@@ -45,7 +45,7 @@ class MessengerService
 
 		else
 			ts = TransactionService.new() 
-			ts.processConfirm(senderNumber, body)
+			ts.processConfirm(senderNumber, body, kind)
 		end
 	end
 
