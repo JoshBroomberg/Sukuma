@@ -11,6 +11,9 @@ Rails.application.routes.draw do
 
   get "/accountdashboard" => "accounts#show", as: :account
   get "/transactions" => "transactions#index", as: :transactions
+  get "/transactions/new" => "transactions#new", as: :new_transaction
+  post "/transactions/create" => "transactions#create", as: :create_transaction
+
 
   #get "/choice" => "profiles#choice", as: :choice
 

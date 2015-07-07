@@ -1,1 +1,10 @@
 <h1>Pay someone</h1>
+
+<%= simple_form_for @transaction, url: create_transaction_path do |f| %>
+
+<%= f.error_notification %>
+AccountId of reciepient<input type="text" label = "x" name="accID"></input>
+<%= f.input :amount%>
+<%= f.button :submit, "Submit"%>
+
+<% end %>

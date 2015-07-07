@@ -1,6 +1,10 @@
 class TransactionService
+
 	
 	def processTranaction (customer, vendor, amount, kind)
+		
+
+		require "MessengerService"
 		ms = MessengerService.new()
 		if vendor.profile.class.name == "Vprofile" 
 			vname = vendor.profile.businessname
