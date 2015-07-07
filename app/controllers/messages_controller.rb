@@ -16,8 +16,8 @@ class MessagesController < ApplicationController
 			name = user.profile.firstname		
 		end
 		ms = MessengerService.new()
-		sendernumber = "+27836538932" #params["From"]
-		ms.saveMessage(kind, params["Body"].downcase, sendernumber, name)
+		#sendernumber = "+27836538932" #params["From"]
+		ms.saveMessage(kind, params["Body"].downcase, senderNumber, name)
 		render :nothing => true, :status => 200, :content_type => 'text/html'
 		
 	end
