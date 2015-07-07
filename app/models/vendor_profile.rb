@@ -1,0 +1,2 @@
+class VendorProfile < Profile
+end

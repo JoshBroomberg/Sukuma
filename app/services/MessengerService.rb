@@ -27,28 +27,7 @@ class MessengerService
 							
 							#create a transaction
 							
-							if Transaction.where(customer_id: client.id, state: 1).count == 0 && Transaction.where(customer_id: client.id, state: 0).count == 0
-
-
-								transaction = Transaction.new(customer_id: client.id, vendor_id: user.id, amount: message.amount, state: :initiated, kind: kind)
-								transaction.save
-
-								balanceSuff= true
-								if message.kind == 0 && userAcc.balance<message.amount 
-									balanceSuff = false
-								end
-
-								if balanceSuff
-									sendMessage(body, number, clientname)
-									transaction.update(state: :waitingconfirm)
-								else
-									sendMessage("Insufficient balance for requested action", number, clientname)
-									sendMessage("Insufficient balance for requested action", senderNumber, user.profile.businessname)
-									transaction.update(state: :fail)
-								end
-							else
-								sendMessage("You already have a transaction pending, please confirm or reject that first",number, clientname)
-							end
+							processTranaction (client, user, message.amount, kind, body)
 
 						end
 					else
