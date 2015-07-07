@@ -9,14 +9,15 @@ module AccountsHelper
 			sum+=transaction.amount
 		end
 		Profile.categories.each do |key, value|
-			catTrans = []
-			transactions.each do |trans|
+			# catTrans = []
+			# transactions.each do |trans|
 				
-				if Client.find(trans.vendor_id).profile.category == key	
-					catTrans<<trans			
-				end
-			end
-
+			# 	if Client.find(trans.vendor_id).profile.category == key	
+			# 		catTrans<<trans			
+			# 	end
+			# end
+			catTrans = transactions.select{|transaction| Client.find(transaction.vendor_id).profile.category == key	}
+			catTrans = catTrans.reject{|trans| Client.find(trans.vendor_id).profile.class.name == "Cprofile"	 }
 			subSum = 0.0
 			catTrans.each do |trans|
 				subSum+= trans.amount
