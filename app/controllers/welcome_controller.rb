@@ -1,16 +1,15 @@
 class WelcomeController < ApplicationController
 	def index
-		#profileChecker
+		profileChecker
 	end
 
-	# def profileChecker
+	def profileChecker
 		
-	# 	if client_signed_in?
-	# 		render client_signed_in?
-	# 		if current_client.profile==nil
-	# 			rdirect_to new_profile_path
-	# 		else
-	# 		end
-	# 	end
-	# end
+		if client_signed_in?
+			if current_client.profile==nil
+				redirect_to new_profile_path
+			else
+			end
+		end
+	end
 end

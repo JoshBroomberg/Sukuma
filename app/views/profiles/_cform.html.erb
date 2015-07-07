@@ -1,10 +1,11 @@
-<%= simple_form_for @profile do |f| %>
+<%= simple_form_for @profile, url: profiles_path do |f| %>
 
+<%= f.error_notification %>
 <%= f.input :firstname%>
 <%= f.input :lastname%>
 <%= f.input :age%>
 <%= f.input :type, :as => :hidden, :input_html => { :value => "Cprofile" } %>
 
-<%= f.button :submit %>
+<%= f.button :submit, "Submit" %>
 
 <% end %>

@@ -4,7 +4,6 @@ class Devisecontrollers::RegistrationsController < Devise::RegistrationsControll
 
   protected
   def after_sign_up_path_for(resource)
-    
     initAcc
     new_profile_path # Or :prefix_to_your_route
   end

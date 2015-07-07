@@ -4,7 +4,6 @@ class Devisecontrollers::SessionsController < Devise::SessionsController
     if current_client.profile==nil
        new_profile_path
     else
-
     account_path
     end # Or :prefix_to_your_route
   end

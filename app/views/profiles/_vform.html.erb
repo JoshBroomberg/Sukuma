@@ -1,10 +1,11 @@
-<%= simple_form_for @profile do |f| %>
+<%= simple_form_for @profile, url: profiles_path do |f| %>
 
+<%= f.error_notification %>
 <%= f.input :businessname%>
-<%= f.input :category%>
+<%= f.input :category, collection: Profile.categories%>
 
 <%= f.input :type, :as => :hidden, :input_html => { :value => "Vprofile" } %>
 
-<%= f.button :submit %>
+<%= f.button :submit, "Submit"%>
 
 <% end %>
