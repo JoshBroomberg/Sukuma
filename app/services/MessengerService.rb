@@ -26,7 +26,7 @@ class MessengerService
 							end
 							
 							#create a transaction
-							ts = TransactionService.new()
+							ts = TransactionService.new() 
 							ts.processTranaction(client, user, message.amount, kind, body)
 
 						end
