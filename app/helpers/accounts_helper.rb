@@ -4,12 +4,15 @@ module AccountsHelper
 
 		percentagehash = {}
 		transactions = Transaction.where(:created_at => 1.months.ago..Time.now, customer_id: current_client.id, state: 3, kind: 0)
-		transactions = transactions.reject{|trans| Client.find(trans.vendor_id).profile.class.name == "Cprofile"	 }
 		sum = 0.0
+		p2psum = 0.0
 		prefixSum = {}
 		counter = 1
 		transactions.each do |transaction|
-			sum+=transaction.amount
+			if Client.find(transaction.vendor_id).profile.class.name == "Cprofile"
+				p2psum += transaction.amount
+			end
+			 sum+=transaction.amount
 			if prefixSum.length>0
 				prefixSum[counter] = (prefixSum[counter-1]+transaction.amount)
 			else
@@ -26,6 +29,7 @@ module AccountsHelper
 			# 	end
 			# end
 			catTrans = transactions.select{|transaction| Client.find(transaction.vendor_id).profile.category == key	}
+			catTrans = catTrans.reject{|trans| Client.find(trans.vendor_id).profile.class.name == "Cprofile"	 }
 			subSum = 0.0
 			catTrans.each do |trans|
 				subSum+= trans.amount
@@ -33,10 +37,12 @@ module AccountsHelper
 		    percentagehash[key] = subSum
 		    
 		end
+		
 
 		percentagehash.each do |key,value|
-			percentagehash[key] = (value/sum*100).round(2)
+			percentagehash[key] = (value/(sum-p2psum)*100).round(2)
 		end
+		percentagehash["Transfers"] = p2psum/(sum)*100
 		[percentagehash, prefixSum, transactions]
 
 	end
