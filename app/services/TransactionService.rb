@@ -3,14 +3,14 @@ class TransactionService
 	def processTranaction (customer, vendor, amount, kind)
 		ms = MessengerService.new()
 		if vendor.profile.class.name == "Vprofile" 
-			vname = user.profile.businessname
+			vname = vendor.profile.businessname
 		else
-			vname = user.profile.firstname
+			vname = vendor.profile.firstname
 		end
 		if customer.profile.class.name == "Vprofile" 
-			cname = user.profile.businessname
+			cname = customer.profile.businessname
 		else
-			cname = user.profile.firstname
+			cname = customer.profile.firstname
 		end
 		body = "error..."
 		if kind == :purchaseInit

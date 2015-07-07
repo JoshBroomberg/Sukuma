@@ -17,9 +17,9 @@ class MessengerService
 							clientAcc = Account.find_by(account_id: parts[0])
 							client = clientAcc.client
 							if client.profile.class.name == "Vprofile" 
-								clientname = user.profile.businessname
+								clientname = client.profile.businessname
 							else
-								clientname = user.profile.firstname
+								clientname = client.profile.firstname
 							end
 							#clientname = client.profile.firstname
 							#number = "+27836538932" #client.number #should go where 083 is
