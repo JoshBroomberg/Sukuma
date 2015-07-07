@@ -16,7 +16,12 @@ class MessengerService
 						if message.save
 							clientAcc = Account.find_by(account_id: parts[0])
 							client = clientAcc.client
-							clientname = client.profile.firstname
+							if client.profile.class.name == "Vprofile" 
+								clientname = user.profile.businessname
+							else
+								clientname = user.profile.firstname
+							end
+							#clientname = client.profile.firstname
 							#number = "+27836538932" #client.number #should go where 083 is
 							
 							
@@ -45,7 +50,7 @@ class MessengerService
 			transaction  = Transaction.find_by(customer_id: user.id, state: 1)
 			if Transaction.where(customer_id: user.id, state: 1).count > 0
 				vendor = Client.find(transaction.vendor_id)
-			    vendoraccount = vendor.account
+				vendoraccount = vendor.account
 				
 				if body.length == 1
 					if body.index("y") != nil || body.index("n") !=nil
