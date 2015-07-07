@@ -13,7 +13,7 @@ class TransactionService
 			end
 
 			if balanceSuff
-				ms.sendMessage(body, customer.number, clientname)
+				ms.sendMessage(body, customer.number, customer.profile.firstname)
 				transaction.update(state: :waitingconfirm)
 			else
 				ms.sendMessage("Insufficient balance for requested action", customer.number, customer.profile.firstname)

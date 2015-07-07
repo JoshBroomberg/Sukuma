@@ -15,7 +15,7 @@ class MessengerService
 							clientAcc = Account.find_by(account_id: parts[0])
 							client = clientAcc.client
 							clientname = client.profile.firstname
-							number = "+27836538932" #client.number #should go where 083 is
+							#number = "+27836538932" #client.number #should go where 083 is
 							body = "error..."
 							if kind == :purchaseInit
 								body = "You are making a purchase at #{user.profile.businessname}, value R#{parts[1]}. Please sendMessage with y/n to confirm number (+16123613027)"
