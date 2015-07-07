@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
 	#apply DRY principle
 	def create
 		senderNumber = params["From"]
-		user = Client.find_by(number: senderNumber)
+		
 		case params["To"]
 		when "+12316468691" 
 			kind = :purchaseInit 
@@ -17,7 +17,7 @@ class MessagesController < ApplicationController
 		end
 		ms = MessengerService.new()
 		sendernumber = "+27836538932" #params["From"]
-		ms.saveMessage(user, kind, params["Body"].downcase, sendernumber, name)
+		ms.saveMessage(kind, params["Body"].downcase, sendernumber, name)
 		render :nothing => true, :status => 200, :content_type => 'text/html'
 		
 	end

@@ -1,6 +1,7 @@
 class MessengerService
 
-	def saveMessage(user, kind, body, senderNumber, name)
+	def saveMessage(kind, body, senderNumber, name)
+		user = Client.find_by(number: senderNumber)
 		closed = false
 		if kind != :confirm
 			if body.index(" ") != nil
@@ -17,10 +18,10 @@ class MessengerService
 							number = "+27836538932" #client.number #should go where 083 is
 							body = "error..."
 							if kind == :purchaseInit
-								body = "You are making a purchase at #{user.profile.businessname}, please reply with y/n to confirm number (+16123613027)"
+								body = "You are making a purchase at #{user.profile.businessname}, value R#{parts[1]}. Please sendMessage with y/n to confirm number (+16123613027)"
 								kind = :purchase
 							elsif kind == :depositInit
-								body = "You are making a deposit at #{user.profile.businessname}, please reply with y/n to confirm number (+16123613027)"
+								body = "You are making a deposit at #{user.profile.businessname}, value R#{parts[1]}. Please sendMessage with y/n to confirm number (+16123613027)"
 								kind = :deposit
 							end
 							
@@ -38,29 +39,29 @@ class MessengerService
 								end
 
 								if balanceSuff
-									reply(body, number, clientname)
+									sendMessage(body, number, clientname)
 									transaction.update(state: :waitingconfirm)
 								else
-									reply("Insufficient balance for requested action", number, clientname)
-									reply("Insufficient balance for requested action", senderNumber, user.profile.businessname)
+									sendMessage("Insufficient balance for requested action", number, clientname)
+									sendMessage("Insufficient balance for requested action", senderNumber, user.profile.businessname)
 									transaction.update(state: :fail)
 								end
 							else
-								reply("You already have a transaction pending, please confirm or reject that first",number, clientname)
+								sendMessage("You already have a transaction pending, please confirm or reject that first",number, clientname)
 							end
 
 						end
 					else
-						reply("Please ensure the amount you entered is a digit and is greater than 0", senderNumber, name)
+						sendMessage("Please ensure the amount you entered is a digit and is greater than 0", senderNumber, name)
 					end
 
 
 
 				else
-					reply("AccID must be 4 characters", senderNumber, name)
+					sendMessage("AccID must be 4 characters", senderNumber, name)
 				end
 			else
-				reply("Please separate AccID and amount with a space", senderNumber, name)
+				sendMessage("Please separate AccID and amount with a space", senderNumber, name)
 			end
 
 		else
@@ -101,28 +102,28 @@ class MessengerService
 
 								if useraccount.update(balance: ubalance) && vendoraccount.update(balance: vbalance)
 									transaction.update(state: :success)
-									reply("You have confirmed the requested action, your current balance is R#{ubalance}", senderNumber, name)
+									sendMessage("You have confirmed the requested action, your current balance is R#{ubalance}", senderNumber, name)
 									#send confirm message to vendor here
-									#reply("You have confirmed the requested action, your current balance is #{balance}", senderNumber, name)
+									#sendMessage("You have confirmed the requested action, your current balance is #{balance}", senderNumber, name)
 								end
 								
 
 							else
 								transaction.update(state: :reject)
-								reply("You have rejected the requested action", senderNumber, name)
+								sendMessage("You have rejected the requested action", senderNumber, name)
 								#send reject message to vendor here
-								#reply("You have confirmed the requested action, your current balance is #{balance}", senderNumber, name)
+								#sendMessage("You have confirmed the requested action, your current balance is #{balance}", senderNumber, name)
 							end
 						end
 
 					else
-						reply("Your message must be either 'y' or 'n'", senderNumber, name)
+						sendMessage("Your message must be either 'y' or 'n'", senderNumber, name)
 					end
 				else
-					reply("Your message must be 1 letter long", senderNumber, name)
+					sendMessage("Your message must be 1 letter long", senderNumber, name)
 				end
 			else
-				reply("You have no transactions to confirm", senderNumber, name)
+				sendMessage("You have no transactions to confirm", senderNumber, name)
 			end
 		end
 	end
@@ -131,7 +132,7 @@ class MessengerService
 		Float(number) != nil rescue false
 	end
 
-	def reply(body, number, name)
+	def sendMessage(body, number, name)
 		account_sid = "ACabc2a633d8052c4b8805de4b678f4166"
 		auth_token = "255b0b0cd465bbd6d0e3b3a32cd1ad4e"
 		client = Twilio::REST::Client.new account_sid, auth_token
