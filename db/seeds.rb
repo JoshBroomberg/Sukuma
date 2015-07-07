@@ -19,8 +19,8 @@
     business.save
     customer.save
 
-    acc1 = business.build_account(balance: 0.0, account_id: "AAAA", pin: 1234)
-    acc2 = customer.build_account(balance: 0.0, account_id: "BBBB", pin: 1234)
+    acc1 = business.build_account(balance: 0.0, account_id: "aaaa", pin: 1234)
+    acc2 = customer.build_account(balance: 0.0, account_id: "bbbb", pin: 1234)
 
     acc1.save
     acc2.save

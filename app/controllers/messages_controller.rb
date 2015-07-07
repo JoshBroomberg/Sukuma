@@ -16,7 +16,7 @@ class MessagesController < ApplicationController
 			name = user.profile.firstname		
 		end
 		sendernumber = "+27836538932" #params["From"]
-		saveMessage(user, kind, params["Body"], sendernumber, name)
+		saveMessage(user, kind, params["Body"].downcase, sendernumber, name)
 		render :nothing => true, :status => 200, :content_type => 'text/html'
 		
 	end
