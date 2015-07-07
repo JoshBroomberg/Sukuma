@@ -21,7 +21,7 @@ class TransactionService
 				transaction.update(state: :fail)
 			end
 		else
-			sendMessage("You already have a transaction pending, please confirm or reject that first", customer.number, customer.profile.firstname)
+			ms.sendMessage("You already have a transaction pending, please confirm or reject that first", customer.number, customer.profile.firstname)
 		end
 	end
 end
