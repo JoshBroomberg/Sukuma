@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
 	#apply DRY principle
 	def create
 		senderNumber = params["From"]
-		
+		user = Client.find_by(number: senderNumber)
 		case params["To"]
 		when "+12316468691" 
 			kind = :purchaseInit 
