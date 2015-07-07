@@ -49,7 +49,7 @@ class TransactionService
 		end
 	end
 
-	def processConfirm senderNumber
+	def processConfirm senderNumber, body
 		ms = MessengerService.new()
 		user = Client.find_by(number: senderNumber)
 			useraccount = user.account
