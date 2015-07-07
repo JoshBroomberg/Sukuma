@@ -38,6 +38,7 @@ module AccountsHelper
 			percentagehash[key] = (value/sum*100).round(2)
 		end
 		[percentagehash, prefixSum, transactions]
+		
 	end
 
 
