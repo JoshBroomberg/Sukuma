@@ -13,20 +13,20 @@
     #client = Client.new(email: "user@user.com", password: "password", number: "+12316468691")
     #client2 = Client.new(email: "user2@user2.com", password: "password", number: "+12316468691")
 
-    client = Client.new(password: "password", number: "+15712787457")
-    client2 = Client.new(password: "password", number: "+27836538932")
+    business = Client.new(password: "password", number: "+15712787457")
+    customer = Client.new(password: "password", number: "+27836538932")
     
-    client.save
-    client2.save
+    business.save
+    customer.save
 
-    acc1 = client.build_account(balance: 0.0, account_id: "AAAA", pin: 1234)
-    acc2 = client2.build_account(balance: 0.0, account_id: "BBBB", pin: 1234)
+    acc1 = business.build_account(balance: 0.0, account_id: "AAAA", pin: 1234)
+    acc2 = customer.build_account(balance: 0.0, account_id: "BBBB", pin: 1234)
 
     acc1.save
     acc2.save
 
-    prof1 = Cprofile.new(client: client,firstname: "Amanda", lastname: "Halacy", age: 18)
-    prof2 = Vprofile.new(client: client2, businessname: "TestBusiness inc.")
+    prof1 = Cprofile.new(client: customer,firstname: "Josh", lastname: "Broomberg", age: 18)
+    prof2 = Vprofile.new(client: business, businessname: "TestBusiness inc.", category: 1)
 
     prof1.save
     prof2.save
