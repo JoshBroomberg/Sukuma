@@ -75,8 +75,9 @@ class MessengerService
 									vbalance = vbalance-transaction.amount
 								end
 								puts "x4"+ubalance.to_s
+								
 								useraccount.balance = ubalance
-
+								binding.pry
 								if useraccount.save && vendoraccount.update(balance: vbalance)
 									transaction.update(state: :success)
 									sendMessage("You have confirmed the requested action, your current balance is R#{ubalance}", senderNumber, name)
