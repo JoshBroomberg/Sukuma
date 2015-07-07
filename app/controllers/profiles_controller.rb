@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-
+    before_action :authenticate_client!
 	def new
 		if current_client.profile == nil
 		@profile = Profile.new
