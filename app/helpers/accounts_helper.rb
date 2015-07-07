@@ -4,6 +4,7 @@ module AccountsHelper
 
 		percentagehash = {}
 		transactions = Transaction.where(:created_at => 1.months.ago..Time.now, customer_id: current_client.id, state: 3, kind: 0)
+		transactions = transactions.reject{|trans| Client.find(trans.vendor_id).profile.class.name == "Cprofile"	 }
 		sum = 0.0
 		prefixSum = {}
 		counter = 1
@@ -25,7 +26,6 @@ module AccountsHelper
 			# 	end
 			# end
 			catTrans = transactions.select{|transaction| Client.find(transaction.vendor_id).profile.category == key	}
-			catTrans = catTrans.reject{|trans| Client.find(trans.vendor_id).profile.class.name == "Cprofile"	 }
 			subSum = 0.0
 			catTrans.each do |trans|
 				subSum+= trans.amount
@@ -38,7 +38,7 @@ module AccountsHelper
 			percentagehash[key] = (value/sum*100).round(2)
 		end
 		[percentagehash, prefixSum, transactions]
-		
+
 	end
 
 
