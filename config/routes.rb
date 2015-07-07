@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post "messages/new" => "messages#create"
 
   get "/accountdashboard" => "accounts#show", as: :account
+  get "/transactions" => "transactions#index", as: :transactions
 
   #get "/choice" => "profiles#choice", as: :choice
 

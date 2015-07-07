@@ -1,2 +1,8 @@
 AccountId: <%= @account.account_id %><br>
-Balance: <%= @account.balance %>
+Balance: <%= @account.balance %><br><br>
+<% spendPercentage.each do |key, value| %>
+<%= key %>: <%= value %>%
+<br>
+<% end %>
+
+
