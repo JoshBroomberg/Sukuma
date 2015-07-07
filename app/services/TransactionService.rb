@@ -1,6 +1,7 @@
 class TransactionService
-	ms = MessengerService.new()
+	
 	def processTranaction (customer, vendor, amount, kind, body)
+		ms = MessengerService.new()
 		if Transaction.where(customer_id: customer.id, state: 1).count == 0 && Transaction.where(customer_id: customer.id, state: 0).count == 0
 
 			transaction = Transaction.new(customer_id: customer.id, vendor_id: vendor.id, amount: amount, state: :initiated, kind: kind)
