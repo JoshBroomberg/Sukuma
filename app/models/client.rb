@@ -3,6 +3,7 @@ class Client < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   
   validates :number, length: { is: 12 }, uniqueness: true
+  validates :email, uniqueness: false
   #validates :bio, length: { maximum: 500 }
 
 
@@ -13,7 +14,7 @@ class Client < ActiveRecord::Base
   def self.find_for_database_authentication(warden_conditions)
   	conditions = warden_conditions.dup
   	if login = conditions.delete(:login)
-  		where(conditions.to_h).where(["lower(number) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+  		where(conditions.to_h).where(["lower(number) = :value", { :value => login.downcase }]).first
   	else
   		where(conditions.to_h).first
   	end

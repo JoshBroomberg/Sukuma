@@ -1,11 +1,27 @@
 Rails.application.routes.draw do
-  devise_for :clients
+  devise_for :clients, controllers: { registrations: "devisecontrollers/registrations", sessions: "devisecontrollers/sessions" }
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
   post "messages/new" => "messages#create"
+
+  get "/accountdashboard" => "accounts#show", as: :account
+
+  #get "/choice" => "profiles#choice", as: :choice
+
+  #get "newprofile/:type" => "profiles#new", as: :newprofile
+
+  resources :profiles
+
+
+
+  # namespace :client do
+  #    root :to => "test#test"
+  # end
 
   # Example of regular route:
   # get 'products/:id' => 'catalog#view'

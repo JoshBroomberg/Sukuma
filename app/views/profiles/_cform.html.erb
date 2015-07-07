@@ -1,0 +1,10 @@
+<%= simple_form_for @profile do |f| %>
+
+<%= f.input :firstname%>
+<%= f.input :lastname%>
+<%= f.input :age%>
+<%= f.input :type, :as => :hidden, :input_html => { :value => "Cprofile" } %>
+
+<%= f.button :submit %>
+
+<% end %>

@@ -10,8 +10,11 @@
     Account.delete_all
     Client.delete_all
 
-    client = Client.new(email: "user@user.com", password: "password", number: "+12316468691")
-    client2 = Client.new(email: "user2@user2.com", password: "password", number: "+12316468691")
+    #client = Client.new(email: "user@user.com", password: "password", number: "+12316468691")
+    #client2 = Client.new(email: "user2@user2.com", password: "password", number: "+12316468691")
+
+    client = Client.new(password: "password", number: "+12316468691")
+    client2 = Client.new(password: "password", number: "+27836538932")
     
     client.save
     client2.save
@@ -23,10 +26,10 @@
     acc2.save
 
     prof1 = Cprofile.new(client: client,firstname: "josh", lastname: "broomberg", age: 18)
-    prof2 = Vprofile.new(client: client2, businessname: "business")
+    #prof2 = Vprofile.new(client: client2, businessname: "business")
 
     prof1.save
-    prof2.save
+    #prof2.save
 
 
  

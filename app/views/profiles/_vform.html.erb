@@ -1,0 +1,10 @@
+<%= simple_form_for @profile do |f| %>
+
+<%= f.input :businessname%>
+<%= f.input :category%>
+
+<%= f.input :type, :as => :hidden, :input_html => { :value => "Vprofile" } %>
+
+<%= f.button :submit %>
+
+<% end %>

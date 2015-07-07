@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 20150706155352) do
   add_index "accounts", ["client_id"], name: "index_accounts_on_client_id", using: :btree
 
   create_table "clients", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -43,7 +42,6 @@ ActiveRecord::Schema.define(version: 20150706155352) do
     t.string   "number"
   end
 
-  add_index "clients", ["email"], name: "index_clients_on_email", unique: true, using: :btree
   add_index "clients", ["reset_password_token"], name: "index_clients_on_reset_password_token", unique: true, using: :btree
 
   create_table "messages", force: :cascade do |t|
@@ -62,6 +60,7 @@ ActiveRecord::Schema.define(version: 20150706155352) do
     t.integer  "client_id"
     t.string   "type"
     t.string   "businessname"
+    t.integer  "category"
     t.string   "firstname"
     t.string   "lastname"
     t.integer  "age"

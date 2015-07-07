@@ -27,6 +27,7 @@ class MessagesController < ApplicationController
 			if body.index(" ") != nil
 				parts = body.split(" ")
 				if parts[0].length==4
+					parts[0] = parts[0].downcase
 					parts[1] = parts[1].gsub(",", ".")
 					if isNumeric parts[1] #validate >0
 						message = user.messages.build(account_id: parts[0], amount: parts[1], kind: kind)
