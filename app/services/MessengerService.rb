@@ -2,6 +2,8 @@ class MessengerService
 
 	def saveMessage(kind, body, senderNumber, name)
 		user = Client.find_by(number: senderNumber)
+		puts "id"+id.to_s
+
 		closed = false
 		if kind != :confirm
 			if body.index(" ") != nil
@@ -38,9 +40,9 @@ class MessengerService
 
 		else
 			#user = User.where(number: params["From"])[0]
+			user = Client.find_by(number: senderNumber)
 			useraccount = user.account
 			transaction  = Transaction.find_by(customer_id: user.id, state: 1)
-			#binding.pry
 			if Transaction.where(customer_id: user.id, state: 1).count > 0
 				vendor = Client.find(transaction.vendor_id)
 			    vendoraccount = vendor.account
@@ -75,10 +77,9 @@ class MessengerService
 									vbalance = vbalance-transaction.amount
 								end
 								puts "x4"+ubalance.to_s
-								
-								useraccount.balance = ubalance
+								#useraccount.balance = ubalance
 								binding.pry
-								if useraccount.save && vendoraccount.update(balance: vbalance)
+								if useraccount.update(balance: ubalance) && vendoraccount.update(balance: vbalance)
 									transaction.update(state: :success)
 									sendMessage("You have confirmed the requested action, your current balance is R#{ubalance}", senderNumber, name)
 									#send confirm message to vendor here
