@@ -1,27 +1,58 @@
-<strong>AccountId: </strong> <%= @account.account_id %><br>
-<strong>Balance: R</strong> <%= @account.balance %><br><br>
-
-<%= link_to "view your transactions", transactions_path %><br>
-<%= link_to "pay someone", new_transaction_path %><br>
-<%= link_to "edit your info", edit_all_path %>
-
-<% spendData[0].each do |key, value| %>
-<% key %> <%value %>
-<% end %>
+<div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Your account</h1>
+                    <h4><strong>AccountId: </strong> <%= @account.account_id %><br>
+                    <strong>Balance: R</strong> <%= @account.balance %></h4>       
+            </div>
+</div>
 
 
-<br>
-<%= pie_chart(spendData[0]) %>
-<br>
+<div class="row">
+	<div class="col-md-3 col-sm-3 col-xs-3  portfolio-item" id="left">
+		<h3>
+			<a href=<%= transactions_path %>>Transactions</a>
+		</h3>
+		<%= render @transactions %>
+	</div>
+	<div class="col-md-9 col-sm-9 col-xs-9 portfolio-item" id="right">
+		<h3>
+			<a href="#">Project Two</a>
+		</h3>
+		<br>
+		<%= pie_chart(spendData[0]) %>
+		<br>
 
-Cumulative spending for the month 
-<%= line_chart(spendData[1], {discrete: true})%>
+		Cumulative spending for the month 
+		<%= line_chart(spendData[1], {discrete: true})%>
 
 
-Transactions by day:
-<%= column_chart(spendData[2], {discrete: true})%>
+		Transactions by day:
+		<%= column_chart(spendData[2], {discrete: true})%>
 
-<br>
+		<br>
+	</div>
+</div>
+
+<style>
+
+#left {
+  float: left;
+  width: 25%;
+  height: 70vh;
+  overflow-y: scroll;
+  text-align: center;
+}
+
+#right {
+  float: left;
+  overflow-y: scroll;
+  height: 70vh;
+  width: 75%;
+  text-align: center;
+}
+
+</style>
+
 
 
 

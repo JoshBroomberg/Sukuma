@@ -2,6 +2,7 @@ class AccountsController < ApplicationController
 	before_action :authenticate_client!
 	def show
 		@account = current_client.account
+		@transactions = Transaction.where(customer_id: current_client.id)
 	end
 
 	def edit
