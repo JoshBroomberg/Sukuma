@@ -101,7 +101,11 @@ class TransactionService
 						end
 
 					else
-						ms.sendMessage("Your message must be either 'y' or 'n'", sender)
+						if body.index("b") != nil
+							ms.sendMessage("Your balance is R#{sender.account.balance}", sender)
+					    else
+						ms.sendMessage("Your message must be either 'y', 'n', or 'b'", sender)
+						end
 					end
 				else
 					ms.sendMessage("Your message must be 1 letter long", sender)

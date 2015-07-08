@@ -14,11 +14,11 @@
 		<div class="col-md-3 col-sm-3 col-xs-3  portfolio-item" >
 			<div class="center">
 			<h3>
-				<a href=<%= transactions_path%> >Transactions</a>
+				<a href=<%= transactions_path%> >Transaction feed:</a>
 			</h3>
 			</div>
 			<div id="left">
-			<% @transactions = Transaction.where(customer_id: current_client.id).reverse %>
+
 			<%= render @transactions %>
 			</div>
 		</div>

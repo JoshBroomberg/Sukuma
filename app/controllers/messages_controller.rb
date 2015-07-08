@@ -2,6 +2,7 @@ class MessagesController < ApplicationController
 	skip_before_filter  :verify_authenticity_token
 	#apply DRY principle
 	def create
+		ms = MessengerService.new()
 		senderNumber = params["From"]
 		sender = Client.find_by(number: senderNumber)
 		case params["To"]
@@ -13,7 +14,6 @@ class MessagesController < ApplicationController
 		when "+16123613027"
 			kind = :confirm	
 		end
-		ms = MessengerService.new()
 		ms.processMessage(kind, params["Body"].downcase, sender)
 		render :nothing => true, :status => 200, :content_type => 'text/html'
 		
