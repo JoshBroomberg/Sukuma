@@ -18,7 +18,7 @@
 
 <p>
 <% if client_signed_in? %>
-  Logged in as <strong><%= current_client.number %></strong>.
+  Logged in as <strong><%= current_client.profile.name %></strong>.
   <%= link_to 'Edit profile', edit_client_registration_path, :class => 'navbar-link' %> |
   <%= link_to "Logout", destroy_client_session_path, method: :delete, :class => 'navbar-link'  %>
    
