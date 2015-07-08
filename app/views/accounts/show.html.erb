@@ -35,13 +35,12 @@
 					<%= pie_chart(spendData[0]) %>
 					<br>
 					<hr>
-					<strong>Spending vs Balance for this month</strong>
-					<%= line_chart [{name: "Total spending", data: spendData[1]}, {name: "Current balance", data: spendData[2]}], {discrete: true}%>
+					<strong>Cumulative income vs spending - 30 days:</strong>
+					<%= line_chart [{name: "Spending", data: spendData[1]}, {name: "Income", data: spendData[2]}], {discrete: true}%>
 					<hr>
 
-					<strong>Transactions by day:</strong>
-					<%= column_chart(spendData[3], {discrete: true})%>
-
+					<strong>Spending vs Income - by day:</strong>
+					<%= column_chart [{name: "spending", data: spendData[3]}, {name: "income", data: spendData[4]}], {stacked: true, discrete: true}%>
 					<br>
 				</div>
 				<div id="sectionB" class="tab-pane fade">
