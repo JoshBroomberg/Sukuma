@@ -16,7 +16,7 @@ Client.delete_all
 
     customer = Client.new(password: "password", number: "+27836538932")
     customer.save
-    acc2 = customer.create_account(balance: 2000.0, account_id: "cus1", pin: 1234)
+    acc2 = customer.create_account(balance: 340.0, account_id: "cus1", pin: 1234)
     prof1 = Cprofile.new(client: customer,firstname: "Josh", lastname: "Broomberg", age: 18)
     prof1.save
 
