@@ -54,17 +54,17 @@ Client.delete_all
     prof2 = Vprofile.create!(client: business5, businessname: "TestBusiness5 inc.", category: 5)
 
 
-    Transaction.create!(customer_id: customer.id, vendor_id: business.id, amount: 150, state: :success, kind: :deposit)
-    Transaction.create!(customer_id: customer.id, vendor_id: business2.id, amount: 120, state: :success, kind: :deposit)
-    Transaction.create!(customer_id: customer.id, vendor_id: business3.id, amount: 130, state: :success, kind: :deposit)
-    Transaction.create!(customer_id: customer.id, vendor_id: business4.id, amount: 140, state: :success, kind: :deposit)
-    Transaction.create!(customer_id: customer.id, vendor_id: business5.id, amount: 160, state: :success, kind: :deposit)
 
     Transaction.create!(customer_id: customer.id, vendor_id: business.id, amount: 50, state: :success, kind: :purchase)
+    Transaction.create!(customer_id: customer.id, vendor_id: business.id, amount: 150, state: :success, kind: :deposit)
 	Transaction.create!(customer_id: customer.id, vendor_id: business2.id, amount: 20, state: :success, kind: :purchase)
 	Transaction.create!(customer_id: customer.id, vendor_id: business3.id, amount: 30, state: :success, kind: :purchase)
+    Transaction.create!(customer_id: customer.id, vendor_id: business5.id, amount: 160, state: :success, kind: :deposit)
 	Transaction.create!(customer_id: customer.id, vendor_id: business4.id, amount: 40, state: :success, kind: :purchase)
+    Transaction.create!(customer_id: customer.id, vendor_id: business2.id, amount: 120, state: :success, kind: :deposit)
+     Transaction.create!(customer_id: customer.id, vendor_id: business4.id, amount: 140, state: :success, kind: :deposit)
 	Transaction.create!(customer_id: customer.id, vendor_id: business5.id, amount: 60, state: :success, kind: :purchase)
+     Transaction.create!(customer_id: customer.id, vendor_id: business3.id, amount: 130, state: :success, kind: :deposit)
 	Transaction.create!(customer_id: customer.id, vendor_id: business.id, amount: 70, state: :success, kind: :purchase)
 	Transaction.create!(customer_id: customer.id, vendor_id: business2.id, amount: 90, state: :success, kind: :purchase)
 

@@ -18,6 +18,7 @@
 			</h3>
 			</div>
 			<div id="left">
+			<% @transactions = Transaction.where(customer_id: current_client.id) %>
 			<%= render @transactions %>
 			</div>
 		</div>

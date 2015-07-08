@@ -10,6 +10,7 @@
 </head>
 <body>
 <div class="wrap">
+<%= render "layouts/nav" %>
 <% if notice %>
   <p class="alert alert-success"><%= notice %></p>
 <% end %>
@@ -17,7 +18,7 @@
   <p class="alert alert-danger"><%= alert %></p>
 <% end %>
 
-<%= render "layouts/nav" %>
+
 
 <div class="container">
 <%= yield %>
