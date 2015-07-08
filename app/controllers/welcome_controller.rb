@@ -9,6 +9,7 @@ class WelcomeController < ApplicationController
 			if current_client.profile==nil
 				redirect_to new_profile_path
 			else
+				redirect_to account_path
 			end
 		end
 	end

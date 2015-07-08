@@ -12,7 +12,7 @@ module AccountsHelper
 			if Client.find(transaction.vendor_id).profile.class.name == "Cprofile"
 				p2psum += transaction.amount
 			end
-			 sum+=transaction.amount
+			sum+=transaction.amount
 			if prefixSum.length>0
 				prefixSum[counter] = (prefixSum[counter-1]+transaction.amount)
 			else
@@ -23,7 +23,7 @@ module AccountsHelper
 		Profile.categories.each do |key, value|
 			# catTrans = []
 			# transactions.each do |trans|
-				
+
 			# 	if Client.find(trans.vendor_id).profile.category == key	
 			# 		catTrans<<trans			
 			# 	end
@@ -34,8 +34,8 @@ module AccountsHelper
 			catTrans.each do |trans|
 				subSum+= trans.amount
 			end
-		    percentagehash[key] = subSum
-		    
+			percentagehash[key] = subSum
+
 		end
 		
 
@@ -43,8 +43,32 @@ module AccountsHelper
 			percentagehash[key] = (value/(sum-p2psum)*100).round(2)
 		end
 		percentagehash["Transfers"] = p2psum/(sum)*100.round(2)
-		[percentagehash, prefixSum, transactions]
 
+
+		#ages = { "Bruce" => 32, "Clark" => 28 }
+		#mappings = {"Bruce" => "Bruce Wayne", "Clark" => "Clark Kent"1
+		mappings ={}
+		cnt = 1
+		prefixSum.each do 
+			mappings[cnt] =  "Transaction "+cnt.to_s
+			cnt+=1
+		end
+		prefixSum.keys.each { |k| prefixSum[ mappings[k] ] = prefixSum.delete(k) if mappings[k] }
+
+		transactions = transactions.group_by_day(:created_at).count
+		
+		mappings ={}
+		oldkeys = transactions.keys
+		cnt = 0
+		transactions.each do 
+			mappings[oldkeys[cnt]] =  oldkeys[cnt].to_s[0...10]
+			cnt+=1
+		end
+		transactions.keys.each { |k| transactions[ mappings[k] ] = transactions.delete(k) if mappings[k] }
+
+		binding.pry
+		[percentagehash, prefixSum,transactions]
+		
 	end
 
 

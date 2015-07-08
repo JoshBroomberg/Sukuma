@@ -13,11 +13,22 @@ Rails.application.routes.draw do
   get "/transactions" => "transactions#index", as: :transactions
   get "/transactions/new" => "transactions#new", as: :new_transaction
   post "/transactions/create" => "transactions#create", as: :create_transaction
+  get  "/editinfo" => "accounts#edit", as: :edit_all
+
 
 
   #get "/choice" => "profiles#choice", as: :choice
 
   #get "newprofile/:type" => "profiles#new", as: :newprofile
+  put "/profiles" => "profiles#update"
+  patch "/profiles" => "profiles#update"
+
+
+  put "/updatenumber" => "profiles#updatenum", as: :edit_number
+  patch "/updatenumber" => "profiles#updatenum"
+
+   put "/updateaccount" => "accounts#update", as: :edit_account
+  patch "/updateaccount" => "accounts#update"
 
   resources :profiles
 

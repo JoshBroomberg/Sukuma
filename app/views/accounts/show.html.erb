@@ -1,6 +1,9 @@
 <strong>AccountId: </strong> <%= @account.account_id %><br>
 <strong>Balance: R</strong> <%= @account.balance %><br><br>
 
+<%= link_to "view your transactions", transactions_path %><br>
+<%= link_to "pay someone", new_transaction_path %><br>
+<%= link_to "edit your info", edit_all_path %>
 
 <% spendData[0].each do |key, value| %>
 <% key %> <%value %>
@@ -12,13 +15,14 @@
 <br>
 
 Cumulative spending for the month 
-<%= line_chart(spendData[1])%>
+<%= line_chart(spendData[1], {discrete: true})%>
+
 
 Transactions by day:
-<%= line_chart(spendData[2].group_by_day(:created_at).count)%>
+<%= column_chart(spendData[2], {discrete: true})%>
+
 <br>
-<%= link_to "view your transactions", transactions_path %><br>
-<%= link_to "pay someone", new_transaction_path %>
+
 
 
 

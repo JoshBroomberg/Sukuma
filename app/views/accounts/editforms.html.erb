@@ -1,0 +1,23 @@
+<h1>edit you info</h1>
+
+<h3>Your user info</h3><br>
+
+<%= simple_form_for current_client, url: edit_number_path do |f|%>
+<%= f.input :number %>
+<%= f.button :submit %>
+<% end %>
+
+<h3>Your profile info</h3><br>
+<% if current_client.profile.class.name == "Vprofile" %>
+<%= render "profiles/vform" %>
+<% else %>
+<%= render "profiles/cform" %>
+<% end %>
+
+<h3>Your account info</h3><br>
+
+<%= simple_form_for current_client.account, url: edit_account_path do |f|%>
+<%= f.input :pin %>
+<%= f.button :submit %>
+<% end %>
+
