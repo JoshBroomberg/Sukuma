@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href=<%= account_path %>>Your Account</a>
+            <a class="navbar-brand" href=<%= account_path %>>Your Finances</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -19,9 +19,9 @@
                  <div class="btn-group">
                  <a class="btn btn-warning btn-xs small dropdown-toggle" data-toggle="dropdown" href="">
                  <% if current_client.profile!=nil  %>
-                 <%= current_client.profile.name %>
+                 Account - <%= current_client.profile.name %>
                  <% else %>
-                 User
+                 Account
                  <% end %> 
 
                  <span class="caret"></span></a>
@@ -41,11 +41,11 @@
                 </div>
 
                 <li>
-                    <a href=<%= new_transaction_path %>>Pay someone</a>
+                    <a href=<%= new_transaction_path %> class="colour">Pay someone</a>
                 </li>
                 
                 <li>
-                    <a href=<%= transactions_path %>>Transactions</a>
+                    <a href=<%= transactions_path %> class="colour">Transactions</a>
                 </li>
                 
 
