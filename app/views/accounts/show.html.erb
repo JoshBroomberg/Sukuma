@@ -18,7 +18,7 @@
 			</h3>
 			</div>
 			<div id="left">
-			<% @transactions = Transaction.where(customer_id: current_client.id) %>
+			<% @transactions = Transaction.where(customer_id: current_client.id).reverse %>
 			<%= render @transactions %>
 			</div>
 		</div>
