@@ -1,6 +1,7 @@
 class WelcomeController < ApplicationController
 	def index
 		profileChecker
+		
 	end
 
 	def profileChecker
@@ -11,6 +12,9 @@ class WelcomeController < ApplicationController
 			else
 				redirect_to account_path
 			end
+		else
+			render layout: "home"
+
 		end
 	end
 end
