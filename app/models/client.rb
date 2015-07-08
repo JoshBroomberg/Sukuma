@@ -2,13 +2,42 @@ class Client < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   
+  
+  class NumberValidatorStart < ActiveModel::Validator
+  def validate(record)
+      if record.number.starts_with? "+27"
+      else
+      record.errors.add(:number, "Number must start with '+27'")
+      end
+  end
+  end
+
+  class NumberValidatorSpaces < ActiveModel::Validator
+  def validate(record)
+  	if record.number.index(" ")!=nil
+    	record.errors.add(:number, "Number cannot contain spaces")
+    end
+  end
+  end
+
+  
+
+  include ActiveModel::Validations
   validates :number, length: { is: 12 }, uniqueness: true
+  validates_with NumberValidatorStart, NumberValidatorSpaces
   validates :email, uniqueness: false
   #validates :bio, length: { maximum: 500 }
 
 
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable
+  
+
+
+
+  
+
+
   attr_accessor :login
 
   def self.find_for_database_authentication(warden_conditions)

@@ -66,7 +66,7 @@ module AccountsHelper
 		end
 		transactions.keys.each { |k| transactions[ mappings[k] ] = transactions.delete(k) if mappings[k] }
 
-		binding.pry
+		#binding.pry
 		[percentagehash, prefixSum,transactions]
 		
 	end
