@@ -54,9 +54,14 @@ module AccountsHelper
 			cnt+=1
 		end
 		prefixSum.keys.each { |k| prefixSum[ mappings[k] ] = prefixSum.delete(k) if mappings[k] }
+		prefixSum2 = {}
+		prefixSum.each do |key, value|
+			prefixSum2[key] = current_client.account.balance
+		end
+
+
 
 		transactions = transactions.group_by_day(:created_at).count
-		
 		mappings ={}
 		oldkeys = transactions.keys
 		cnt = 0
@@ -67,7 +72,7 @@ module AccountsHelper
 		transactions.keys.each { |k| transactions[ mappings[k] ] = transactions.delete(k) if mappings[k] }
 
 		#binding.pry
-		[percentagehash, prefixSum,transactions]
+		[percentagehash, prefixSum, prefixSum2,transactions]
 		
 	end
 
