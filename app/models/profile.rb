@@ -1,5 +1,4 @@
 class Profile < ActiveRecord::Base
   belongs_to :client
-
-  enum category: [:food, :alcohol, :clothes, :leisure, :travel, :medicine]
+  enum category: [:Food, :Alcohol, :Clothes, :Leisure, :Travel, :Medicine]
 end

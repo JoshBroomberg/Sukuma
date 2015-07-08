@@ -1,9 +1,9 @@
 <%client =  Client.find(transaction.vendor_id) %>
+<strong>You paid: <%= client.profile.name %></strong><br>
 <% if client.profile.class.name == "Vprofile" %>
-<strong>Vendor: <%= client.profile.businessname %></strong><br>
-Type of vendor: <%= client.profile.category %><br>
+Payment type: <%= client.profile.category %><br>
 <% else %>
-<strong>Peer: <%= client.profile.firstname %></strong><br>
+Payment type: Transfer<br>
 <% end %>
 Amount: <%= transaction.amount %>
 <br>
