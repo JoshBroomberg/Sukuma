@@ -3,7 +3,7 @@
 <head>
   <title>PayApp</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  
   <%= csrf_meta_tags %>
   <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
 </head>
@@ -16,22 +16,13 @@
   <p class="alert alert-danger"><%= alert %></p>
 <% end %>
 
-<p>
-<% if client_signed_in? %>
-	<% if current_client.profile != nil %>
-  Logged in as <strong><%= current_client.profile.name %> (<%= current_client.number %>)</strong>.
-  <% end %>
-  <%= link_to 'Change password', edit_client_registration_path, :class => 'navbar-link' %> |
-  <%= link_to "Logout", destroy_client_session_path, method: :delete, :class => 'navbar-link'  %>
-   
-<% else %>
-  <%= link_to "Sign up", new_client_registration_path, :class => 'navbar-link'  %> |
-  <%= link_to "Login", new_client_session_path, :class => 'navbar-link'  %>
-<% end %>
-</p>
+<%= render "layouts/nav" %>
 
-
+<div class="container">
 <%= yield %>
+</div>
+
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
 </body>
 </html>

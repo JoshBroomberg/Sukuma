@@ -1,0 +1,53 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href=<%= account_path %>>Your Account</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                
+                 <% if client_signed_in? %>
+                 <li>
+                    <a href=<%= new_transaction_path %>>Pay someone</a>
+                </li>
+                <li>
+                    <a href=<%= edit_all_path %>>Edit info</a>
+                </li>
+                <li>
+                    <a href=<%= transactions_path %>>Transactions</a>
+                </li>
+                <li>
+                    <a href=<%= edit_client_registration_path %>>Change password</a>
+                </li>
+                <li>
+                    <a href=<%= destroy_client_session_path %> data-method='delete'>Log out</a>
+                </li>
+                <% else %>
+                <li>
+                    <a href=<%= new_client_registration_path %>>Sign up</a>
+                </li>
+                <li>
+                    <a href=<%= new_client_session_path %>>Login</a>
+                </li>
+                <% end %>
+
+                
+            
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+
