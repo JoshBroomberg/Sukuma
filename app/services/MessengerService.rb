@@ -1,9 +1,6 @@
 class MessengerService
 
-	def saveMessage(kind, body, senderNumber, name)
-		user = Client.find_by(number: senderNumber)
-		puts "id"+user.id.to_s
-
+	def processMessage(kind, body, sender)
 		closed = false
 		if kind != :confirm
 			if body.index(" ") != nil
@@ -12,40 +9,41 @@ class MessengerService
 					parts[0] = parts[0].downcase
 					parts[1] = parts[1].gsub(",", ".")
 					if isNumeric parts[1] #validate >0
-						message = user.messages.build(account_id: parts[0], amount: parts[1], kind: kind)
+						message = sender.messages.build(account_id: parts[0], amount: parts[1], kind: kind)
 						if message.save
 							clientAcc = Account.find_by(account_id: parts[0])
 							client = clientAcc.client
-							if client.profile.class.name == "Vprofile" 
-								clientname = client.profile.businessname
-							else
-								clientname = client.profile.firstname
-							end
+
+							# if client.profile.class.name == "Vprofile" 
+							# 	clientname = client.profile.businessname
+							# else
+							# 	clientname = client.profile.firstname
+							# end
 							#clientname = client.profile.firstname
 							#number = "+27836538932" #client.number #should go where 083 is
 							
 							
 							#create a transaction
 							ts = TransactionService.new() 
-							ts.processTransaction(client, user, message.amount, kind)
+							ts.processTransaction(client, sender, message.amount, kind)
 
 						end
 					else
-						sendMessage("Please ensure the amount you entered is a digit and is greater than 0", senderNumber, name)
+						sendMessage("Please ensure the amount you entered is a digit and is greater than 0", sender)
 					end
 
 
 
 				else
-					sendMessage("AccID must be 4 characters", senderNumber, name)
+					sendMessage("AccID must be 4 characters", sender)
 				end
 			else
-				sendMessage("Please separate AccID and amount with a space", senderNumber, name)
+				sendMessage("Please separate AccID and amount with a space", sender)
 			end
 
 		else
 			ts = TransactionService.new() 
-			ts.processConfirm(senderNumber, body, kind)
+			ts.processConfirm(sender, body, kind)
 		end
 	end
 
@@ -53,7 +51,9 @@ class MessengerService
 		Float(number) != nil rescue false
 	end
 
-	def sendMessage(body, number, name)
+	def sendMessage(body, recipient)
+		number = recipient.number
+		name = recipient.profile.name
 		account_sid = "ACabc2a633d8052c4b8805de4b678f4166"
 		auth_token = "255b0b0cd465bbd6d0e3b3a32cd1ad4e"
 		client = Twilio::REST::Client.new account_sid, auth_token
