@@ -53,7 +53,10 @@ class MessengerService
 
 	def sendMessage(body, recipient)
 		number = recipient.number
-		name = recipient.profile.name
+		
+		if recipient.profile != nil
+			name = recipient.profile.name
+		end
 		account_sid = "ACabc2a633d8052c4b8805de4b678f4166"
 		auth_token = "255b0b0cd465bbd6d0e3b3a32cd1ad4e"
 		client = Twilio::REST::Client.new account_sid, auth_token

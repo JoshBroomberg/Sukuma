@@ -4,13 +4,21 @@ class Devisecontrollers::RegistrationsController < Devise::RegistrationsControll
 
   protected
   def after_sign_up_path_for(resource)
-    initAcc
+    acc = initAcc
+    greet acc
     new_profile_path # Or :prefix_to_your_route
   end
 
   def initAcc 
       acc= current_client.build_account(balance: 0.0, account_id: accGen, pin: pinGen)
       acc.save
+      acc
+  end
+
+  def greet acc
+    require "MessengerService"
+    ms = MessengerService.new()
+    ms.sendMessage("welcome to SUKUMA. In a few simple steps you will be ready to transact via sms. \n\nFirstly, please complete your profile on our website. This is critical so that we can get to know you.\n\nSecondly, please take note of your AccountID which is #{acc.account_id}. You will use this ID to make purchases at stores. \n\nLastly,save the number +16123613027 to your phone. You will confirm all transactions with this number. We know you will love our product.\n\nThe SUKUMA team.", current_client)
   end
 
   def accGen

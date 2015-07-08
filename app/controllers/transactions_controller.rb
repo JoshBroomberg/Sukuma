@@ -11,7 +11,7 @@ class TransactionsController < ApplicationController
 	def create
 		require "TransactionService"
 		ts = TransactionService.new()
-		vendorAcc = Account.find_by(account_id: params[:accID])
+		vendorAcc = Account.find_by(account_id: trans_params[:accID])
 		vendor = vendorAcc.client
 		ts.processTransaction(current_client, vendor, trans_params[:amount], :purchaseInit)
 		redirect_to account_path

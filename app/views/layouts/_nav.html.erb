@@ -17,7 +17,15 @@
 
                  <% if client_signed_in? %>
                  <div class="btn-group">
-                 <a class="btn btn-warning btn-xs small dropdown-toggle" data-toggle="dropdown" href=""><%= current_client.profile.name %> <span class="caret"></span></a>
+                 <a class="btn btn-warning btn-xs small dropdown-toggle" data-toggle="dropdown" href="">
+                 <% if current_client.profile!=nil  %>
+                 <%= current_client.profile.name %>
+                 <% else %>
+                 User
+
+                 <% end %> 
+
+                 <span class="caret"></span></a>
                  <ul class="dropdown-menu">
                     <li>
                         <a href=<%= edit_client_registration_path %>>Change password</a>
