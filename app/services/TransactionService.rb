@@ -42,76 +42,73 @@ class TransactionService
 	end
 
 	def processConfirm sender, body, kind
-		#user = Client.find_by(number: senderNumber)
-		name = sender.profile.name
-		ms = MessengerService.new()
+	#user = Client.find_by(number: senderNumber)
 		
-			useraccount = sender.account
-			transaction  = Transaction.find_by(customer_id: sender.id, state: 1)
-			if Transaction.where(customer_id: sender.id, state: 1).count > 0
-				vendor = Client.find(transaction.vendor_id)
-				vendoraccount = vendor.account
-				
-				if body.length == 1
-					if body.index("y") != nil || body.index("n") !=nil
+		ms = MessengerService.new()
+		name = sender.profile.name
+		useraccount = sender.account
+		transaction  = Transaction.find_by(customer_id: sender.id, state: 1)
 
-						confirm = nil
-						if body=="y"
-							confirm = true
-						else
-							confirm = false
-						end
-						message = sender.messages.build(kind: kind, confirm: confirm)
-						if message.save
-							if confirm
-								
-								#update account
-								ubalance = useraccount.balance
-								
-								vbalance = vendoraccount.balance
-								if transaction.kind == "purchase"
-									
-									ubalance = ubalance-transaction.amount
-									
-									vbalance = vbalance+transaction.amount
-									
-								elsif transaction.kind == "deposit"
-									
-									ubalance = ubalance+transaction.amount
-									
-									vbalance = vbalance-transaction.amount
-								end
-								
-								#useraccount.balance = ubalance
-								
-								if useraccount.update(balance: ubalance) && vendoraccount.update(balance: vbalance)
-									transaction.update(state: :success)
-									ms.sendMessage("You have confirmed the requested action, your current balance is R#{ubalance}", sender)
-									#send confirm message to vendor here
-									#sendMessage("You have confirmed the requested action, your current balance is #{balance}", senderNumber, name)
-								end
-								
+		
 
-							else
-								transaction.update(state: :reject)
-								ms.sendMessage("You have rejected the requested action", sender)
-								#send reject message to vendor here
+		if body.length == 1
+			if body.index("y") != nil || body.index("n") !=nil
+				if Transaction.where(customer_id: sender.id, state: 1).count > 0
+					vendor = Client.find(transaction.vendor_id)
+					vendoraccount = vendor.account
+
+					confirm = nil
+					if body=="y"
+						confirm = true
+					elsif body=="n"
+						confirm = false
+					end
+					message = sender.messages.build(kind: kind, confirm: confirm)
+					if message.save
+						if confirm
+
+							#update account
+							ubalance = useraccount.balance
+							vbalance = vendoraccount.balance
+							if transaction.kind == "purchase"
+								ubalance = ubalance-transaction.amount
+								vbalance = vbalance+transaction.amount
+							elsif transaction.kind == "deposit"
+								ubalance = ubalance+transaction.amount
+								vbalance = vbalance-transaction.amount
+							end
+							if useraccount.update(balance: ubalance) && vendoraccount.update(balance: vbalance)
+								transaction.update(state: :success)
+								ms.sendMessage("You have confirmed the requested action, your current balance is R#{ubalance}", sender)
+								#send confirm message to vendor here
 								#sendMessage("You have confirmed the requested action, your current balance is #{balance}", senderNumber, name)
 							end
-						end
 
-					else
-						if body.index("b") != nil
-							ms.sendMessage("Your balance is R#{sender.account.balance}", sender)
-					    else
-						ms.sendMessage("Your message must be either 'y', 'n', or 'b'", sender)
+
+						else
+							transaction.update(state: :reject)
+							ms.sendMessage("You have rejected the requested action", sender)
+							#send reject message to vendor here
+							#sendMessage("You have confirmed the requested action, your current balance is #{balance}", senderNumber, name)
 						end
 					end
+
 				else
-					ms.sendMessage("Your message must be 1 letter long", sender)
+					ms.sendMessage("You have no transactions to confirm", sender)
 				end
+					
 			else
-				ms.sendMessage("You have no transactions to confirm", sender)
+				if body.index("b") != nil
+					ms.sendMessage("Your balance is R#{sender.account.balance}", sender)
+				else
+					ms.sendMessage("Your message must be either 'y', 'n', or 'b'", sender)
+				end
 			end
+				
+		else
+			ms.sendMessage("Your message must be 1 letter long", sender)
+		end
+		
+
 	end
 end
