@@ -1,15 +1,15 @@
 <div class="center">
 <h1>Pay someone</h1>
 
-<%= simple_form_for @transaction, url: create_transaction_path, html: {class: "col-md-6 center"} do |f| %>
+<%= simple_form_for @transaction, url: create_transaction_path, html: {class: "col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 col-sm-6 col-sm-offset-3 center"} do |f| %>
 
 <%= f.error_notification %>
 
-<%= f.input :accID%>
+<%= f.input :accID, label: "Account ID"%>
 <%= f.input :amount%>
-<%= f.button :submit, "Submit"%>
-
+<%= f.button :submit, "Submit"%><br><br>
+<%= link_to "back", account_path %>
 <% end %>
 
-<%= link_to "back", account_path %>
+
 </div>

@@ -5,7 +5,7 @@ class Client < ActiveRecord::Base
   
   class NumberValidatorStart < ActiveModel::Validator
   def validate(record)
-      if record.number.starts_with? "+27"
+      if (record.number.starts_with? "+27")||(record.number.starts_with?("+1"))
       else
       record.errors.add(:number, "Number must start with '+27'")
       end
