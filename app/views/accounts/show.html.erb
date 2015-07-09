@@ -4,118 +4,141 @@
 	}
 	div.wrap {height:100%; overflow:hidden;}
 	.buffer{
-		height: 45vh;
+		height: 55vh;
 		overflow: auto;
 	}
 	.buffer2{
-		height: 55vh;
+		height: 65vh;
 		overflow: auto;
 	}
 </style>
 
 
 
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12">
+		<h2 class="page-header center" >Hi <%= current_client.profile.name %>, here are your finances:</h2>
+
+	</div>
+
+	<hr>
 	<div class="row">
-		<div class="col-lg-12">
-			<h2 class="page-header center" >Hi <%= current_client.profile.name %>, here are your finances:</h2>
-			<h4 class = "center"><strong>AccountId: </strong> <%= @account.account_id.upcase %><br>
-				<strong>Balance: R</strong> <%= @account.balance %></h4>       
-			</div>
-		</div>
-
-		<hr>
-		<div class="row">
 
 
 
 
-			<div class="col-md-3 col-sm-3 col-xs-3  portfolio-item" >
-				<div id = "transactions">
-					<div class="center">
-											<h3>
-							<!-- <a href=<%= transactions_path%> >Transaction feed:</a> -->
-							<span style="color: orange"><u><b>Transaction feed:</b></u></span>
+		<div class=" col-lg-2 col-md-2 col-sm-2 col-xs-2  portfolio-item" >
+			<div id = "transactions">
+				<div class="center">
+					<h3>
+						<!-- <a href=<%= transactions_path%> >Transaction feed:</a> -->
+						<span style="color: orange"><u><b>Transaction feed:</b></u></span>
 
-						</h3>
-						<i>(Scroll for more)</i><hr>
-					</div>
-					<div class = "buffer">
+					</h3>
+					<i>(Scroll for more)</i><hr>
+				</div>
+				<div class = "buffer">
 					<div id="left">
 						<%= render @transactions %>
 					</div>
-					</div>
 				</div>
+			</div>
 
 
-				<div id = "tips">
-					<div class="center">
-						<h3>
-							<!-- <a href=<%= transactions_path%> >Tip feed: (path!)</a> -->
-							<span style="color: orange"><u><b>Tip feed:</b></u></span>
+			<div id = "tips">
+				<div class="center">
+					<h3>
+						<!-- <a href=<%= transactions_path%> >Tip feed: (path!)</a> -->
+						<span style="color: orange"><u><b>Tip feed:</b></u></span>
 
 
-						</h3>
-						<i>(Scroll for more)</i>
-						<hr>
-					</div>
-					<div class = "buffer">
+					</h3>
+					<i>(Scroll for more)</i>
+					<hr>
+				</div>
+				<div class = "buffer">
 					<div id="left">
 						<%= render @tips %>
 					</div>
-					</div>
 				</div>
-
-
-
 			</div>
-			<div class="col-md-9 col-sm-9 col-xs-9 portfolio-item">
+
+
+
+		</div>
+		<div class=" col-lg-8 col-md-8 col-sm-8 col-xs-8 portfolio-item">
 		<!-- <h1 class="page-header center" >Your Finances:</h1>
 		<h4 class = "center"><strong>AccountId: </strong> <%= @account.account_id.upcase %><br>
-			<strong>Balance: R</strong> <%= @account.balance %></h4>  -->      
+			<strong>Balance: R</strong> <%= @account.balance %></h4>  -->  
+
 			<ul class="nav nav-tabs">
 				<li class="active"><a data-toggle="tab" href="#sectionA"><span style="color: orange"><b>Account analysis</b></span></a></li>
 				<li><a data-toggle="tab" href="#sectionB"><span style="color: orange"><b>Future insights</b></span></a></li>
 			</ul>
 			<div class = "buffer2">
-			<div  id="right">
-				<div class="tab-content">
-					<div id="sectionA" class="tab-pane fade in active">
-						<br><br>
-						<strong>Spending by category:</strong>
-						<br>
-						<%= pie_chart(spendData[0]) %>
-						<br>
-						<hr>
-						<strong>Cumulative income vs spending - 30 days:</strong>
-						<%= line_chart [{name: "Spending", data: spendData[1]}, {name: "Income", data: spendData[2]}], {discrete: true}%>
-						<hr>
+				<div  id="right">
+					<div class="tab-content">
+						<div id="sectionA" class="tab-pane fade in active">
+							<br><br>
+							<strong>Spending by category:</strong>
+							<br>
+							<%= pie_chart(spendData[0]) %>
+							<br>
+							<hr>
+							<strong>Cumulative income vs spending - 30 days:</strong>
+							<%= line_chart [{name: "Spending", data: spendData[1]}, {name: "Income", data: spendData[2]}], {discrete: true}%>
+							<hr>
 
-						<strong>Spending vs Income - by day:</strong>
-						<%= column_chart [{name: "spending", data: spendData[3]}, {name: "income", data: spendData[4]}], {stacked: true, discrete: true}%>
-						<br>
-					</div>
-					<div id="sectionB" class="tab-pane fade">
-						<br>
-						<h3>Saving insights</h3>
-						<strong>Budget allocation - Yours vs Suggested:</strong>
-						<% spdata = spendData[0]  %>
-						<% spdata.delete("Transfers") %>
-						<%= column_chart [{name: "Actual%", data: spdata}, {name: "Suggested%", data: spendData[5]}],  {discrete: true}%>
+							<strong>Spending vs Income - by day:</strong>
+							<%= column_chart [{name: "spending", data: spendData[3]}, {name: "income", data: spendData[4]}], {stacked: true, discrete: true}%>
+							<br>
+						</div>
+						<div id="sectionB" class="tab-pane fade">
+							<br>
+							<h3>Saving insights</h3>
+							<strong>Budget allocation - Yours vs Suggested:</strong>
+							<% spdata = spendData[0]  %>
+							<% spdata.delete("Transfers") %>
+							<%= column_chart [{name: "Actual%", data: spdata}, {name: "Suggested%", data: spendData[5]}],  {discrete: true}%>
+							<%= line_chart [{name: "Predicted balance", data: spendData[6]}, {name: "Zero", data: spendData[7]}], {discrete: true}%>
+						</div>
 					</div>
 				</div>
 			</div>
-			</div>
 			
 		</div>
-</div>
+		<div class=" col-lg-2 col-md-2 col-sm-2 col-xs-2 portfolio-item">
+			<div class="panel-group">
+				<br><br>
+				<div class="panel panel-warning">
+					<div class="panel-heading">
+						<h3 class="panel-title">AccountID:</h3>
+					</div>
+					<div class="panel-body"><%= @account.account_id.upcase %></div>
+				</div>
+				<div class="panel panel-warning">
+					<div class="panel-heading">
+						<h3 class="panel-title">Balance</h3>
+					</div>
+					<div class="panel-body"><%= @account.balance %></div>
+				</div>
+
+			</div>
+
+
+		</div>
 
 
 
-<script> 
-	$(document).ready(function() {
-		$('#tips').hide();
-	});
-	$(document).on( 'shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+	</div>
+
+
+
+	<script> 
+		$(document).ready(function() {
+			$('#tips').hide();
+		});
+		$(document).on( 'shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
    //alert("test");
    //$(window).trigger('resize'); // activated tab
    
