@@ -15,9 +15,6 @@
  *= require_self
  */
 
-body{
-	background-color: rgba(239,155,0,0.1);
-}
 
 .btn-warning {
     background: orange;
