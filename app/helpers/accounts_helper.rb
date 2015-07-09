@@ -162,7 +162,7 @@ module AccountsHelper
 
 		
 
-		idealPercents = {"Food" => 15,  "Transportation"=> 20,"Clothing"=> 10, "Housing"=> 25, "Medical"=> 5,"Recreation"=> 20, "Other"=> 5}
+		idealPercents = {"Food" => 15,  "Transport"=> 20,"Clothing"=> 10, "Housing"=> 25, "Medical"=> 5,"Recreation"=> 20, "Other"=> 5}
 
 		[percentagehash, prefixSum, prefixSumD, transactionsHash, depositsHash, idealPercents, predictedBalance, zeroHash]
 		
