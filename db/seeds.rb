@@ -79,27 +79,27 @@ TipCategory.delete_all
     essentialsVsExtras =TipCategory.create!(name: "EssentialsVsExtras", description: "EssentialsVsExtras desc" )
     smart =TipCategory.create!(name: "S.M.A.R.T", description: "S.M.A.R.T desc" )
 
-    budgeting.tips.build(body: " tip 1").save
-    budgeting.tips.build(body: " tip 2").save
-    budgeting.tips.build(body: " tip 3").save
+    budgeting.tips.build(summary: "summary", body: " tip 1").save
+    budgeting.tips.build(summary: "summary",body: " tip 2").save
+    budgeting.tips.build(summary: "summary",body: " tip 3").save
 
-    shortfalls.tips.build(body: " tip 1").save
-    shortfalls.tips.build(body: " tip 2").save
-    shortfalls.tips.build(body: " tip 3").save
+    shortfalls.tips.build(summary: "summary",body: " tip 1").save
+    shortfalls.tips.build(summary: "summary",body: " tip 2").save
+    shortfalls.tips.build(summary: "summary",body: " tip 3").save
 
-    debts.tips.build(body: " tip 1").save
-    debts.tips.build(body: " tip 2").save
-    debts.tips.build(body: " tip 3").save
+    debts.tips.build(summary: "summary",body: " tip 1").save
+    debts.tips.build(summary: "summary",body: " tip 2").save
+    debts.tips.build(summary: "summary",body: " tip 3").save
 
-    savings.tips.build(body: " tip 1").save
-    savings.tips.build(body: " tip 2").save
-    savings.tips.build(body: " tip 3").save
+    savings.tips.build(summary: "summary",body: " tip 1").save
+    savings.tips.build(summary: "summary",body: " tip 2").save
+    savings.tips.build(summary: "summary",body: " tip 3").save
 
-    essentialsVsExtras.tips.build(body: " tip 1").save
-    essentialsVsExtras.tips.build(body: " tip 2").save
-    essentialsVsExtras.tips.build(body: " tip 3").save
+    essentialsVsExtras.tips.build(summary: "summary",body: " tip 1").save
+    essentialsVsExtras.tips.build(summary: "summary",body: " tip 2").save
+    essentialsVsExtras.tips.build(summary: "summary",body: " tip 3").save
 
-    smart.tips.build(body: " tip 1").save
-    smart.tips.build(body: " tip 2").save
-    smart.tips.build(body: " tip 3").save
+    smart.tips.build(summary: "summary",body: " tip 1").save
+    smart.tips.build(summary: "summary",body: " tip 2").save
+    smart.tips.build(summary: "summary",body: " tip 3").save
 

@@ -16,15 +16,20 @@
  */
 
 .btn-warning {
-    background: #F5D04C;
-    border-color: #F5D04C;
-    color: black;
+    background: orange;
+    border-color: orange; 
+    color: white;
 }
 
 
 
 .center{
 	text-align: center;
+}
+
+.box{
+	border: 5px;
+	border-color: black;
 }
 
 #left {
@@ -47,5 +52,4 @@
 		text-align: center;
 	}
 
-	body, html {height:100%;}
-	div.wrap {height:100%; overflow:hidden;}
+	

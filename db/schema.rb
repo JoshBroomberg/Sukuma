@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20150709090327) do
 
   create_table "tips", force: :cascade do |t|
     t.integer  "tip_category_id"
+    t.string   "summary"
     t.text     "body"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false

@@ -5,8 +5,11 @@ class AccountsController < ApplicationController
 		@transactions = Transaction.where(customer_id: current_client.id).reverse
 		@tipCategories = TipCategory.all
 		@tips = []
+		
 		@tipCategories.each do |category|
-			@tips << category.tips.sample
+			tipsSample = category.tips.sample(2)
+			@tips << tipsSample[0]
+			@tips << tipsSample[1]
 		end
 		#binding.pry
 	end
