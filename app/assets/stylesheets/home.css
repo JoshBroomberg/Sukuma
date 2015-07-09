@@ -14,3 +14,44 @@
  *= require home/grayscale
  *= require_self
  */
+
+    body {
+      font-family: Buda;
+    }
+
+    .font{
+    	font-family: Buda;
+    }
+    .heading2{
+    	font-family: Buda;
+      font-size: 50px;
+
+    }
+    .heading3 {
+    	font-family: Buda;
+      font-size: 30px;
+    }
+    .navbar-brand {
+    	font-family: Buda;
+    }
+    .bigit{
+      font-size: 20px;
+    }
+
+    .content-section{
+      /*height: 300px;*/
+      padding: 60px;
+    }
+    .intro-text{
+      padding: 0;
+      margin: 0;
+    }
+    .padme{
+      width: 35vw;
+      margin: 0 0 0 14vw;
+    }
+
+
+    .paragraph{
+      font-size: 24px
+ }

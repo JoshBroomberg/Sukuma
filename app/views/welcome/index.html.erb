@@ -5,8 +5,8 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">
-                    <i class="fa fa-play-circle"></i>  <span class="light"></span> SUKUMA
+                <a class="navbar-brand page-scroll bigit" href="#page-top">
+                    <i class="fa fa-play-circle"></i>  <span class="light">SUKUMA</span> 
                 </a>
             </div>
 
@@ -18,13 +18,13 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#about">About</a>
+                        <a class="page-scroll bigit font" href="#about">About</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#download">Download</a>
+                        <a class="page-scroll bigit font" href="#team">Team</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#contact">Contact</a>
+                        <a class="page-scroll bigit font" href="#contact">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -39,10 +39,19 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <h1 class="brand-heading">SUKUMA</h1>
-                        <p class="intro-text">An sms based, intellgent, payments app that helps you save.</p>
+                        <strong><b><h1 class="brand-heading font">SUKUMA</h1></b></strong>
+
+                        <div class = "padme">
+                        <span style="text-align: left;">
+                        <p class="intro-text"><span style="font-size: 40px;">v. [suˈɠuːma]</span></p>
+                        
+                        <p class="intro-text"><span style="font-size: 20px;">1. arise; stand up</span></p>
+                        <p class="intro-text"><span style="font-size: 20px;">2. an SMS based, intellgent, payments app that helps you save.</span></p><br><br>
+                        </span>
+                        </div>
                         <a href=<%= new_client_session_path %> class="btn btn-danger large">Log in</a>
                         <a href=<%= new_client_registration_path %> class="btn btn-danger large">Sign up</a>
+                        
                         
                     </div>
                 </div>
@@ -66,21 +75,26 @@
     <section id="about" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <h2>About SUKUMA</h2>
-                <p>Grayscale is a free Bootstrap 3 theme created by Start Bootstrap. It can be yours right now, simply download the template on <a href="http://startbootstrap.com/template-overviews/grayscale/">the preview page</a>. The theme is open source, and you can use it for any purpose, personal or commercial.</p>
-                <p>This theme features stock photos by <a href="http://gratisography.com/">Gratisography</a> along with a custom Google Maps skin courtesy of <a href="http://snazzymaps.com/">Snazzy Maps</a>.</p>
-                <p>Grayscale includes full HTML, CSS, and custom JavaScript files along with LESS files for easy customization.</p>
+                <h2 class = "heading2">About SUKUMA</h2>
+                <p>sukuma v. [suˈɠuːma]</p>
+                <p>arise; stand up</p>
+                <p>Sumuka is an SMS based payment platform that tracks your spending and provides you with financial tips as you go. Each time you deposit or spend money Sukuma will respond with feedback regarding how the transaction affects your personal budget. The interactive graphics and tips make understanding personal finance easy! Whether you need help budgeting or are looking to start your own business, Sukuma’s financial insights can help. Stand up and take control of your finances, freedom, and future with Sukuma. </p>
             </div>
         </div>
     </section>
 
-    <!-- Download Section -->
-    <section id="download" class="content-section text-center">
+    <!-- Team Section -->
+    <section id="team" class="content-section text-center">
         <div class="download-section">
             <div class="container">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <h2>Download Grayscale</h2>
-                    <p>You can download Grayscale for free on the preview page at Start Bootstrap.</p>
+                    <h2 class = "heading2">Meet the Sukuma team!</h2>
+                     <h3 class = "heading3">Josh Broomberg</h3>
+                    <img src="/img/sukuma_josh.jpg" class="img-circle">
+                    <p>Josh is a first year at the University of Cape Town studying Computer Science. He is passionate about avoiding the outdoors and uses Sukuma to track his spending habits!</p>
+                    <h3 class="heading3">Amanda Halacy</h3>
+                    <img src="/img/sukuma_amanda.jpg" class="img-circle">
+                    <p>Amanda is a third year at the University of Virginia studying Global Development and Social Entrepreneurship. She is passionate about education and uses Sukuma to learn about budgeting!</p>
                     <a href="http://startbootstrap.com/template-overviews/grayscale/" class="btn btn-default btn-lg">Visit Download Page</a>
                 </div>
             </div>
@@ -91,9 +105,9 @@
     <section id="contact" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <h2>Contact Start Bootstrap</h2>
-                <p>Feel free to email us to provide some feedback on our templates, give us suggestions for new templates and themes, or to just say hello!</p>
-                <p><a href="mailto:feedback@startbootstrap.com">feedback@startbootstrap.com</a>
+                <h2>Contact Sukuma</h2>
+                <p>Feel free to email us with questions, suggestions, or just to say hello!</p>
+                <p><a href="mailto:hello@sukuma.com">hello@sukuma.com</a>
                 </p>
                 <ul class="list-inline banner-social-buttons">
                     <li>
@@ -111,7 +125,6 @@
     </section>
 
     <!-- Map Section -->
-    <div id="map"></div>
 
     <!-- Footer -->
     <footer>
