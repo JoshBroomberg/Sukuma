@@ -54,7 +54,7 @@ module AccountsHelper
 		(0..30).each do |day|
 			balance = balance-average+averageD
 			predictedBalance[day] = balance
-			zeroHash["Day "+day.to_s] = 0
+			zeroHash[day.to_s] = 0
 		end
 
 		Profile.categories.each do |key, value|
@@ -109,11 +109,12 @@ module AccountsHelper
 		mappings ={}
 		cnt = 0
 		predictedBalance.each do 
-			mappings[cnt] =  "Day "+cnt.to_s
+			mappings[cnt] =  cnt.to_s
 			cnt+=1
 		end
 		predictedBalance.keys.each { |k| predictedBalance[ mappings[k] ] = predictedBalance.delete(k) if mappings[k] }
 		
+		if prefixSum.count>prefixSumD.count
 		val = 0.0
 		prefixSum.each do |key, value|
 			if !prefixSumD.include?(key)
@@ -121,6 +122,18 @@ module AccountsHelper
 			else
 				val = prefixSumD[key]
 			end
+		end
+		else
+			val = 0.0
+		prefixSumD.each do |key, value|
+			if !prefixSum.include?(key)
+			   prefixSum[key] = val
+			else
+				val = prefixSum[key]
+			end
+		end
+
+
 		end
 
 

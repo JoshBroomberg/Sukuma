@@ -15,12 +15,26 @@
  *= require_self
  */
 
-
+body{
+	background-color: rgba(239,155,0.1);
+}
 
 .btn-warning {
     background: orange;
     border-color: orange; 
     color: white;
+}
+
+.panel-warning {
+  color: black;
+  /*background-color: orange;*/
+  /*background: orange;*/
+  border-color: orange;
+}
+.panel-heading {
+  color: black;
+  background-color: orange;
+  background: orange;
 }
 
 .center{

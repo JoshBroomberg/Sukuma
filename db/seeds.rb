@@ -57,34 +57,60 @@ TipCategory.delete_all
     prof2 = Vprofile.create!(client: business5, businessname: "TestBusiness5 inc.", category: 5)
 
     business6 = Client.create!(password: "password", number: "+15712787762")
-    acc1 = business6.build_account(balance: 0.0, account_id: "aaae", pin: 1234).save
+    acc1 = business6.build_account(balance: 0.0, account_id: "aaaf", pin: 1234).save
     prof2 = Vprofile.create!(client: business6, businessname: "TestBusiness6 inc.", category: 6)
+
+    business7 = Client.create!(password: "password", number: "+15712187762")
+    acc1 = business7.build_account(balance: 0.0, account_id: "aaag", pin: 1234).save
+    prof2 = Vprofile.create!(client: business7, businessname: "TestBusiness7 inc.", category: 0)
 
     # business7 = Client.create!(password: "password", number: "+15718287452")
     # acc1 = business7.build_account(balance: 0.0, account_id: "aaae", pin: 1234).save
     # prof2 = Vprofile.create!(client: business7, businessname: "TestBusiness7 inc.", category: 7)
+def cat balance
+        num = rand(11)
+        if (num<3 || balance<0)
+            return :deposit
+        else
+            return :purchase
+        end
+    end
+balance = 0
+(1..100).each do
+    kind = cat(balance)
+    amount=rand(10..150)
+    Transaction.create!(customer_id: customer.id, vendor_id: business.id+rand(7), amount: amount , state: :success, kind: kind, created_at: DateTime.new(2015,rand(6..7),rand(1..15),0,0,0,+0).to_s)
+    
+    if kind == :purchase
+        balance-=amount
+    else
+        balance+=amount
+    end
+
+end
+customer.account.update(balance: balance)
+
+    
 
 
 
-
-
-    Transaction.create!(customer_id: customer.id, vendor_id: business.id, amount: 50, state: :success, kind: :purchase)
-    Transaction.create!(customer_id: customer.id, vendor_id: business.id, amount: 40, state: :success, kind: :deposit)
-	Transaction.create!(customer_id: customer.id, vendor_id: business2.id, amount: 120, state: :success, kind: :purchase)
-	Transaction.create!(customer_id: customer.id, vendor_id: business3.id, amount: 30, state: :success, kind: :purchase)
-    Transaction.create!(customer_id: customer.id, vendor_id: business5.id, amount: 20, state: :success, kind: :deposit)
-	Transaction.create!(customer_id: customer.id, vendor_id: business4.id, amount: 40, state: :success, kind: :purchase)
-    Transaction.create!(customer_id: customer.id, vendor_id: business2.id, amount: 90, state: :success, kind: :deposit)
-    Transaction.create!(customer_id: customer.id, vendor_id: business4.id, amount: 120, state: :success, kind: :deposit)
-	Transaction.create!(customer_id: customer.id, vendor_id: business5.id, amount: 60, state: :success, kind: :purchase)
-    Transaction.create!(customer_id: customer.id, vendor_id: business3.id, amount: 15, state: :success, kind: :deposit)
-	Transaction.create!(customer_id: customer.id, vendor_id: business.id, amount: 70, state: :success, kind: :purchase)
-	Transaction.create!(customer_id: customer.id, vendor_id: business2.id, amount: 190, state: :success, kind: :purchase)
-    Transaction.create!(customer_id: customer.id, vendor_id: business6.id, amount: 120, state: :success, kind: :deposit)
-    Transaction.create!(customer_id: customer.id, vendor_id: business3.id, amount: 60, state: :success, kind: :purchase)
-    Transaction.create!(customer_id: customer.id, vendor_id: business6.id, amount: 15, state: :success, kind: :deposit)
-    Transaction.create!(customer_id: customer.id, vendor_id: business.id, amount: 70, state: :success, kind: :purchase)
-    Transaction.create!(customer_id: customer.id, vendor_id: business5.id, amount: 190, state: :success, kind: :purchase)
+ #    Transaction.create!(customer_id: customer.id, vendor_id: business.id, amount: 50, state: :success, kind: :purchase)
+ #    Transaction.create!(customer_id: customer.id, vendor_id: business.id, amount: 40, state: :success, kind: :deposit)
+	# Transaction.create!(customer_id: customer.id, vendor_id: business2.id, amount: 120, state: :success, kind: :purchase)
+	# Transaction.create!(customer_id: customer.id, vendor_id: business3.id, amount: 30, state: :success, kind: :purchase)
+ #    Transaction.create!(customer_id: customer.id, vendor_id: business5.id, amount: 20, state: :success, kind: :deposit)
+	# Transaction.create!(customer_id: customer.id, vendor_id: business4.id, amount: 40, state: :success, kind: :purchase)
+ #    Transaction.create!(customer_id: customer.id, vendor_id: business2.id, amount: 90, state: :success, kind: :deposit)
+ #    Transaction.create!(customer_id: customer.id, vendor_id: business4.id, amount: 120, state: :success, kind: :deposit)
+	# Transaction.create!(customer_id: customer.id, vendor_id: business5.id, amount: 60, state: :success, kind: :purchase)
+ #    Transaction.create!(customer_id: customer.id, vendor_id: business3.id, amount: 15, state: :success, kind: :deposit)
+	# Transaction.create!(customer_id: customer.id, vendor_id: business.id, amount: 70, state: :success, kind: :purchase)
+	# Transaction.create!(customer_id: customer.id, vendor_id: business2.id, amount: 190, state: :success, kind: :purchase)
+ #    Transaction.create!(customer_id: customer.id, vendor_id: business6.id, amount: 120, state: :success, kind: :deposit)
+ #    Transaction.create!(customer_id: customer.id, vendor_id: business3.id, amount: 60, state: :success, kind: :purchase)
+ #    Transaction.create!(customer_id: customer.id, vendor_id: business6.id, amount: 15, state: :success, kind: :deposit)
+ #    Transaction.create!(customer_id: customer.id, vendor_id: business.id, amount: 70, state: :success, kind: :purchase)
+ #    Transaction.create!(customer_id: customer.id, vendor_id: business5.id, amount: 190, state: :success, kind: :purchase)
 
 
     budgeting = TipCategory.create!(name: "Budgeting", description: "It is important to make budgets for each time period between getting paid. This will keep you from incurring debt!" )

@@ -37,7 +37,7 @@
 				<% else %>
 				<strong>You were paid by: <%= client.profile.name %></strong><br>
 				<% end %>
-				Amount: R<%= transaction.amount %>
+				<strong>Amount:</strong> R<%= transaction.amount %>
 				<% end %><br>
 				<strong>Purchase initiated at:</strong> <%= transaction.created_at %>
 			</div>
