@@ -11,10 +11,10 @@ class TransactionService
 
 		body = "error..."
 		if kind == :purchaseInit
-			body = "You are about to pay #{vname} R#{amount}. Please sendMessage with y/n to confirm number (+16123613027)"
+			body = "You are about to pay #{vname} R#{amount}. Please send message with y/n to confirm number (+16123613027)"
 			kind = :purchase
 		elsif kind == :depositInit
-			body = "You are making a deposit with #{vname}, value R#{amount}. Please sendMessage with y/n to confirm number (+16123613027)"
+			body = "You are making a deposit with #{vname}, value R#{amount}. Please send message with y/n to confirm number (+16123613027)"
 			kind = :deposit
 		end
 

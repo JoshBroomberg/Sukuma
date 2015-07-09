@@ -35,10 +35,10 @@ class MessengerService
 
 
 				else
-					sendMessage("AccID must be 4 characters", sender)
+					sendMessage("Account ID must be 4 characters", sender)
 				end
 			else
-				sendMessage("Please separate AccID and amount with a space", sender)
+				sendMessage("Please separate Account ID and amount with a space", sender)
 			end
 
 		else

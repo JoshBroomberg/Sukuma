@@ -15,13 +15,13 @@
  *= require_self
  */
 
+
+
 .btn-warning {
     background: orange;
     border-color: orange; 
     color: white;
 }
-
-
 
 .center{
 	text-align: center;
@@ -60,5 +60,6 @@
 		height: 55vh;
 		overflow: auto;
 	}
+
 
 	

@@ -1,16 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>PayApp</title>
+	<title>Sukuma</title>
 	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 
 	<%= csrf_meta_tags %>
 	<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
 	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	<link href='http://fonts.googleapis.com/css?family=Buda:300' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Marvel:400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Alegreya:400,700' rel='stylesheet' type='text/css'>
 	<style type=text/css>
 		.colour {
 			color: #F5D04C;
 		}
+		body {
+	font-family: 'Alegreya';
+}
+strong {
+   font-family: 'Alegreya', sans-serif;
+   font-weight: 700; /* Be specific */
+   /* Your other headings CSS */
+}
 	</style>
 </head>
 <body>
