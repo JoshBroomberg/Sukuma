@@ -113,10 +113,18 @@ module AccountsHelper
 		end
 		deposits.keys.each { |k| deposits[ mappings[k] ] = deposits.delete(k) if mappings[k] }
 
-		#binding.pry
-		[percentagehash, prefixSum, prefixSumD,transactions, deposits]
+		binding.pry
+
+		idealPercents = {"Food" => 15,  "Transportation"=> 20,"Clothing"=> 10, "Housing"=> 25, "Medical"=> 5,"Recreation"=> 20, "Other"=> 5}
+		[percentagehash, prefixSum, prefixSumD, transactions, deposits, idealPercents]
 		
 	end
+
+	def futureData
+
+	
+
+	end	
 
 
 end

@@ -3,6 +3,12 @@ class AccountsController < ApplicationController
 	def show
 		@account = current_client.account
 		@transactions = Transaction.where(customer_id: current_client.id).reverse
+		@tipCategories = TipCategory.all
+		@tips = []
+		@tipCategories.each do |category|
+			@tips << category.tips.sample
+		end
+		#binding.pry
 	end
 
 	def edit

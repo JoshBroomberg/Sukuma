@@ -7,8 +7,8 @@
 
 <%= f.input :accID, label: "Account ID"%>
 <%= f.input :amount%>
-<%= f.button :submit, "Submit"%><br><br>
-<%= link_to "back", account_path %>
+<%= f.button :submit, "Submit", class: "btn btn-warning"%><br><br>
+<%= link_to "back", account_path, class: "btn btn-danger" %>
 <% end %>
 
 
