@@ -23,6 +23,17 @@ module AccountsHelper
 			counter+=1
 		end
 
+		totalSpend = prefixSum[prefixSum.keys.max]
+		average = totalSpend/prefixSum.count
+		
+
+
+		
+
+
+
+		#binding.pry
+
 		prefixSumD = {}
 		counterD = 1
 		deposits.each do |deposit|
@@ -32,6 +43,18 @@ module AccountsHelper
 				prefixSumD[counterD]=(deposit.amount)
 			end
 			counterD+=1
+		end
+
+		totalDeposits = prefixSumD[prefixSumD.keys.max]
+		averageD = totalDeposits/prefixSumD.count
+
+		predictedBalance = {}
+		zeroHash = {}
+		balance = current_client.account.balance
+		(0..30).each do |day|
+			balance = balance-average+averageD
+			predictedBalance[day] = balance
+			zeroHash["Day "+day.to_s] = 0
 		end
 
 		Profile.categories.each do |key, value|
@@ -81,6 +104,15 @@ module AccountsHelper
 			cnt+=1
 		end
 		prefixSumD.keys.each { |k| prefixSumD[ mappings[k] ] = prefixSumD.delete(k) if mappings[k] }
+
+		
+		mappings ={}
+		cnt = 0
+		predictedBalance.each do 
+			mappings[cnt] =  "Day "+cnt.to_s
+			cnt+=1
+		end
+		predictedBalance.keys.each { |k| predictedBalance[ mappings[k] ] = predictedBalance.delete(k) if mappings[k] }
 		
 		val = 0.0
 		prefixSum.each do |key, value|
@@ -93,30 +125,46 @@ module AccountsHelper
 
 
 
-		transactions = transactions.group_by_day(:created_at).count
-		mappings ={}
-		oldkeys = transactions.keys
-		cnt = 0
-		transactions.each do 
-			mappings[oldkeys[cnt]] =  oldkeys[cnt].to_s[0...10]
-			cnt+=1
-		end
-		transactions.keys.each { |k| transactions[ mappings[k] ] = transactions.delete(k) if mappings[k] }
+		# transactions = transactions.group_by_day(:created_at).count
 
-		deposits = deposits.group_by_day(:created_at).count
-		mappings ={}
-		oldkeys = deposits.keys
-		cnt = 0
-		deposits.each do 
-			mappings[oldkeys[cnt]] =  oldkeys[cnt].to_s[0...10]
-			cnt+=1
-		end
-		deposits.keys.each { |k| deposits[ mappings[k] ] = deposits.delete(k) if mappings[k] }
+		# mappings ={}
+		# oldkeys = transactions.keys
+		# cnt = 0
+		# transactions.each do 
+		# 	mappings[oldkeys[cnt]] =  oldkeys[cnt].to_s[0...10]
+		# 	cnt+=1
+		# end
 
-		binding.pry
+		# transactions.keys.each { |k| transactions[ mappings[k] ] = transactions.delete(k) if mappings[k] }
+
+		transactions = transactions.group("date(created_at)").select("date(created_at)", "sum(amount)")
+		transactionsHash  = {}
+        transactions.each do |transaction|
+        	transactionsHash[transaction.date] = transaction.sum
+        end
+
+        deposits = deposits.group("date(created_at)").select("date(created_at)", "sum(amount)")
+		depositsHash  = {}
+        deposits.each do |deposit|
+        	depositsHash[deposit.date] = deposit.sum
+        end
+        
+		
+		# deposits = deposits.group_by_day(:created_at).count
+		# mappings ={}
+		# oldkeys = deposits.keys
+		# cnt = 0
+		# deposits.each do 
+		# 	mappings[oldkeys[cnt]] =  oldkeys[cnt].to_s[0...10]
+		# 	cnt+=1
+		# end
+		# deposits.keys.each { |k| deposits[ mappings[k] ] = deposits.delete(k) if mappings[k] }
+
+		
 
 		idealPercents = {"Food" => 15,  "Transportation"=> 20,"Clothing"=> 10, "Housing"=> 25, "Medical"=> 5,"Recreation"=> 20, "Other"=> 5}
-		[percentagehash, prefixSum, prefixSumD, transactions, deposits, idealPercents]
+
+		[percentagehash, prefixSum, prefixSumD, transactionsHash, depositsHash, idealPercents, predictedBalance, zeroHash]
 		
 	end
 
