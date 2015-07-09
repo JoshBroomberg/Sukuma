@@ -51,6 +51,10 @@
       margin: 0 0 0 14vw;
     }
 
+    .padhard{
+      padding: 140px 0;
+    }
+
 
     .paragraph{
       font-size: 24px

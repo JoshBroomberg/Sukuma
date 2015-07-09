@@ -258,15 +258,17 @@ a:focus {
 }
 
 .content-section {
-    padding-top: 100px;
+    /*padding-top: 100px;*/
+   /* padding: 0;*/ /*here*/
 }
 
-.download-section {
+.team-section {
     width: 100%;
     padding: 50px 0;
     color: #fff;
-    background: url(../../img/downloads-bg.jpg) no-repeat center center scroll;
-    background-color: #000;
+    /*background: url(../../img/SplitShire-8098.jpg) no-repeat center center scroll;*/
+    background: url(../../img/SplitShire_IMG_2255.jpg) no-repeat center center scroll;
+    background-color: rgba(238, 157, 0, 1);
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -281,10 +283,11 @@ a:focus {
 
 @media(min-width:767px) {
     .content-section {
-        padding-top: 250px;
+        /*padding-top: 250px;*/
+        /*padding: 0;*/
     }
 
-    .download-section {
+    .team-section {
         padding: 100px 0;
     }
 
