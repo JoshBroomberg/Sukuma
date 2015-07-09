@@ -52,4 +52,13 @@
 		text-align: center;
 	}
 
+	.buffer{
+		height: 45vh;
+		overflow: auto;
+	}
+	.buffer2{
+		height: 55vh;
+		overflow: auto;
+	}
+
 	

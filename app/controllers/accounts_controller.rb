@@ -1,6 +1,7 @@
 class AccountsController < ApplicationController
 	before_action :authenticate_client!
 	def show
+	if Transaction.where(customer_id: current_client.id).count>0
 		@account = current_client.account
 		@transactions = Transaction.where(customer_id: current_client.id).reverse
 		@tipCategories = TipCategory.all
@@ -11,6 +12,9 @@ class AccountsController < ApplicationController
 			@tips << tipsSample[0]
 			@tips << tipsSample[1]
 		end
+	else
+		redirect_to no_transactions_path
+	end
 		#binding.pry
 	end
 
@@ -27,6 +31,9 @@ class AccountsController < ApplicationController
 			@profile = current_client.profile
 			render "editforms"
 		end
+	end
+
+	def welcome
 	end
 
 

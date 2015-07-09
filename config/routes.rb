@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get "/transactions/new" => "transactions#new", as: :new_transaction
   post "/transactions/create" => "transactions#create", as: :create_transaction
   get  "/editinfo" => "accounts#edit", as: :edit_all
+   get  "/accountdashboard/welcome" => "accounts#welcome", as: :no_transactions
 
 
 

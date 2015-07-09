@@ -15,6 +15,7 @@ class ProfilesController < ApplicationController
 		@profile = current_client.build_profile(paramsToSave)
 		if @profile.save
 			redirect_to account_path
+			puts "xxtt5"
 		else
 			render "new"
 		end

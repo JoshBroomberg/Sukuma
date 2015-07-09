@@ -1,14 +1,15 @@
 <h1 class = "center">Update your profile:</h1>
 
-<div class= "col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 col-sm-6 col-sm-offset-3 center" >
+<div class= "col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4 col-sm-4 col-sm-offset-4 center" >
 
-<%= simple_form_for current_client, url: edit_number_path do |f|%>
+<%= simple_form_for current_client, url: edit_number_path, html: { class: 'form-horizontal' } do |f|%>
 <h3>Your number</h3><br>
-<%= f.input :number, inline_label: 'Number: ' %>
+<%= f.input :number%>
 <%= f.button :submit %>
  | <%= link_to "back", account_path, class: "btn btn-danger" %>
 <% end %>
 
+<br>
 
 <h3>Your profile info</h3><br>
 <% @edit = true %>
@@ -19,12 +20,12 @@
 <%= render "profiles/cform" %>
 
 <% end %>
+<br>
 
 
 
-
-<%= simple_form_for current_client.account, url: edit_account_path do |f|%>
-<h3>Your account info</h3><br>
+<%= simple_form_for current_client.account, url: edit_account_path, html: { class: 'form-horizontal' } do |f|%>
+<h3>Your account info</h3>
 <%= f.input :pin %>
 <%= f.button :submit %>
  | <%= link_to "back", account_path, class: "btn btn-danger" %>
