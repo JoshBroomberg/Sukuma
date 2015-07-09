@@ -7,5 +7,7 @@
 <%= f.input :type, :as => :hidden, :input_html => { :value => "Vprofile" } %>
 
 <%= f.button :submit, "Submit"%>
-
+<% if @edit %>
+ | <%= link_to "back", account_path, class: "btn btn-danger" %>
+<% end %>
 <% end %>

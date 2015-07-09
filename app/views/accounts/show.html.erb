@@ -1,5 +1,5 @@
 <style>
-body, html {
+	body, html {
 		height:100%;
 	}
 	div.wrap {height:100%; overflow:hidden;}
@@ -18,49 +18,51 @@ body, html {
 	<hr>
 	<div class="row">
 
+	
 
-		<div class="col-md-3 col-sm-3 col-xs-3  portfolio-item" >
+
+	<div class="col-md-3 col-sm-3 col-xs-3  portfolio-item" >
 		<div id = "transactions">
-				<div class="center">
-					<h3>
-						<!-- <a href=<%= transactions_path%> >Transaction feed:</a> -->
-						<span style="color: orange"><u>Transaction feed:</u></span>
-						
-					</h3>
-					<i>(Scroll for more)</i><hr>
-				</div>
-				<div id="left">
-					<%= render @transactions %>
-				</div>
+			<div class="center">
+				<h3>
+					<!-- <a href=<%= transactions_path%> >Transaction feed:</a> -->
+					<span style="color: orange"><u><b>Transaction feed:</b></u></span>
+
+				</h3>
+				<i>(Scroll for more)</i><hr>
 			</div>
-			
-
-			<div id = "tips">
-				<div class="center">
-					<h3>
-						<!-- <a href=<%= transactions_path%> >Tip feed: (path!)</a> -->
-						<span style="color: orange"><u>Tip feed:</u></span>
-						
-
-					</h3>
-					<i>(Scroll for more)</i>
-					<hr>
-				</div>
-				<div id="left">
-					<%= render @tips %>
-				</div>
+			<div id="left">
+				<%= render @transactions %>
 			</div>
-
-
-			
 		</div>
-		<div class="col-md-9 col-sm-9 col-xs-9 portfolio-item">
+
+
+		<div id = "tips">
+			<div class="center">
+				<h3>
+					<!-- <a href=<%= transactions_path%> >Tip feed: (path!)</a> -->
+					<span style="color: orange"><u><b>Tip feed:</b></u></span>
+
+
+				</h3>
+				<i>(Scroll for more)</i>
+				<hr>
+			</div>
+			<div id="left">
+				<%= render @tips %>
+			</div>
+		</div>
+
+
+
+	</div>
+	<div class="col-md-9 col-sm-9 col-xs-9 portfolio-item">
 		<!-- <h1 class="page-header center" >Your Finances:</h1>
 		<h4 class = "center"><strong>AccountId: </strong> <%= @account.account_id.upcase %><br>
 			<strong>Balance: R</strong> <%= @account.balance %></h4>  -->      
 			<ul class="nav nav-tabs">
-				<li class="active"><a data-toggle="tab" href="#sectionA">Account analysis</a></li>
-				<li><a data-toggle="tab" href="#sectionB">Future insights</a></li>
+				<li class="active"><a data-toggle="tab" href="#sectionA"><span style="color: orange"><b>Account analysis</b></span></a></li>
+				<li><a data-toggle="tab" href="#sectionB"><span style="color: orange"><b>Future insights</b></span></a></li>
 			</ul>
 			<div  id="right">
 				<div class="tab-content">
@@ -98,8 +100,8 @@ body, html {
 
 <script> 
 	$(document).ready(function() {
-    $('#tips').hide();
-});
+		$('#tips').hide();
+	});
 	$(document).on( 'shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
    //alert("test");
    //$(window).trigger('resize'); // activated tab
@@ -107,13 +109,13 @@ body, html {
    window.dispatchEvent(new Event('resize'));
    if(e.target.href.includes("sectionB"))
    {
-    $('#tips').show();
-    $('#transactions').hide();
+   	$('#tips').show();
+   	$('#transactions').hide();
    }
    if(e.target.href.includes("sectionA"))
    {
-    $('#tips').hide();
-    $('#transactions').show();
+   	$('#tips').hide();
+   	$('#transactions').show();
    }
     //$('#vform').hide();
 

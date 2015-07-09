@@ -1,25 +1,35 @@
-<h1>edit you info</h1>
+<h1 class = "center">Update your profile:</h1>
 
-<h3>Your user info</h3><br>
+<div class= "col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 col-sm-6 col-sm-offset-3 center" >
 
 <%= simple_form_for current_client, url: edit_number_path do |f|%>
-<%= f.input :number %>
+<h3>Your number</h3><br>
+<%= f.input :number, inline_label: 'Number: ' %>
 <%= f.button :submit %>
+ | <%= link_to "back", account_path, class: "btn btn-danger" %>
 <% end %>
 
+
 <h3>Your profile info</h3><br>
+<% @edit = true %>
 <% if current_client.profile.class.name == "Vprofile" %>
+
 <%= render "profiles/vform" %>
 <% else %>
 <%= render "profiles/cform" %>
+
 <% end %>
 
-<h3>Your account info</h3><br>
+
+
 
 <%= simple_form_for current_client.account, url: edit_account_path do |f|%>
+<h3>Your account info</h3><br>
 <%= f.input :pin %>
 <%= f.button :submit %>
+ | <%= link_to "back", account_path, class: "btn btn-danger" %>
 <% end %>
-<br>
-<%= link_to "back", account_path, class: "btn btn-danger" %>
+</div>
+
+
 
