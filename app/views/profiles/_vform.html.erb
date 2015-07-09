@@ -1,11 +1,13 @@
-<%= simple_form_for @profile, url: profiles_path do |f| %>
+<%= simple_form_for @profile, url: profiles_path, html: { class: 'form-horizontal' } do |f| %>
 
 <%= f.error_notification %>
 <%= f.input :businessname%>
-<%= f.input :category, collection: Profile.categories%>
+<%= f.input :category, collection: Profile.categories, :include_blank => false%>
 
 <%= f.input :type, :as => :hidden, :input_html => { :value => "Vprofile" } %>
 
 <%= f.button :submit, "Submit"%>
-
+<% if @edit %>
+ | <%= link_to "back", account_path, class: "btn btn-danger" %>
+<% end %>
 <% end %>

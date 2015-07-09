@@ -1,14 +1,14 @@
 <div class="center">
 <h1>Pay someone</h1>
 
-<%= simple_form_for @transaction, url: create_transaction_path, html: {class: "col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 col-sm-6 col-sm-offset-3 center"} do |f| %>
+<%= simple_form_for @transaction, url: create_transaction_path, html: {class: "col-md-2 col-md-offset-5 col-lg-2 col-lg-offset-5 col-sm-2 col-sm-offset-5 center form-horizontal"} do |f| %>
 
 <%= f.error_notification %>
 
 <%= f.input :accID, label: "Account ID"%>
 <%= f.input :amount%>
-<%= f.button :submit, "Submit"%><br><br>
-<%= link_to "back", account_path %>
+<%= f.button :submit, "Submit", class: "btn btn-warning"%><br><br>
+<%= link_to "back", account_path, class: "btn btn-danger" %>
 <% end %>
 
 

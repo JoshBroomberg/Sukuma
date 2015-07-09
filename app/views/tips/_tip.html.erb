@@ -1,0 +1,27 @@
+<strong>Category:</strong> <%= tip.tip_category.name %><br>
+<strong>Summary:</strong> <%= tip.summary %><br>
+<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="<%= "#"+tip.id.to_s %>">
+		More...
+</button>
+
+	<!-- Modal -->
+	<div class="modal fade" id="<%=tip.id.to_s%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h3 class="modal-title" id="myModalLabel"><%= tip.tip_category.name.capitalize %> tip:</h3>
+				</div>
+				<div class="modal-body">
+				    <h5><b>So, what is <%= tip.tip_category.name %>?</b></h5>
+				    <%= tip.tip_category.description %><br><hr>
+				    <b>Your tip:</b>
+					<%= tip.body %>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+</div>
+<br><br>

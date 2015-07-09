@@ -16,9 +16,9 @@
  */
 
 .btn-warning {
-    background: #F5D04C;
-    border-color: #F5D04C;
-    color: black;
+    background: orange;
+    border-color: orange; 
+    color: white;
 }
 
 
@@ -26,3 +26,39 @@
 .center{
 	text-align: center;
 }
+
+.box{
+	border: 5px;
+	border-color: black;
+}
+
+#left {
+		float: left;
+		width: 100%;
+		height: 70vh;
+		overflow-y: scroll;
+		text-align: center;
+	}
+
+	#right {
+		float: left;
+		overflow-y: scroll;
+		height: 70vh;
+		width: 100%;
+		text-align: center;
+	}
+
+	#heading{
+		text-align: center;
+	}
+
+	.buffer{
+		height: 45vh;
+		overflow: auto;
+	}
+	.buffer2{
+		height: 55vh;
+		overflow: auto;
+	}
+
+	

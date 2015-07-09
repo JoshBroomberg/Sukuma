@@ -11,6 +11,9 @@ Profile.delete_all
 Account.delete_all
 Client.delete_all
 
+Tip.delete_all
+TipCategory.delete_all
+
     #client = Client.new(email: "user@user.com", password: "password", number: "+12316468691")
     #client2 = Client.new(email: "user2@user2.com", password: "password", number: "+12316468691")
 
@@ -62,9 +65,41 @@ Client.delete_all
     Transaction.create!(customer_id: customer.id, vendor_id: business5.id, amount: 160, state: :success, kind: :deposit)
 	Transaction.create!(customer_id: customer.id, vendor_id: business4.id, amount: 40, state: :success, kind: :purchase)
     Transaction.create!(customer_id: customer.id, vendor_id: business2.id, amount: 120, state: :success, kind: :deposit)
-     Transaction.create!(customer_id: customer.id, vendor_id: business4.id, amount: 140, state: :success, kind: :deposit)
+    Transaction.create!(customer_id: customer.id, vendor_id: business4.id, amount: 140, state: :success, kind: :deposit)
 	Transaction.create!(customer_id: customer.id, vendor_id: business5.id, amount: 60, state: :success, kind: :purchase)
-     Transaction.create!(customer_id: customer.id, vendor_id: business3.id, amount: 130, state: :success, kind: :deposit)
+    Transaction.create!(customer_id: customer.id, vendor_id: business3.id, amount: 130, state: :success, kind: :deposit)
 	Transaction.create!(customer_id: customer.id, vendor_id: business.id, amount: 70, state: :success, kind: :purchase)
 	Transaction.create!(customer_id: customer.id, vendor_id: business2.id, amount: 90, state: :success, kind: :purchase)
+
+
+    budgeting = TipCategory.create!(name: "Budgeting", description: "Budgetting desc" )
+    shortfalls =TipCategory.create!(name: "Shortfalls", description: "Shortfalls desc" )
+    debts =TipCategory.create!(name: "Debts", description: "Debts desc" )
+    savings =TipCategory.create!(name: "Savings", description: "Savings desc" )
+    essentialsVsExtras =TipCategory.create!(name: "EssentialsVsExtras", description: "EssentialsVsExtras desc" )
+    smart =TipCategory.create!(name: "S.M.A.R.T", description: "S.M.A.R.T desc" )
+
+    budgeting.tips.build(summary: "summary", body: " tip 1").save
+    budgeting.tips.build(summary: "summary",body: " tip 2").save
+    budgeting.tips.build(summary: "summary",body: " tip 3").save
+
+    shortfalls.tips.build(summary: "summary",body: " tip 1").save
+    shortfalls.tips.build(summary: "summary",body: " tip 2").save
+    shortfalls.tips.build(summary: "summary",body: " tip 3").save
+
+    debts.tips.build(summary: "summary",body: " tip 1").save
+    debts.tips.build(summary: "summary",body: " tip 2").save
+    debts.tips.build(summary: "summary",body: " tip 3").save
+
+    savings.tips.build(summary: "summary",body: " tip 1").save
+    savings.tips.build(summary: "summary",body: " tip 2").save
+    savings.tips.build(summary: "summary",body: " tip 3").save
+
+    essentialsVsExtras.tips.build(summary: "summary",body: " tip 1").save
+    essentialsVsExtras.tips.build(summary: "summary",body: " tip 2").save
+    essentialsVsExtras.tips.build(summary: "summary",body: " tip 3").save
+
+    smart.tips.build(summary: "summary",body: " tip 1").save
+    smart.tips.build(summary: "summary",body: " tip 2").save
+    smart.tips.build(summary: "summary",body: " tip 3").save
 
