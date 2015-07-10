@@ -79,7 +79,7 @@ balance = 0
 (1..100).each do
     kind = cat(balance)
     amount=rand(10..150)
-    Transaction.create!(customer_id: customer.id, vendor_id: business.id+rand(7), amount: amount , state: :success, kind: kind, created_at: DateTime.new(2015,rand(6..7),rand(1..15),0,0,0,+0).to_s)
+    Transaction.create!(customer_id: customer.id, vendor_id: business.id+rand(7), amount: amount , state: :success, kind: kind, created_at: DateTime.new(2015,6,rand(1..30),0,0,0,+0).to_s)
     
     if kind == :purchase
         balance-=amount
