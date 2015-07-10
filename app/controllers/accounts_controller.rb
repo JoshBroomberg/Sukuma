@@ -2,8 +2,7 @@ class AccountsController < ApplicationController
 	before_action :authenticate_client!
 	def show
 	if Transaction.where(customer_id: current_client.id).count>0
-		@newtrans = Transaction.where("created_at>?", Time.at(params["after"].to_i+1))
-		binding.pry
+		@newtrans = Transaction.where("customer_id=? and created_at>?", current_client.id, Time.at(params["after"].to_i+1))
 		@account = current_client.account
 		@transactions = Transaction.where(customer_id: current_client.id).order(:created_at).reverse
 		@tipCategories = TipCategory.all
