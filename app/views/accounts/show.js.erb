@@ -1,5 +1,5 @@
 $("#left").prepend("<%=raw escape_javascript(render(@newtrans)) %>");
-<% if @newtrans.count>0 %>
+<% if @bal!=current_client.account.balance %>
 function loadlink(){
 	// var html = load(document.URL);
  //    $('#right').load(html.filter("#right"), function () {
