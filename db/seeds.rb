@@ -89,7 +89,7 @@ balance = 0
 
 end
 Transaction.create!(customer_id: customer.id, vendor_id: customer2.id, amount: 30 , state: :success, kind: :purchase, created_at: DateTime.new(2015,6,rand(1..30),0,0,0,+0).to_s)
-Transaction.create!(customer_id: customer.id, vendor_id: customer3.id, amount: 50 , state: :success, kind: :purchase, created_at: DateTime.new(2015,6,rand(1..30),0,0,0,+0).to_s)
+Transaction.create!(customer_id: customer.id, vendor_id: customer4.id, amount: 50 , state: :success, kind: :purchase, created_at: DateTime.new(2015,6,rand(1..30),0,0,0,+0).to_s)
 balance-=80
 customer.account.update(balance: balance)
 
