@@ -26,43 +26,43 @@ TipCategory.delete_all
     customer2 = Client.new(password: "password", number: "+27836538933")
     customer2.save
     acc3 = customer2.build_account(balance: 2000.0, account_id: "cus2", pin: 1234).save
-    prof3 = Cprofile.new(client: customer2,firstname: "Josh2", lastname: "Broomberg2", age: 18)
+    prof3 = Cprofile.new(client: customer2,firstname: "Amanda", lastname: "Halacy", age: 18)
     prof3.save
 
     customer4 = Client.new(password: "password", number: "+27836538934")
     customer4.save
     acc4 = customer4.create_account(balance: 2000.0, account_id: "cus3", pin: 1234)
-    prof4 = Cprofile.new(client: customer4,firstname: "Josh3", lastname: "Broomberg3", age: 18)
+    prof4 = Cprofile.new(client: customer4,firstname: "Sammy", lastname: "Gonzalez-luna", age: 18)
     prof4.save
 
 
     business = Client.create!(password: "password", number: "+15712787457")
     acc1 = business.build_account(balance: 0.0, account_id: "aaaa", pin: 1234).save
-    prof2 = Vprofile.create!(client: business, businessname: "TestBusiness inc.", category: 1)
+    prof2 = Vprofile.create!(client: business, businessname: "Once in CT", category: 3)
 
     business2 = Client.create!(password: "password", number: "+15712787458")
     acc1 = business2.build_account(balance: 0.0, account_id: "aaab", pin: 1234).save
-    prof2 = Vprofile.create!(client: business2, businessname: "TestBusiness2 inc.", category: 2)
+    prof2 = Vprofile.create!(client: business2, businessname: "iX", category: 6)
 
     business3 = Client.create!(password: "password", number: "+15712787459")
     acc1 = business3.build_account(balance: 0.0, account_id: "aaac", pin: 1234).save
-    prof2 = Vprofile.create!(client: business3, businessname: "TestBusiness3 inc.", category: 3)
+    prof2 = Vprofile.create!(client: business3, businessname: "BokBus", category: 1)
 
     business4 = Client.create!(password: "password", number: "+15712787451")
     acc1 = business4.build_account(balance: 0.0, account_id: "aaad", pin: 1234).save
-    prof2 = Vprofile.create!(client: business4, businessname: "TestBusiness4 inc.", category: 4)
+    prof2 = Vprofile.create!(client: business4, businessname: "Knead", category: 0)
 
     business5 = Client.create!(password: "password", number: "+15712787452")
     acc1 = business5.build_account(balance: 0.0, account_id: "aaae", pin: 1234).save
-    prof2 = Vprofile.create!(client: business5, businessname: "TestBusiness5 inc.", category: 5)
+    prof2 = Vprofile.create!(client: business5, businessname: "Munchies", category: 2)
 
     business6 = Client.create!(password: "password", number: "+15712787762")
     acc1 = business6.build_account(balance: 0.0, account_id: "aaaf", pin: 1234).save
-    prof2 = Vprofile.create!(client: business6, businessname: "TestBusiness6 inc.", category: 6)
+    prof2 = Vprofile.create!(client: business6, businessname: "Hospital inc", category: 4)
 
     business7 = Client.create!(password: "password", number: "+15712187762")
     acc1 = business7.build_account(balance: 0.0, account_id: "aaag", pin: 1234).save
-    prof2 = Vprofile.create!(client: business7, businessname: "TestBusiness7 inc.", category: 0)
+    prof2 = Vprofile.create!(client: business7, businessname: "Aces", category: 5)
 
     # business7 = Client.create!(password: "password", number: "+15718287452")
     # acc1 = business7.build_account(balance: 0.0, account_id: "aaae", pin: 1234).save
