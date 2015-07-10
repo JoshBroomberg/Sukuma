@@ -50,7 +50,7 @@ class MessengerService
 	def processSignup(senderNumber, body)
 		sender = Client.new(number: senderNumber, password: SecureRandom.random_number(9).to_s).save
 		su = SignUp.new() 
-		if body == "S"
+		if body == "s"
 			su.processSignup(sender)
 		else
 			sendMessage("You are not registered, to sign up your message must be 'S", sender)
