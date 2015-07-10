@@ -1,9 +1,11 @@
 class Devisecontrollers::RegistrationsController < Devise::RegistrationsController
 # before_filter :configure_sign_up_params, only: [:create]
 # before_filter :configure_account_update_params, only: [:update]
-
+  
   protected
+  require "SignUp"
   def after_sign_up_path_for(resource)
+
     su = SignUp.new() 
     #acc = initAcc
     #greet acc
