@@ -17,7 +17,7 @@ TipCategory.delete_all
     #client = Client.new(email: "user@user.com", password: "password", number: "+12316468691")
     #client2 = Client.new(email: "user2@user2.com", password: "password", number: "+12316468691")
 
-    customer = Client.new(password: "password", number: "+27836538932")
+    customer = Client.new(password: "password", number: "+27836538938")
     customer.save
     acc2 = customer.create_account(balance: 340.0, account_id: "cus1", pin: 1234)
     prof1 = Cprofile.new(client: customer,firstname: "Josh", lastname: "Broomberg", age: 18)
