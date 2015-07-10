@@ -1,4 +1,4 @@
-def SignUp
+class SignUp
 	def processSignup client
         acc = initAcc
         greet(acc, client)
