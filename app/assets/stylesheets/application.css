@@ -22,6 +22,14 @@
     color: white;
 }
 
+.navbar{
+	margin: 0;
+}
+
+body{
+	padding: 30px;
+}
+
 .panel-warning {
   color: black;
   /*background-color: orange;*/
