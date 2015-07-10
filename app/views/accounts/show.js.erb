@@ -1,0 +1,24 @@
+$("#left").prepend("<%=raw escape_javascript(render(@newtrans)) %>");
+<% if @newtrans.count>0 %>
+function loadlink(){
+	// var html = load(document.URL);
+ //    $('#right').load(html.filter("#right"), function () {
+ //         //$(this).unwrap();
+ //    });
+
+       // $.get(document.URL, function(data){
+       //   var mainDiv = $("#right", data);
+       //   $('#right').load(mainDiv); // finds <div id='mainDiv'>...</div>
+       // }, "html");
+
+$.ajax({
+   url:document.URL,
+   type:'GET',
+   success: function(data){
+       $('#right').html($(data).find('#right').html());
+   }
+});
+
+}
+loadlink();
+<% end %> // This will run on page load

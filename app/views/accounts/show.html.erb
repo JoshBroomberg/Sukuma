@@ -82,6 +82,7 @@
 						<div id="sectionA" class="tab-pane fade in active">
 							<br><br>
 							<h3>Learn more about your current spending habits.</h3><br>
+							<%= Transaction.count %>
 							<strong>Spending by category:</strong>
 							<br>
 							<%= pie_chart(spendData[0]) %>
@@ -140,6 +141,8 @@
 	<script> 
 		$(document).ready(function() {
 			$('#tips').hide();
+			setTimeout(updateComments, 5000)
+
 		});
 		$(document).on( 'shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
    //alert("test");
@@ -159,6 +162,18 @@
     //$('#vform').hide();
 
 });
+
+		function updateComments(){
+			var after = $(".transaction:first-child").attr("data-time");
+			//var after = "test";
+			$.getScript("/accountdashboard.js?after="+after)
+			setTimeout(updateComments, 5000)
+			window.dispatchEvent(new Event('resize'));
+
+
+		}
+
+
 </script>
 
 
