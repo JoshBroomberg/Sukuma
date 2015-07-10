@@ -48,7 +48,7 @@ class MessengerService
 	end
 
 	def processSignup(senderNumber, body)
-		sender = Client.new(number: senderNumber, password: SecureRandom.random_number(9).to_s).save
+		sender = Client.new(number: senderNumber, password: SecureRandom.base64(10).gsub(/=+$/,'a').to_s).save
 		su = SignUp.new() 
 		if body == "s"
 			su.processSignup(sender)
