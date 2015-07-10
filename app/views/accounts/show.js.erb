@@ -19,6 +19,14 @@ $.ajax({
    }
 });
 
+$.ajax({
+   url:document.URL,
+   type:'GET',
+   success: function(data){
+       $('#accinfo').html($(data).find('#accinfo').html());
+   }
+});
+
 }
 loadlink();
 <% end %> // This will run on page load
