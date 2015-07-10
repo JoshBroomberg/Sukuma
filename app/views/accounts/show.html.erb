@@ -129,7 +129,12 @@
 					<div class="panel-heading">
 						<h3 class="panel-title"><strong>Balance</strong></h3>
 					</div>
-					<div class="panel-body"><strong>R<%= @account.balance %></strong></div>
+					<div class="panel-body"><strong>R
+					<div id ="balancevar" data-bal=<%= @account.balance %>>
+					<%= @account.balance %>
+					</div>
+
+					</strong></div>
 				</div>
 
 			</div>
@@ -170,8 +175,9 @@
 
 		function updateComments(){
 			var after = $(".transaction:first-child").attr("data-time");
+			var balance = $("#balancevar").attr("data-bal");
 			//var after = "test";
-			$.getScript("/accountdashboard.js?after="+after)
+			$.getScript("/accountdashboard.js?after="+after+"&bal="+balance)
 			setTimeout(updateComments, 5000)
 			window.dispatchEvent(new Event('resize'));
 
