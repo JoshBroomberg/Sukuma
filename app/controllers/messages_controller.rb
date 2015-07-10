@@ -5,6 +5,7 @@ class MessagesController < ApplicationController
 		ms = MessengerService.new()
 		senderNumber = params["From"]
 		sender = Client.find_by(number: senderNumber)
+	if client!=nil
 		case params["To"]
 		when "+12316468691" 
 			kind = :purchaseInit
@@ -16,6 +17,9 @@ class MessagesController < ApplicationController
 		end
 		ms.processMessage(kind, params["Body"].downcase, sender)
 		render :nothing => true, :status => 200, :content_type => 'text/html'
+	else
+		ms.processSignup(senderNumber, params["Body"])
+	end
 		
 	end
 
