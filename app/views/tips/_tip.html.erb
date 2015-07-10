@@ -1,8 +1,18 @@
-<strong>Category:</strong> <%= tip.tip_category.name %><br>
-<strong>Summary:</strong> <%= tip.summary %><br>
-<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="<%= "#"+tip.id.to_s %>">
+<div class="panel panel-<%= catColour tip.tip_category.name %>">
+	<div class="panel-heading">
+		<h3 class="panel-title"><strong><%= tip.tip_category.name %></strong></h3>
+	</div>
+	<div class="panel-body">
+
+		<strong>Summary: <%= tip.summary %></strong><br>
+		<button type="button" class="btn btn-<%= catColour tip.tip_category.name %> btn-xs" data-toggle="modal" data-target="<%= "#"+tip.id.to_s %>">
 		More...
 </button>
+
+	</div>
+</div>
+
+
 
 	<!-- Modal -->
 	<div class="modal fade" id="<%=tip.id.to_s%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

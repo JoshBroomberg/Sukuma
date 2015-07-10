@@ -1,52 +1,83 @@
 <%client =  Client.find(transaction.vendor_id) %>
 <% if transaction.kind == "purchase" %>
-<strong>You paid: </strong><br><%= client.profile.name %><br>
+
+<div class="panel panel-danger">
+	<div class="panel-heading">
+		<h3 class="panel-title"><strong>You paid: </strong></h3>
+	</div>
+	<div class="panel-body">
+
+		<strong><%= client.profile.name %></strong>
+		<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="<%= "#"+transaction.id.to_s %>">
+			More...
+		</button>
+
+	</div>
+</div>
+
 <% else %>
-<% if client.profile.class.name == "Vprofile" %>
-<strong>You deposited at: </strong><br><%= client.profile.name %><br>
-<% else %>
-<strong>You were paid by: </strong><br><%= client.profile.name %><br>
+<div class="panel panel-success">
+
+
+	<% if client.profile.class.name == "Vprofile" %>
+	<div class="panel-heading">
+		<h3 class="panel-title"><strong>You deposited at: </strong></h3>
+	</div>
+
+	<% else %>
+	<div class="panel-heading">
+		<h3 class="panel-title"><strong>You were paid by: </strong></h3>
+	</div>
+
+	<% end %>
+
+	<div class="panel-body">
+
+		<strong><%= client.profile.name %></strong>
+		<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="<%= "#"+transaction.id.to_s %>">
+			More...
+		</button>
+
+	</div>
+
+</div>
 <% end %>
-<% end %>
 
-<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="<%= "#"+transaction.id.to_s %>">
-	More...
-</button>
 
-<!-- Modal -->
-<div class="modal fade" id="<%=transaction.id.to_s%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h3 class="modal-title" id="myModalLabel">Transaction</h3>
-			</div>
-			<div class="modal-body" >
-			    <div class = "transaction" data-time=<%=transaction.created_at.to_i%>>
-				<% if transaction.kind == "purchase" %>
-				<strong>You paid: <%= client.profile.name %></strong><br>
-				<% if client.profile.class.name == "Vprofile" %>
-				<strong> Payment type:</strong>  <%= client.profile.category %><br>
-				<% else %>
-				<strong> Payment type:</strong> Transfer<br>
-				<% end %>
-				<strong>Amount: </strong>R<%= transaction.amount %>
-
-				<% else %>
-				<% if client.profile.class.name == "Vprofile" %>
-				<strong>You deposited at: <%= client.profile.name %></strong><br>
-				<% else %>
-				<strong>You were paid by: <%= client.profile.name %></strong><br>
-				<% end %>
-				<strong>Amount:</strong> R<%= transaction.amount %>
-				<% end %><br>
-				<strong>Purchase initiated at:</strong> <%= transaction.created_at %>
+	<!-- Modal -->
+	<div class="modal fade" id="<%=transaction.id.to_s%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h3 class="modal-title" id="myModalLabel">Transaction</h3>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				<div class="modal-body" >
+					<div class = "transaction" data-time=<%=transaction.created_at.to_i%>>
+						<% if transaction.kind == "purchase" %>
+						<strong>You paid: <%= client.profile.name %></strong><br>
+						<% if client.profile.class.name == "Vprofile" %>
+						<strong> Payment type:</strong>  <%= client.profile.category %><br>
+						<% else %>
+						<strong> Payment type:</strong> Transfer<br>
+						<% end %>
+						<strong>Amount: </strong>R<%= transaction.amount %>
+
+						<% else %>
+						<% if client.profile.class.name == "Vprofile" %>
+						<strong>You deposited at: <%= client.profile.name %></strong><br>
+						<% else %>
+						<strong>You were paid by: <%= client.profile.name %></strong><br>
+						<% end %>
+						<strong>Amount:</strong> R<%= transaction.amount %>
+						<% end %><br>
+						<strong>Purchase initiated at:</strong> <%= transaction.created_at %>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<br><br>
+	<br><br>

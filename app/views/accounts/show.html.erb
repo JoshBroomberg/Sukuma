@@ -40,7 +40,9 @@
 				</div>
 				<div class = "buffer">
 					<div id="left">
+						<div class="panel-group">
 						<%= render @transactions %>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -59,7 +61,9 @@
 				</div>
 				<div class = "buffer">
 					<div id="left">
-						<%= render @tips %>
+					   <div class="panel-group">
+						<%= render @tips.shuffle %>
+						</div>
 					</div>
 				</div>
 			</div>
