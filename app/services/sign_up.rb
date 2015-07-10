@@ -1,11 +1,11 @@
 class SignUp
 	def processSignup client
-        acc = initAcc
+        acc = initAcc client
         greet(acc, client)
 	end
 
-	def initAcc 
-		acc= current_client.build_account(balance: 0.0, account_id: accGen, pin: pinGen)
+	def initAcc client
+		acc= client.build_account(balance: 0.0, account_id: accGen, pin: pinGen)
 		acc.save
 		acc
 	end
@@ -13,7 +13,7 @@ class SignUp
 	def greet(acc, client)
 		require "MessengerService"
 		ms = MessengerService.new()
-		ms.sendMessage("welcome to SUKUMA. In a few simple steps you will be ready to transact via sms. \n\nFirstly, please complete your profile on our website. If you haven't already, sign in with number: #{client.number} and password: #{client.password} This is critical so that we can get to know you.\n\nSecondly, please take note of your AccountID which is #{acc.account_id}. You will use this ID to make purchases at stores. \n\nLastly,save the number +16123613027 to your phone. You can send 'y' or 'n' to this number to confirm actions or send 'b' to check your balance. We know you will love our product.\n\nThe SUKUMA team.", current_client)
+		ms.sendMessage("welcome to SUKUMA. In a few simple steps you will be ready to transact via sms. \n\nFirstly, please complete your profile on our website. If you haven't already, sign in with number: #{client.number} and password: '#{client.password}'. This is critical so that we can get to know you.\n\nSecondly, please take note of your AccountID which is #{acc.account_id}. You will use this ID to make purchases at stores. \n\nLastly,save the number +16123613027 to your phone. You can send 'y' or 'n' to this number to confirm actions or send 'b' to check your balance. We know you will love our product.\n\nThe SUKUMA team.", client)
 	end
 
 	def accGen
