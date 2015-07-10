@@ -41,7 +41,7 @@
 				<div class = "buffer">
 					<div id="left">
 						<div class="panel-group">
-							<%= render @transactions %>
+						<%= render @transactions %>
 						</div>
 					</div>
 				</div>
@@ -61,8 +61,8 @@
 				</div>
 				<div class = "buffer">
 					<div id="left">
-						<div class="panel-group">
-							<%= render @tips.shuffle %>
+					   <div class="panel-group">
+						<%= render @tips.shuffle %>
 						</div>
 					</div>
 				</div>
@@ -116,29 +116,29 @@
 			
 		</div>
 		<div class=" col-lg-2 col-md-2 col-sm-2 col-xs-2 portfolio-item">
-			<div id = "accinfo">
-				<div class="panel-group">
-					<br><br>
-					<div class="panel panel-warning">
-						<div class="panel-heading">
-							<h3 class="panel-title"><strong>AccountID:</strong></h3>
-						</div>
-						<div class="panel-body"><strong><%= @account.account_id.upcase %></strong></div>
+		 <div id = "accinfo">
+			<div class="panel-group">
+				<br><br>
+				<div class="panel panel-warning">
+					<div class="panel-heading">
+						<h3 class="panel-title"><strong>AccountID:</strong></h3>
 					</div>
-					<div class="panel panel-warning">
-						<div class="panel-heading">
-							<h3 class="panel-title"><strong>Balance</strong></h3>
-						</div>
-						<div class="panel-body"><strong>
-							<div id ="balancevar" data-bal=<%= @account.balance %>>
-								R<%= @account.balance %>
-							</div>
-
-						</strong></div>
-					</div>
-
+					<div class="panel-body"><strong><%= @account.account_id.upcase %></strong></div>
 				</div>
-				
+				<div class="panel panel-warning">
+					<div class="panel-heading">
+						<h3 class="panel-title"><strong>Balance</strong></h3>
+					</div>
+					<div class="panel-body"><strong>
+					<div id ="balancevar" data-bal=<%= @account.balance %>>
+						R<%= @account.balance %>
+					</div>
+
+					</strong></div>
+				</div>
+
+			</div>
+           
 			</div>
 		</div>
 
@@ -186,13 +186,15 @@
 
 		$('#rowTab a:first').tab('show');
 
-		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 //show selected tab / active
-console.log ( $(e.target).attr('id') );
+ console.log ( $(e.target).attr('id') );
 });
 
+console.log($("ul#sampleTabs li.active"));
 
-</script>
+
+	</script>
 
 
 
