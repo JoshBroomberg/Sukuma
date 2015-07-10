@@ -76,7 +76,7 @@
 		<h4 class = "center"><strong>AccountId: </strong> <%= @account.account_id.upcase %><br>
 			<strong>Balance: R</strong> <%= @account.balance %></h4>  -->  
 
-			<ul class="nav nav-tabs">
+			<ul class="nav nav-tabs" id = "tabsul">
 				<li class="active"><a data-toggle="tab" href="#sectionA"><span style="color: orange"><b>Spending now</b></span></a></li>
 				<li><a data-toggle="tab" href="#sectionB"><span style="color: orange"><b>Spending future</b></span></a></li>
 			</ul>
@@ -191,7 +191,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
  console.log ( $(e.target).attr('id') );
 });
 
-console.log($("ul#sampleTabs li.active"));
+console.log($("ul#tabsul li.active"));
 
 
 	</script>
