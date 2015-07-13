@@ -4,7 +4,7 @@ $("#left").prepend("<%=raw escape_javascript(render(@newtrans)) %>");
 //var index = $('.nav-tabs .active > a').attr('href').substring(1);
 //console.log("test:"+index);
 
-<% if @bal!=current_client.account.balance-1 %>
+<% if @bal!=current_client.account.balance%>
 function loadlink(){
 	// var html = load(document.URL);
  //    $('#right').load(html.filter("#right"), function () {
