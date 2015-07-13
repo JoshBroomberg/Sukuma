@@ -41,7 +41,7 @@
 				<div class = "buffer">
 					<div id="left">
 						<div class="panel-group">
-						<%= render @transactions %>
+							<%= render @transactions %>
 						</div>
 					</div>
 				</div>
@@ -61,8 +61,8 @@
 				</div>
 				<div class = "buffer">
 					<div id="left">
-					   <div class="panel-group">
-						<%= render @tips.shuffle %>
+						<div class="panel-group">
+							<%= render @tips.shuffle %>
 						</div>
 					</div>
 				</div>
@@ -75,40 +75,43 @@
 		<!-- <h1 class="page-header center" >Your Finances:</h1>
 		<h4 class = "center"><strong>AccountId: </strong> <%= @account.account_id.upcase %><br>
 			<strong>Balance: R</strong> <%= @account.balance %></h4>  -->  
+			<div id="tabsdiv">
+				<ul class="nav nav-tabs" id="tabsul">
+					<li class = "active">
+						<a data-toggle="tab" href="#sectionA"><span style="color: orange"><b>Spending now</b></span></a>
+					</li>
+					<li><a data-toggle="tab" href="#sectionB"><span style="color: orange"><b>Spending future</b></span></a></li>
+				</ul>
+				<div class = "buffer2">
+					<div  id="right">
+						<div class="tab-content">
+							<div id="sectionA" class="tab-pane fade in active">
+								<br><br>
+								<h3>Learn more about your current spending habits.</h3><br>
 
-			<ul class="nav nav-tabs" id = "tabsul">
-				<li class="active"><a data-toggle="tab" href="#sectionA"><span style="color: orange"><b>Spending now</b></span></a></li>
-				<li><a data-toggle="tab" href="#sectionB"><span style="color: orange"><b>Spending future</b></span></a></li>
-			</ul>
-			<div class = "buffer2">
-				<div  id="right">
-					<div class="tab-content">
-						<div id="sectionA" class="tab-pane fade in active">
-							<br><br>
-							<h3>Learn more about your current spending habits.</h3><br>
+								<strong>Spending by category:</strong>
+								<br>
+								<%= pie_chart(spendData[0]) %>
+								<br>
+								<hr>
+								<strong>Cumulative income vs spending - 30 days:</strong>
+								<%= line_chart [{name: "Spending", data: spendData[1]}, {name: "Income", data: spendData[2]}], {discrete: true}%>
+								<hr>
 
-							<strong>Spending by category:</strong>
-							<br>
-							<%= pie_chart(spendData[0]) %>
-							<br>
-							<hr>
-							<strong>Cumulative income vs spending - 30 days:</strong>
-							<%= line_chart [{name: "Spending", data: spendData[1]}, {name: "Income", data: spendData[2]}], {discrete: true}%>
-							<hr>
-
-							<strong>Spending vs Income - by day:</strong>
-							<%= column_chart [{name: "spending", data: spendData[3]}, {name: "income", data: spendData[4]}], {stacked: true, discrete: true}%>
-							<br>
-						</div>
-						<div id="sectionB" class="tab-pane fade">
-							<br>
-							<h3>Projections for your personal finances and tips<br> on how you could spend better.</h3><br>
-							<strong>Budget allocation - Yours vs Suggested:</strong>
-							<% spdata = spendData[0]  %>
-							<% spdata.delete("Transfers") %>
-							<%= column_chart [{name: "Actual%", data: spdata}, {name: "Suggested%", data: spendData[5]}],  {discrete: true}%>
-							<strong>Account balance predicition - 30 days</strong>
-							<%= line_chart [{name: "Predicted balance", data: spendData[6]}, {name: "Zero", data: spendData[7]}], {discrete: true}%>
+								<strong>Spending vs Income - by day:</strong>
+								<%= column_chart [{name: "spending", data: spendData[3]}, {name: "income", data: spendData[4]}], {stacked: true, discrete: true}%>
+								<br>
+							</div>
+							<div id="sectionB" class="tab-pane fade in">
+								<br>
+								<h3>Projections for your personal finances and tips<br> on how you could spend better.</h3><br>
+								<strong>Budget allocation - Yours vs Suggested:</strong>
+								<% spdata = spendData[0]  %>
+								<% spdata.delete("Transfers") %>
+								<%= column_chart [{name: "Actual%", data: spdata}, {name: "Suggested%", data: spendData[5]}],  {discrete: true}%>
+								<strong>Account balance predicition - 30 days</strong>
+								<%= line_chart [{name: "Predicted balance", data: spendData[6]}, {name: "Zero", data: spendData[7]}], {discrete: true}%>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -116,29 +119,29 @@
 			
 		</div>
 		<div class=" col-lg-2 col-md-2 col-sm-2 col-xs-2 portfolio-item">
-		 <div id = "accinfo">
-			<div class="panel-group">
-				<br><br>
-				<div class="panel panel-warning">
-					<div class="panel-heading">
-						<h3 class="panel-title"><strong>AccountID:</strong></h3>
+			<div id = "accinfo">
+				<div class="panel-group">
+					<br><br>
+					<div class="panel panel-warning">
+						<div class="panel-heading">
+							<h3 class="panel-title"><strong>AccountID:</strong></h3>
+						</div>
+						<div class="panel-body"><strong><%= @account.account_id.upcase %></strong></div>
 					</div>
-					<div class="panel-body"><strong><%= @account.account_id.upcase %></strong></div>
-				</div>
-				<div class="panel panel-warning">
-					<div class="panel-heading">
-						<h3 class="panel-title"><strong>Balance</strong></h3>
-					</div>
-					<div class="panel-body"><strong>
-					<div id ="balancevar" data-bal=<%= @account.balance %>>
-						R<%= @account.balance %>
+					<div class="panel panel-warning">
+						<div class="panel-heading">
+							<h3 class="panel-title"><strong>Balance</strong></h3>
+						</div>
+						<div class="panel-body"><strong>
+							<div id ="balancevar" data-bal=<%= @account.balance %>>
+								R<%= @account.balance %>
+							</div>
+
+						</strong></div>
 					</div>
 
-					</strong></div>
 				</div>
 
-			</div>
-           
 			</div>
 		</div>
 
@@ -151,9 +154,10 @@
 	<script> 
 		$(document).ready(function() {
 			$('#tips').hide();
-			setTimeout(updateComments, 5000)
+			setTimeout(updateComments, 3000)
 
 		});
+
 		$(document).on( 'shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
    //alert("test");
    //$(window).trigger('resize'); // activated tab
@@ -176,22 +180,19 @@
 		function updateComments(){
 			var after = $(".transaction:first-child").attr("data-time");
 			var balance = $("#balancevar").attr("data-bal");
+			var id = $('.nav-tabs .active > a').attr('href').substring(1);
+			console.log(id);
 			//var after = "test";
-			$.getScript("/accountdashboard.js?after="+after+"&bal="+balance)
-			setTimeout(updateComments, 5000)
+			$.getScript("/accountdashboard.js?after="+after+"&bal="+balance+"&id="+id)
+			setTimeout(updateComments, 3000)
 			window.dispatchEvent(new Event('resize'));
 
 
 		}
 
-		$('#rowTab a:first').tab('show');
 
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-//show selected tab / active
- console.log ( $(e.target).attr('id') );
-});
 
-console.log($("ul#tabsul li.active"));
+
 
 
 	</script>
