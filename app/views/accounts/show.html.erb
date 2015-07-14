@@ -91,26 +91,27 @@
 
 								<strong>Spending by category:</strong>
 								<br>
-								<%= pie_chart(spendData[0]) %>
+								<% sdata = spendData %>
+								<%= pie_chart(sdata[0]) %>
 								<br>
 								<hr>
 								<strong>Cumulative income vs spending - 30 days:</strong>
-								<%= line_chart [{name: "Spending", data: spendData[1]}, {name: "Income", data: spendData[2]}], {discrete: true}%>
+								<%= line_chart [{name: "Spending", data: sdata[1]}, {name: "Income", data: sdata[2]}], {discrete: true}%>
 								<hr>
 
 								<strong>Spending vs Income - by day:</strong>
-								<%= column_chart [{name: "spending", data: spendData[3]}, {name: "income", data: spendData[4]}], {stacked: true, discrete: true}%>
+								<%= column_chart [{name: "spending", data: sdata[3]}, {name: "income", data: sdata[4]}], {stacked: true, discrete: true}%>
 								<br>
 							</div>
 							<div id="sectionB" class="tab-pane fade in">
 								<br>
 								<h3>Projections for your personal finances and tips<br> on how you could spend better.</h3><br>
 								<strong>Budget allocation - Yours vs Suggested:</strong>
-								<% spdata = spendData[0]  %>
+								<% spdata = sdata[0]  %>
 								<% spdata.delete("Transfers") %>
-								<%= column_chart [{name: "Actual%", data: spdata}, {name: "Suggested%", data: spendData[5]}],  {discrete: true}%>
+								<%= column_chart [{name: "Actual%", data: spdata}, {name: "Suggested%", data: sdata[5]}],  {discrete: true}%>
 								<strong>Account balance predicition - 30 days</strong>
-								<%= line_chart [{name: "Predicted balance", data: spendData[6]}, {name: "Zero", data: spendData[7]}], {discrete: true}%>
+								<%= line_chart [{name: "Predicted balance", data: sdata[6]}, {name: "Zero", data: sdata[7]}], {discrete: true}%>
 							</div>
 						</div>
 					</div>
